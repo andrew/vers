@@ -16,6 +16,9 @@ module Vers
   #   Vers::Version.compare("1.0.0", "1.0.0")     # => 0
   #
   class Version
+    # Cache for parsed versions to avoid repeated parsing
+    @@version_cache = {}
+    @@cache_size_limit = 1000
     # Regex for parsing semantic version components including build metadata
     SEMANTIC_VERSION_REGEX = /\A(\d+)(?:\.(\d+))?(?:\.(\d+))?(?:-([^+]+))?(?:\+(.+))?\z/
 
@@ -32,6 +35,21 @@ module Vers
     end
 
     ##
+    # Creates a new Version object with caching
+    #
+    # @param version_string [String] The version string to parse
+    # @return [Version] Cached or new Version object
+    #
+    def self.cached_new(version_string)
+      # Limit cache size to prevent memory bloat
+      if @@version_cache.size >= @@cache_size_limit
+        @@version_cache.clear
+      end
+      
+      @@version_cache[version_string] ||= new(version_string)
+    end
+
+    ##
     # Compares two version strings
     #
     # @param a [String] First version string
@@ -43,8 +61,9 @@ module Vers
       return -1 if a.nil?
       return 1 if b.nil?
 
-      version_a = new(a)
-      version_b = new(b)
+      # Use cached versions for better performance
+      version_a = cached_new(a)
+      version_b = cached_new(b)
       
       version_a <=> version_b
     end
@@ -56,7 +75,7 @@ module Vers
     # @return [String] The normalized version string
     #
     def self.normalize(version_string)
-      new(version_string).to_s
+      cached_new(version_string).to_s
     end
 
     ##
@@ -66,7 +85,7 @@ module Vers
     # @return [Boolean] true if the version is valid
     #
     def self.valid?(version_string)
-      new(version_string)
+      cached_new(version_string)
       true
     rescue ArgumentError
       false
@@ -276,13 +295,13 @@ module Vers
     private
 
     def parse_version
-      # Handle simple numeric versions
+      # Handle simple numeric versions (optimized case)
       if @original.match(/^\d+$/)
         @major = @original.to_i
         return
       end
 
-      # Try semantic version parsing first
+      # Try semantic version parsing first (most common case)
       if match = @original.match(SEMANTIC_VERSION_REGEX)
         @major = match[1]&.to_i
         @minor = match[2]&.to_i
@@ -292,21 +311,37 @@ module Vers
         return
       end
 
-      # Fall back to splitting on dots/dashes
-      parts = @original.split(/[.-]/)
-      
-      if parts.empty?
+      # Optimized splitting for common patterns
+      if @original.include?('.')
+        parts = @original.split('.')
+        @major = parts[0]&.to_i
+        @minor = parts[1]&.to_i if parts[1] && !parts[1].include?('-')
+        
+        if parts[2]
+          if parts[2].include?('-')
+            patch_parts = parts[2].split('-', 2)
+            @patch = patch_parts[0]&.to_i
+            @prerelease = patch_parts[1] if patch_parts[1]
+          else
+            @patch = parts[2]&.to_i
+          end
+        end
+        
+        # Handle additional prerelease parts
+        if parts.length > 3 && @prerelease.nil?
+          @prerelease = parts[3..-1].join('.')
+        end
+      elsif @original.include?('-')
+        # Handle dash-separated versions
+        parts = @original.split('-', 2)
+        @major = parts[0]&.to_i
+        @prerelease = parts[1] if parts[1]
+      else
         raise ArgumentError, "Invalid version format: #{@original}"
       end
-
-      @major = parts[0]&.to_i
-      @minor = parts[1]&.to_i if parts[1]
-      @patch = parts[2]&.to_i if parts[2]
       
-      # Everything after patch is considered prerelease
-      if parts.length > 3
-        @prerelease = parts[3..-1].join('.')
-      end
+      # Validate that we got at least a major version
+      raise ArgumentError, "Invalid version format: #{@original}" if @major.nil?
     end
 
     def compare_prerelease(pre_a, pre_b)

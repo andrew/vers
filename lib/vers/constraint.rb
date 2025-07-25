@@ -17,6 +17,13 @@ module Vers
   class Constraint
     # Valid constraint operators as defined in the vers spec
     OPERATORS = %w[= != < <= > >=].freeze
+    
+    # Pre-compiled regex patterns for performance
+    OPERATOR_REGEX = /\A(!=|>=|<=|[<>=])/
+    
+    # Cache for parsed constraints
+    @@constraint_cache = {}
+    @@cache_size_limit = 500
 
     attr_reader :operator, :version
 
@@ -47,34 +54,32 @@ module Vers
     #   Vers::Constraint.parse("!=2.0.0")  # => #<Vers::Constraint:0x... @operator="!=", @version="2.0.0">
     #
     def self.parse(constraint_string)
-      return new("=", constraint_string) unless constraint_string.match(/^[!<>=]/)
+      # Limit cache size to prevent memory bloat
+      if @@constraint_cache.size >= @@cache_size_limit
+        @@constraint_cache.clear
+      end
       
-      if constraint_string.start_with?("!=")
-        version = constraint_string[2..-1]
+      # Return cached constraint if available
+      return @@constraint_cache[constraint_string] if @@constraint_cache.key?(constraint_string)
+      
+      constraint = parse_uncached(constraint_string)
+      @@constraint_cache[constraint_string] = constraint
+      constraint
+    end
+    
+    ##
+    # Internal uncached parsing method
+    #
+    def self.parse_uncached(constraint_string)
+      # Use regex for faster operator detection
+      if match = constraint_string.match(OPERATOR_REGEX)
+        operator = match[1]
+        version = constraint_string[operator.length..-1]
         raise ArgumentError, "Invalid constraint format: #{constraint_string}" if version.empty?
-        new("!=", version)
-      elsif constraint_string.start_with?(">=")
-        version = constraint_string[2..-1]
-        raise ArgumentError, "Invalid constraint format: #{constraint_string}" if version.empty?
-        new(">=", version)
-      elsif constraint_string.start_with?("<=")
-        version = constraint_string[2..-1]
-        raise ArgumentError, "Invalid constraint format: #{constraint_string}" if version.empty?
-        new("<=", version)
-      elsif constraint_string.start_with?(">")
-        version = constraint_string[1..-1]
-        raise ArgumentError, "Invalid constraint format: #{constraint_string}" if version.empty?
-        new(">", version)
-      elsif constraint_string.start_with?("<")
-        version = constraint_string[1..-1]
-        raise ArgumentError, "Invalid constraint format: #{constraint_string}" if version.empty?
-        new("<", version)
-      elsif constraint_string.start_with?("=")
-        version = constraint_string[1..-1]
-        raise ArgumentError, "Invalid constraint format: #{constraint_string}" if version.empty?
-        new("=", version)
+        new(operator, version)
       else
-        raise ArgumentError, "Invalid constraint format: #{constraint_string}"
+        # No operator found, treat as exact match
+        new("=", constraint_string)
       end
     end
 
@@ -122,19 +127,21 @@ module Vers
     # @return [Boolean] true if the version satisfies the constraint
     #
     def satisfies?(version_string)
+      comparison = Version.compare(version_string, version)
+      
       case operator
       when "="
-        Version.compare(version_string, version) == 0
+        comparison == 0
       when "!="
-        Version.compare(version_string, version) != 0
+        comparison != 0
       when ">"
-        Version.compare(version_string, version) > 0
+        comparison > 0
       when ">="
-        Version.compare(version_string, version) >= 0
+        comparison >= 0
       when "<"
-        Version.compare(version_string, version) < 0
+        comparison < 0
       when "<="
-        Version.compare(version_string, version) <= 0
+        comparison <= 0
       end
     end
 

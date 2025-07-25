@@ -18,6 +18,323 @@ end
 
 task default: :test
 
+namespace :benchmark do
+  desc "Run version parsing benchmarks"
+  task :parse do
+    require "benchmark"
+    require "json"
+    require_relative "lib/vers"
+    
+    puts "🚀 VERS Parsing Benchmarks"
+    puts "=" * 50
+    
+    # Load sample version ranges from test-suite-data.json
+    test_data_file = File.join(__dir__, "test-suite-data.json")
+    
+    unless File.exist?(test_data_file)
+      puts "❌ test-suite-data.json not found. Using fallback examples."
+      sample_ranges = [
+        { input: "^1.2.3", scheme: "npm" },
+        { input: "~> 1.2", scheme: "gem" },
+        { input: ">=1.0,<2.0", scheme: "pypi" },
+        { input: "[1.0,2.0)", scheme: "maven" }
+      ]
+    else
+      test_data = JSON.parse(File.read(test_data_file))
+      sample_ranges = test_data.select { |data| !data["is_invalid"] }.first(100)
+    end
+    
+    puts "📊 Sample size: #{sample_ranges.length} version ranges"
+    puts "📦 Schemes: #{sample_ranges.map { |r| r['scheme'] }.uniq.sort.join(', ')}"
+    puts
+    
+    # Benchmark native parsing
+    puts "🔍 Native Parsing Performance:"
+    native_time = Benchmark.realtime do
+      sample_ranges.each { |range| Vers.parse_native(range['input'], range['scheme']) }
+    end
+    
+    puts "   Total time: #{(native_time * 1000).round(2)}ms"
+    puts "   Average per range: #{(native_time * 1000 / sample_ranges.length).round(3)}ms"
+    puts "   Ranges per second: #{(sample_ranges.length / native_time).round(0)}"
+    puts
+    
+    # Benchmark vers URI parsing
+    puts "🔤 VERS URI Parsing Performance:"
+    vers_uris = []
+    sample_ranges.each do |range|
+      begin
+        parsed = Vers.parse_native(range['input'], range['scheme'])
+        vers_uri = Vers.to_vers_string(parsed, range['scheme'])
+        vers_uris << vers_uri
+      rescue
+        # Skip invalid ranges
+      end
+    end
+    
+    vers_time = Benchmark.realtime do
+      vers_uris.each { |uri| Vers.parse(uri) }
+    end
+    
+    puts "   Total time: #{(vers_time * 1000).round(2)}ms"
+    puts "   Average per URI: #{(vers_time * 1000 / vers_uris.length).round(3)}ms"
+    puts "   URIs per second: #{(vers_uris.length / vers_time).round(0)}"
+    puts
+    
+    # Benchmark version comparison
+    puts "⚖️  Version Comparison Performance:"
+    versions = ["1.0.0", "1.2.3", "2.0.0", "0.9.0", "1.5.0", "1.2.4"]
+    comparison_pairs = versions.product(versions)
+    
+    comparison_time = Benchmark.realtime do
+      comparison_pairs.each { |a, b| Vers.compare(a, b) }
+    end
+    
+    puts "   #{comparison_pairs.length} comparisons: #{(comparison_time * 1000).round(2)}ms"
+    puts "   Average per comparison: #{(comparison_time * 1000 / comparison_pairs.length).round(4)}ms"
+    puts "   Comparisons per second: #{(comparison_pairs.length / comparison_time).round(0)}"
+    puts
+    
+    # Benchmark containment checking
+    puts "🔍 Version Containment Performance:"
+    test_versions = ["1.0.0", "1.2.3", "1.5.0", "2.0.0", "0.9.0"]
+    parsed_ranges = sample_ranges.first(20).map do |range|
+      Vers.parse_native(range['input'], range['scheme'])
+    end
+    
+    containment_time = Benchmark.realtime do
+      parsed_ranges.each do |range|
+        test_versions.each { |version| range.contains?(version) }
+      end
+    end
+    
+    total_checks = parsed_ranges.length * test_versions.length
+    puts "   #{total_checks} containment checks: #{(containment_time * 1000).round(2)}ms"
+    puts "   Average per check: #{(containment_time * 1000 / total_checks).round(4)}ms"
+    puts "   Checks per second: #{(total_checks / containment_time).round(0)}"
+    puts
+    
+    puts "✅ Benchmark completed!"
+  end
+  
+  desc "Compare parsing performance across package manager schemes"
+  task :schemes do
+    require "benchmark"
+    require "json"
+    require_relative "lib/vers"
+    
+    puts "📊 Package Scheme Parsing Comparison"
+    puts "=" * 50
+    
+    # Load test data and group by scheme
+    test_data_file = File.join(__dir__, "test-suite-data.json")
+    
+    unless File.exist?(test_data_file)
+      puts "❌ test-suite-data.json not found. Cannot run scheme comparison."
+      exit 1
+    end
+    
+    test_data = JSON.parse(File.read(test_data_file))
+    valid_data = test_data.select { |data| !data["is_invalid"] }
+    schemes = valid_data.group_by { |data| data['scheme'] }
+    
+    scheme_benchmarks = {}
+    
+    schemes.each do |scheme, scheme_data|
+      next if scheme_data.length < 5  # Skip schemes with too few examples
+      
+      sample_data = scheme_data.first(50)  # Limit to 50 examples per scheme
+      
+      time = Benchmark.realtime do
+        sample_data.each { |data| Vers.parse_native(data['input'], data['scheme']) }
+      end
+      
+      avg_time_per_range = time / sample_data.length
+      scheme_benchmarks[scheme] = {
+        time: avg_time_per_range,
+        examples_count: sample_data.length
+      }
+    end
+    
+    # Sort by performance (fastest first)
+    sorted_benchmarks = scheme_benchmarks.sort_by { |_, data| data[:time] }
+    
+    puts "🏆 Performance Rankings (fastest to slowest):"
+    puts "   Rank Scheme       Avg Time/Parse  Examples"
+    puts "   " + "-" * 45
+    
+    sorted_benchmarks.each_with_index do |(scheme, data), index|
+      rank = (index + 1).to_s.rjust(2)
+      time_str = "#{(data[:time] * 1000).round(4)}ms".rjust(10)
+      examples_str = data[:examples_count].to_s.rjust(8)
+      
+      puts "   #{rank}.  #{scheme.ljust(10)} #{time_str}    #{examples_str}"
+    end
+    
+    fastest = sorted_benchmarks.first
+    slowest = sorted_benchmarks.last
+    
+    puts
+    puts "📈 Performance Summary:"
+    puts "   Fastest: #{fastest[0]} (#{(fastest[1][:time] * 1000).round(4)}ms)"
+    puts "   Slowest: #{slowest[0]} (#{(slowest[1][:time] * 1000).round(4)}ms)"
+    puts "   Ratio: #{(slowest[1][:time] / fastest[1][:time]).round(1)}x difference"
+    puts
+    puts "✅ Scheme comparison completed!"
+  end
+  
+  desc "Benchmark memory usage and object allocation"
+  task :memory do
+    require "benchmark"
+    require "json"
+    require_relative "lib/vers"
+    
+    puts "💾 VERS Memory Usage Benchmarks"
+    puts "=" * 50
+    
+    # Load sample ranges
+    test_data_file = File.join(__dir__, "test-suite-data.json")
+    
+    unless File.exist?(test_data_file)
+      puts "❌ test-suite-data.json not found. Using fallback examples."
+      sample_ranges = [
+        { input: "^1.2.3", scheme: "npm" },
+        { input: "~> 1.2", scheme: "gem" },
+        { input: ">=1.0,<2.0", scheme: "pypi" }
+      ]
+    else
+      test_data = JSON.parse(File.read(test_data_file))
+      sample_ranges = test_data.select { |data| !data["is_invalid"] }.first(100)
+    end
+    
+    puts "📊 Testing with #{sample_ranges.length} version ranges"
+    puts
+    
+    # Parse all ranges and store objects
+    puts "🔍 Parsing and storing #{sample_ranges.length} VersionRange objects..."
+    version_ranges = []
+    
+    parsing_time = Benchmark.realtime do
+      sample_ranges.each do |range|
+        begin
+          parsed = Vers.parse_native(range['input'], range['scheme'])
+          version_ranges << parsed
+        rescue
+          # Skip invalid ranges
+        end
+      end
+    end
+    
+    puts "   Parsing completed in #{(parsing_time * 1000).round(2)}ms"
+    puts "   Successfully parsed #{version_ranges.length} ranges"
+    puts
+    
+    # Estimate memory usage
+    estimated_memory = version_ranges.length * 300  # ~300 bytes per VersionRange object estimate
+    puts "💾 Memory Usage Estimation:"
+    puts "   #{version_ranges.length} VersionRange objects: ~#{estimated_memory} bytes"
+    puts "   Average per object: ~300 bytes"
+    puts
+    
+    # Test repeated operations
+    puts "🔄 Repeated Operations Test:"
+    
+    operations = {
+      "to_s conversion" => proc { version_ranges.each(&:to_s) },
+      "contains? check" => proc { version_ranges.each { |r| r.contains?("1.5.0") } },
+      "empty? check" => proc { version_ranges.each(&:empty?) },
+      "unbounded? check" => proc { version_ranges.each(&:unbounded?) }
+    }
+    
+    operations.each do |op_name, op_proc|
+      time = Benchmark.realtime { op_proc.call }
+      ops_per_second = version_ranges.length / time
+      
+      puts "   #{op_name.ljust(20)}: #{(time * 1000).round(2)}ms (#{ops_per_second.round(0)} ops/sec)"
+    end
+    
+    puts
+    puts "✅ Memory benchmark completed!"
+  end
+  
+  desc "Run complexity stress tests"
+  task :stress do
+    require "benchmark"
+    require_relative "lib/vers"
+    
+    puts "🎯 VERS Complexity Stress Tests"
+    puts "=" * 50
+    
+    # Test different complexity levels
+    complexity_tests = {
+      "Simple exact" => { input: "1.2.3", scheme: "npm" },
+      "Simple range" => { input: ">=1.0.0", scheme: "npm" },
+      "Caret range" => { input: "^1.2.3", scheme: "npm" },
+      "Complex npm" => { input: ">=1.2.3 <2.0.0 || >=3.0.0", scheme: "npm" },
+      "Gem pessimistic" => { input: "~> 1.2.3", scheme: "gem" },
+      "Maven bracket" => { input: "[1.0,2.0)", scheme: "maven" },
+      "Python complex" => { input: ">=1.0,!=1.5.0,<2.0", scheme: "pypi" }
+    }
+    
+    puts "🔍 Parsing Performance by Complexity:"
+    puts "   Test Case                    Time/Parse   Ops/Second"
+    puts "   " + "-" * 55
+    
+    complexity_tests.each do |test_name, test_case|
+      begin
+        time = Benchmark.realtime do
+          1000.times { Vers.parse_native(test_case[:input], test_case[:scheme]) }
+        end
+        
+        avg_time = time / 1000
+        ops_per_sec = 1000 / time
+        
+        puts "   #{test_name.ljust(25)} #{(avg_time * 1000).round(4)}ms   #{ops_per_sec.round(0)}"
+      rescue => e
+        puts "   #{test_name.ljust(25)} ERROR: #{e.message}"
+      end
+    end
+    
+    puts
+    
+    # Test long input strings
+    puts "📏 Large Input String Tests:"
+    large_inputs = [
+      "1.0.0 || 1.1.0 || 1.2.0 || 1.3.0 || 1.4.0 || 1.5.0 || 1.6.0 || 1.7.0",
+      ">=1.0.0 <1.1.0 || >=1.2.0 <1.3.0 || >=1.4.0 <1.5.0 || >=1.6.0 <1.7.0",
+      "^1.0.0 || ^1.1.0 || ^1.2.0 || ^1.3.0 || ^1.4.0 || ^1.5.0"
+    ]
+    
+    large_inputs.each_with_index do |input, index|
+      begin
+        time = Benchmark.realtime do
+          100.times { Vers.parse_native(input, "npm") }
+        end
+        
+        avg_time = time / 100
+        input_size = input.length
+        
+        puts "   Input #{index + 1} (#{input_size} chars): #{(avg_time * 1000).round(3)}ms per parse"
+      rescue => e
+        puts "   Input #{index + 1}: ERROR - #{e.message}"
+      end
+    end
+    
+    puts
+    puts "✅ Stress tests completed!"
+  end
+  
+  desc "Run all benchmarks"
+  task all: [:parse, :schemes, :memory, :stress] do
+    puts
+    puts "🎉 All benchmarks completed!"
+    puts "   Use 'rake benchmark:parse' for parsing performance"
+    puts "   Use 'rake benchmark:schemes' for scheme comparison"  
+    puts "   Use 'rake benchmark:memory' for memory usage analysis"
+    puts "   Use 'rake benchmark:stress' for complexity stress tests"
+  end
+end
+
 namespace :spec do
   desc "Show available VERS specification tasks"
   task :help do

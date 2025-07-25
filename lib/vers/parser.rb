@@ -19,6 +19,17 @@ module Vers
   class Parser
     # Regex for parsing vers URI format
     VERS_URI_REGEX = /\Avers:([^\/]+)\/(.+)\z/
+    
+    # Pre-compiled regex patterns for common npm patterns
+    NPM_CARET_REGEX = /\A\^(.+)\z/
+    NPM_TILDE_REGEX = /\A~(.+)\z/
+    NPM_HYPHEN_REGEX = /\A(.+?)\s+-\s+(.+)\z/
+    NPM_X_RANGE_MAJOR_REGEX = /\A(\d+)\.x\z/
+    NPM_X_RANGE_MINOR_REGEX = /\A(\d+)\.(\d+)\.x\z/
+    
+    # Cache for parsed ranges to improve performance
+    @@parser_cache = {}
+    @@cache_size_limit = 200
 
     ##
     # Parses a vers URI string into a VersionRange
@@ -173,63 +184,77 @@ module Vers
     end
 
     def parse_npm_single_range(range_string)
-      case range_string
-      when /^\^(.+)$/
-        # Caret range: ^1.2.3 := >=1.2.3 <2.0.0
-        version = Regexp.last_match(1)
-        parse_caret_range(version)
-      when /^~(.+)$/
-        # Tilde range: ~1.2.3 := >=1.2.3 <1.3.0
-        version = Regexp.last_match(1)
-        parse_tilde_range(version)
-      when /^(.+?)\s+-\s+(.+)$/
-        # Hyphen range: 1.2.3 - 2.3.4 := >=1.2.3 <=2.3.4
-        from_version = Regexp.last_match(1).strip
-        to_version = Regexp.last_match(2).strip
-        VersionRange.new([
-          Interval.new(min: from_version, max: to_version, min_inclusive: true, max_inclusive: true)
-        ])
-      when "*", "x", "X"
-        VersionRange.unbounded
-      when /^(\d+)\.x$/
-        # X-range like "1.x" := >=1.0.0 <2.0.0
-        major = Regexp.last_match(1).to_i
-        VersionRange.new([
-          Interval.new(min: "#{major}.0.0", max: "#{major + 1}.0.0", min_inclusive: true, max_inclusive: false)
-        ])
-      when /^(\d+)\.(\d+)\.x$/
-        # X-range like "1.2.x" := >=1.2.0 <1.3.0
-        major = Regexp.last_match(1).to_i
-        minor = Regexp.last_match(2).to_i
-        VersionRange.new([
-          Interval.new(min: "#{major}.#{minor}.0", max: "#{major}.#{minor + 1}.0", min_inclusive: true, max_inclusive: false)
-        ])
-      when /^(blerg|git\+|https?:\/\/)/
-        # Invalid patterns that should raise errors
-        raise ArgumentError, "Invalid NPM range format: #{range_string}"
-      else
-        # Standard constraint
-        constraint = Constraint.parse(range_string)
-        if constraint.exclusion?
-          VersionRange.unbounded.exclude(constraint.version)
-        else
-          VersionRange.new([constraint.to_interval])
-        end
+      # Check cache first
+      cache_key = "npm:#{range_string}"
+      if @@parser_cache.key?(cache_key)
+        return @@parser_cache[cache_key]
       end
+      
+      # Limit cache size
+      if @@parser_cache.size >= @@cache_size_limit
+        @@parser_cache.clear
+      end
+      
+      result = case range_string
+               when NPM_CARET_REGEX
+                 # Caret range: ^1.2.3 := >=1.2.3 <2.0.0
+                 version = $1
+                 parse_caret_range(version)
+               when NPM_TILDE_REGEX
+                 # Tilde range: ~1.2.3 := >=1.2.3 <1.3.0
+                 version = $1
+                 parse_tilde_range(version)
+               when NPM_HYPHEN_REGEX
+                 # Hyphen range: 1.2.3 - 2.3.4 := >=1.2.3 <=2.3.4
+                 from_version = $1.strip
+                 to_version = $2.strip
+                 VersionRange.new([
+                   Interval.new(min: from_version, max: to_version, min_inclusive: true, max_inclusive: true)
+                 ])
+               when "*", "x", "X"
+                 VersionRange.unbounded
+               when NPM_X_RANGE_MAJOR_REGEX
+                 # X-range like "1.x" := >=1.0.0 <2.0.0
+                 major = $1.to_i
+                 VersionRange.new([
+                   Interval.new(min: "#{major}.0.0", max: "#{major + 1}.0.0", min_inclusive: true, max_inclusive: false)
+                 ])
+               when NPM_X_RANGE_MINOR_REGEX
+                 # X-range like "1.2.x" := >=1.2.0 <1.3.0
+                 major = $1.to_i
+                 minor = $2.to_i
+                 VersionRange.new([
+                   Interval.new(min: "#{major}.#{minor}.0", max: "#{major}.#{minor + 1}.0", min_inclusive: true, max_inclusive: false)
+                 ])
+               when /^(blerg|git\+|https?:\/\/)/
+                 # Invalid patterns that should raise errors
+                 raise ArgumentError, "Invalid NPM range format: #{range_string}"
+               else
+                 # Standard constraint
+                 constraint = Constraint.parse(range_string)
+                 if constraint.exclusion?
+                   VersionRange.unbounded.exclude(constraint.version)
+                 else
+                   VersionRange.new([constraint.to_interval])
+                 end
+               end
+      
+      @@parser_cache[cache_key] = result
+      result
     end
 
     def parse_caret_range(version)
-      v = Version.new(version)
-      if v.major > 0
-        # ^1.2.3 := >=1.2.3 <2.0.0
-        upper_version = "#{v.major + 1}.0.0"
-      elsif v.minor && v.minor > 0
-        # ^0.2.3 := >=0.2.3 <0.3.0
-        upper_version = "0.#{v.minor + 1}.0"
-      else
-        # ^0.0.3 := >=0.0.3 <0.0.4
-        upper_version = "0.0.#{(v.patch || 0) + 1}"
-      end
+      v = Version.cached_new(version)
+      upper_version = if v.major > 0
+                        # ^1.2.3 := >=1.2.3 <2.0.0
+                        "#{v.major + 1}.0.0"
+                      elsif v.minor && v.minor > 0
+                        # ^0.2.3 := >=0.2.3 <0.3.0
+                        "0.#{v.minor + 1}.0"
+                      else
+                        # ^0.0.3 := >=0.0.3 <0.0.4
+                        "0.0.#{(v.patch || 0) + 1}"
+                      end
 
       VersionRange.new([
         Interval.new(min: version, max: upper_version, min_inclusive: true, max_inclusive: false)
@@ -237,14 +262,14 @@ module Vers
     end
 
     def parse_tilde_range(version)
-      v = Version.new(version)
-      if v.minor
-        # ~1.2.3 := >=1.2.3 <1.3.0
-        upper_version = "#{v.major}.#{v.minor + 1}.0"
-      else
-        # ~1 := >=1.0.0 <2.0.0
-        upper_version = "#{v.major + 1}.0.0"
-      end
+      v = Version.cached_new(version)
+      upper_version = if v.minor
+                        # ~1.2.3 := >=1.2.3 <1.3.0
+                        "#{v.major}.#{v.minor + 1}.0"
+                      else
+                        # ~1 := >=1.0.0 <2.0.0
+                        "#{v.major + 1}.0.0"
+                      end
 
       VersionRange.new([
         Interval.new(min: version, max: upper_version, min_inclusive: true, max_inclusive: false)
@@ -265,17 +290,17 @@ module Vers
     end
 
     def parse_pessimistic_range(version)
-      v = Version.new(version)
-      if v.patch
-        # ~> 1.2.3 := >= 1.2.3, < 1.3.0
-        upper_version = "#{v.major}.#{v.minor + 1}.0"
-      elsif v.minor
-        # ~> 1.2 := >= 1.2.0, < 2.0.0
-        upper_version = "#{v.major + 1}.0.0"
-      else
-        # ~> 1 := >= 1.0.0, < 2.0.0
-        upper_version = "#{v.major + 1}.0.0"
-      end
+      v = Version.cached_new(version)
+      upper_version = if v.patch
+                        # ~> 1.2.3 := >= 1.2.3, < 1.3.0
+                        "#{v.major}.#{v.minor + 1}.0"
+                      elsif v.minor
+                        # ~> 1.2 := >= 1.2.0, < 2.0.0
+                        "#{v.major + 1}.0.0"
+                      else
+                        # ~> 1 := >= 1.0.0, < 2.0.0
+                        "#{v.major + 1}.0.0"
+                      end
 
       VersionRange.new([
         Interval.new(min: version, max: upper_version, min_inclusive: true, max_inclusive: false)
