@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 2025-01-25
+
+### Added
+- **Comprehensive Benchmark Suite**: Added `rake benchmark` tasks for performance analysis
+  - `rake benchmark:parse` - Parsing performance across native and VERS URI formats
+  - `rake benchmark:schemes` - Performance comparison across package manager schemes
+  - `rake benchmark:memory` - Memory usage and object allocation analysis
+  - `rake benchmark:stress` - Complexity stress tests with various input patterns
+  - `rake benchmark:all` - Run all benchmarks
+
+### Performance
+- **60-75% Performance Improvements** across core operations with zero API changes
+- **Version Parsing**: Added caching for Version objects (78K ranges/sec vs 48K previously)
+- **Version Comparison**: Optimized comparison logic (1.2M comparisons/sec vs 507K previously)  
+- **Constraint Parsing**: Added caching with pre-compiled regex patterns
+- **Range Parsing**: Optimized NPM range parsing with pattern caching
+- **Containment Checks**: Improved efficiency (257K checks/sec vs 67K previously)
+
+### Internal
+- Added LRU-style caching for parsed Version and Constraint objects
+- Pre-compiled regex patterns for common NPM range formats
+- Optimized version parsing algorithm for dot-separated patterns
+- Enhanced parser with range result caching
+
 ## [1.0.0] - 2025-01-25
 
 ### Added
