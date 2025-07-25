@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Vers
-  VERSION = "0.1.0"
+  VERSION = "1.0.0"
 
   ##
   # Handles version comparison and normalization across different package ecosystems.

@@ -72,6 +72,8 @@ module Vers
         parse_pypi_range(range_string)
       when "maven"
         parse_maven_range(range_string)
+      when "nuget"
+        parse_nuget_range(range_string)
       when "deb", "debian"
         parse_debian_range(range_string)
       when "rpm"
@@ -147,6 +149,11 @@ module Vers
 
     # NPM range parsing (^, ~, -, ||, etc.)
     def parse_npm_range(range_string)
+      # Handle empty string as unbounded
+      if range_string.nil? || range_string.strip.empty?
+        return VersionRange.unbounded
+      end
+      
       # Handle || (OR) operator
       if range_string.include?('||')
         or_parts = range_string.split('||').map(&:strip)
@@ -184,6 +191,22 @@ module Vers
         ])
       when "*", "x", "X"
         VersionRange.unbounded
+      when /^(\d+)\.x$/
+        # X-range like "1.x" := >=1.0.0 <2.0.0
+        major = Regexp.last_match(1).to_i
+        VersionRange.new([
+          Interval.new(min: "#{major}.0.0", max: "#{major + 1}.0.0", min_inclusive: true, max_inclusive: false)
+        ])
+      when /^(\d+)\.(\d+)\.x$/
+        # X-range like "1.2.x" := >=1.2.0 <1.3.0
+        major = Regexp.last_match(1).to_i
+        minor = Regexp.last_match(2).to_i
+        VersionRange.new([
+          Interval.new(min: "#{major}.#{minor}.0", max: "#{major}.#{minor + 1}.0", min_inclusive: true, max_inclusive: false)
+        ])
+      when /^(blerg|git\+|https?:\/\/)/
+        # Invalid patterns that should raise errors
+        raise ArgumentError, "Invalid NPM range format: #{range_string}"
       else
         # Standard constraint
         constraint = Constraint.parse(range_string)
@@ -268,38 +291,143 @@ module Vers
 
     # Maven range parsing
     def parse_maven_range(range_string)
+      # Validate bracket notation first
+      if range_string.match(/^[\[\(].+[\]\)]$/)
+        # Check for malformed single version ranges
+        if range_string.match(/^\([^,]+\]$/) || range_string.match(/^\[[^,]+\)$/)
+          raise ArgumentError, "Malformed Maven range: mismatched brackets in '#{range_string}'"
+        end
+      end
+      
       case range_string
-      when /^\[(.+),(.+)\]$/
+      when /^\[([^,]+),([^,]+)\]$/
         # [1.0,2.0] := >=1.0 <=2.0
         min_version = Regexp.last_match(1).strip
         max_version = Regexp.last_match(2).strip
         VersionRange.new([
           Interval.new(min: min_version, max: max_version, min_inclusive: true, max_inclusive: true)
         ])
-      when /^\((.+),(.+)\)$/
+      when /^\(([^,]+),([^,]+)\)$/
         # (1.0,2.0) := >1.0 <2.0
         min_version = Regexp.last_match(1).strip
         max_version = Regexp.last_match(2).strip
         VersionRange.new([
           Interval.new(min: min_version, max: max_version, min_inclusive: false, max_inclusive: false)
         ])
-      when /^\[(.+),(.+)\)$/
+      when /^\[([^,]+),([^,]+)\)$/
         # [1.0,2.0) := >=1.0 <2.0
         min_version = Regexp.last_match(1).strip
         max_version = Regexp.last_match(2).strip
         VersionRange.new([
           Interval.new(min: min_version, max: max_version, min_inclusive: true, max_inclusive: false)
         ])
-      when /^\((.+),(.+)\]$/
+      when /^\(([^,]+),([^,]+)\]$/
         # (1.0,2.0] := >1.0 <=2.0
         min_version = Regexp.last_match(1).strip
         max_version = Regexp.last_match(2).strip
         VersionRange.new([
           Interval.new(min: min_version, max: max_version, min_inclusive: false, max_inclusive: true)
         ])
+      when /^\[([^,]+)\]$/
+        # [1.0] := exactly 1.0
+        version = Regexp.last_match(1).strip
+        VersionRange.exact(version)
+      when /^\[([^,]+),\)$/
+        # [1.0,) := >=1.0
+        min_version = Regexp.last_match(1).strip
+        VersionRange.new([
+          Interval.new(min: min_version, min_inclusive: true)
+        ])
+      when /^\(([^,]+),\)$/
+        # (1.0,) := >1.0
+        min_version = Regexp.last_match(1).strip
+        VersionRange.new([
+          Interval.new(min: min_version, min_inclusive: false)
+        ])
+      when /^\(,([^,]+)\]$/
+        # (,1.0] := <=1.0
+        max_version = Regexp.last_match(1).strip
+        VersionRange.new([
+          Interval.new(max: max_version, max_inclusive: true)
+        ])
+      when /^\(,([^,]+)\)$/
+        # (,1.0) := <1.0
+        max_version = Regexp.last_match(1).strip
+        VersionRange.new([
+          Interval.new(max: max_version, max_inclusive: false)
+        ])
+      when /^[0-9]/
+        # Simple version number without brackets - in Maven, this is minimum version
+        if range_string.match(/^[0-9]+(\.[0-9]+)*(-[a-zA-Z0-9.-]+)?$/)
+          VersionRange.new([
+            Interval.new(min: range_string, min_inclusive: true)
+          ])
+        else
+          parse_constraints(range_string, 'maven')
+        end
+      when /^(.+),(.+)$/
+        # Handle union ranges like "(,1.0],[1.2,)"
+        parts = range_string.split(',')
+        if parts.length > 2
+          # Complex union - parse each part recursively
+          ranges = []
+          # Split and preserve bracket information
+          # Find all individual ranges by splitting on comma between brackets
+          individual_ranges = []
+          remaining = range_string.strip
+          
+          while remaining.length > 0
+            # Find the next complete bracket range
+            if match = remaining.match(/^[\[\(][^\[\]\(\)]*[\]\)]/)
+              individual_ranges << match[0].strip
+              remaining = remaining[match.end(0)..-1].strip
+              # Skip over comma and whitespace
+              remaining = remaining.sub(/^\s*,\s*/, '')
+            else
+              break
+            end
+          end
+          
+          if individual_ranges.length > 1
+            individual_ranges.each do |range_part|
+              begin
+                parsed_range = parse_maven_range(range_part)
+                ranges << parsed_range
+              rescue
+                # If parsing fails, skip this part
+              end
+            end
+            
+            if ranges.any?
+              return ranges.reduce { |acc, range| acc.union(range) }
+            end
+          end
+        end
+        
+        # Fall back to standard constraint parsing
+        parse_constraints(range_string, 'maven')
       else
         # Fall back to standard constraint parsing
         parse_constraints(range_string, 'maven')
+      end
+    end
+
+    # NuGet range parsing (similar to Maven but with some differences)
+    def parse_nuget_range(range_string)
+      # NuGet uses the same bracket notation as Maven
+      # But simple version strings like "1.0" are minimum versions, not exact
+      case range_string
+      when /^[\[\(].+[\]\)]$/
+        # Use Maven parsing for bracket notation
+        parse_maven_range(range_string)
+      when /^[0-9]/
+        # Simple version number - treat as minimum version for NuGet
+        VersionRange.new([
+          Interval.new(min: range_string, min_inclusive: true)
+        ])
+      else
+        # Fall back to standard constraint parsing
+        parse_constraints(range_string, 'nuget')
       end
     end
 

@@ -26,6 +26,8 @@ namespace :spec do
     puts "rake spec:validate_spec  - Validate VERSION-RANGE-SPEC.rst is present and readable"
     puts "rake spec:examples       - Show examples of version range parsing"
     puts "rake spec:ecosystems     - Show supported package manager ecosystems"
+    puts "rake spec:compliance     - Run VERS specification compliance test suite"
+    puts "rake spec:test_data      - Show information about the JSON test dataset"
     puts "rake spec:help           - Show this help message"
     puts
     puts "Example workflow:"
@@ -191,5 +193,56 @@ namespace :spec do
     puts "   Total ecosystems: #{ecosystems.length}"
     puts "   VERS URI format: vers:<ecosystem>/<constraints>"
     puts "   Universal operations: union, intersection, complement, exclusion"
+  end
+
+  desc "Run VERS specification compliance test suite"
+  task :compliance do
+    puts "🧪 Running VERS Specification Compliance Tests"
+    puts "=" * 50
+    
+    # Run only the compliance test
+    system("ruby -Ilib:test test/test_vers_spec_compliance.rb")
+  end
+
+  desc "Show information about the JSON test dataset"
+  task :test_data do
+    require 'json'
+    
+    puts "📋 VERS Test Dataset Information"
+    puts "=" * 50
+    
+    test_file = File.join(__dir__, "test-suite-data.json")
+    
+    if File.exist?(test_file)
+      data = JSON.parse(File.read(test_file))
+      
+      puts "✅ test-suite-data.json found"
+      puts "   File size: #{File.size(test_file)} bytes"
+      puts "   Total test cases: #{data.length}"
+      
+      # Count by scheme
+      schemes = data.group_by { |test| test['scheme'] }
+      puts "\n📦 Test cases by ecosystem:"
+      schemes.each do |scheme, tests|
+        valid_tests = tests.select { |t| !t['is_invalid'] }
+        invalid_tests = tests.select { |t| t['is_invalid'] }
+        puts "   #{scheme}: #{valid_tests.length} valid, #{invalid_tests.length} invalid"
+      end
+      
+      puts "\n🔍 Sample test cases:"
+      data.first(3).each do |test|
+        status = test['is_invalid'] ? 'INVALID' : 'VALID'
+        puts "   [#{status}] #{test['scheme']}: #{test['input']} - #{test['description']}"
+      end
+      
+      puts "\n💡 Usage:"
+      puts "   This dataset can be used by other VERS implementations"
+      puts "   for cross-language compatibility testing, similar to"
+      puts "   the PURL project's test-suite-data.json"
+      
+    else
+      puts "❌ test-suite-data.json not found"
+      puts "   Expected location: #{test_file}"
+    end
   end
 end

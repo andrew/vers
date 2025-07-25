@@ -1,0 +1,57 @@
+PATH
+  remote: .
+  specs:
+    vers (1.0.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    date (3.4.1)
+    erb (5.0.2)
+    io-console (0.8.1)
+    irb (1.15.2)
+      pp (>= 0.6.0)
+      rdoc (>= 4.0.0)
+      reline (>= 0.4.2)
+    minitest (5.25.5)
+    pp (0.6.2)
+      prettyprint
+    prettyprint (0.2.0)
+    psych (5.2.6)
+      date
+      stringio
+    rake (13.3.0)
+    rdoc (6.14.2)
+      erb
+      psych (>= 4.0.0)
+    reline (0.6.2)
+      io-console (~> 0.5)
+    stringio (3.1.7)
+
+PLATFORMS
+  arm64-darwin-24
+  ruby
+
+DEPENDENCIES
+  irb
+  minitest (~> 5.16)
+  rake (~> 13.0)
+  vers!
+
+CHECKSUMS
+  date (3.4.1) sha256=bf268e14ef7158009bfeaec40b5fa3c7271906e88b196d958a89d4b408abe64f
+  erb (5.0.2) sha256=d30f258143d4300fb4ecf430042ac12970c9bb4b33c974a545b8f58c1ec26c0f
+  io-console (0.8.1) sha256=1e15440a6b2f67b6ea496df7c474ed62c860ad11237f29b3bd187f054b925fcb
+  irb (1.15.2) sha256=222f32952e278da34b58ffe45e8634bf4afc2dc7aa9da23fed67e581aa50fdba
+  minitest (5.25.5) sha256=391b6c6cb43a4802bfb7c93af1ebe2ac66a210293f4a3fb7db36f2fc7dc2c756
+  pp (0.6.2) sha256=947ec3120c6f92195f8ee8aa25a7b2c5297bb106d83b41baa02983686577b6ff
+  prettyprint (0.2.0) sha256=2bc9e15581a94742064a3cc8b0fb9d45aae3d03a1baa6ef80922627a0766f193
+  psych (5.2.6) sha256=814328aa5dcb6d604d32126a20bc1cbcf05521a5b49dbb1a8b30a07e580f316e
+  rake (13.3.0) sha256=96f5092d786ff412c62fde76f793cc0541bd84d2eb579caa529aa8a059934493
+  rdoc (6.14.2) sha256=9fdd44df130f856ae70cc9a264dfd659b9b40de369b16581f4ab746e42439226
+  reline (0.6.2) sha256=1dad26a6008872d59c8e05244b119347c9f2ddaf4a53dce97856cd5f30a02846
+  stringio (3.1.7) sha256=5b78b7cb242a315fb4fca61a8255d62ec438f58da2b90be66048546ade4507fa
+  vers (1.0.0)
+
+BUNDLED WITH
+   2.7.1

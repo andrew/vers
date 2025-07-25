@@ -167,6 +167,131 @@ class TestParser < Minitest::Test
     assert range2.contains?("2.0")
   end
 
+  def test_parse_native_maven_open_ranges
+    # [1.0,) := >=1.0
+    range = @parser.parse_native("[1.0,)", "maven")
+    assert range.contains?("1.0")
+    assert range.contains?("2.0")
+    assert range.contains?("99.0")
+    refute range.contains?("0.9")
+    
+    # (1.0,) := >1.0
+    range2 = @parser.parse_native("(1.0,)", "maven")
+    refute range2.contains?("1.0")
+    assert range2.contains?("1.1")
+    assert range2.contains?("2.0")
+    
+    # (,2.0] := <=2.0
+    range3 = @parser.parse_native("(,2.0]", "maven")
+    assert range3.contains?("0.5")
+    assert range3.contains?("2.0")
+    refute range3.contains?("2.1")
+    
+    # (,2.0) := <2.0
+    range4 = @parser.parse_native("(,2.0)", "maven")
+    assert range4.contains?("1.9")
+    refute range4.contains?("2.0")
+    refute range4.contains?("2.1")
+  end
+
+  def test_parse_native_maven_exact_version
+    # [1.0] := exactly 1.0
+    range = @parser.parse_native("[1.0]", "maven")
+    assert range.contains?("1.0")
+    refute range.contains?("1.0.1")
+    refute range.contains?("0.9")
+  end
+
+  def test_parse_native_maven_simple_version
+    # 1.0 := >=1.0 (minimum version in Maven)
+    range = @parser.parse_native("1.0", "maven")
+    assert range.contains?("1.0")
+    assert range.contains?("1.1")
+    assert range.contains?("2.0")
+    refute range.contains?("0.9")
+  end
+
+  def test_parse_native_nuget_bracket_notation
+    # NuGet uses same bracket notation as Maven
+    # [1.0,2.0] := >=1.0 <=2.0
+    range = @parser.parse_native("[1.0,2.0]", "nuget")
+    assert range.contains?("1.0")
+    assert range.contains?("1.5")
+    assert range.contains?("2.0")
+    refute range.contains?("0.9")
+    refute range.contains?("2.1")
+  end
+
+  def test_parse_native_nuget_open_ranges
+    # [1.0,) := >=1.0
+    range = @parser.parse_native("[1.0,)", "nuget")
+    assert range.contains?("1.0")
+    assert range.contains?("2.0")
+    assert range.contains?("99.0")
+    refute range.contains?("0.9")
+    
+    # (,2.0) := <2.0
+    range2 = @parser.parse_native("(,2.0)", "nuget")
+    assert range2.contains?("1.9")
+    refute range2.contains?("2.0")
+    refute range2.contains?("2.1")
+  end
+
+  def test_parse_native_nuget_simple_version
+    # 1.0 := >=1.0 (minimum version in NuGet, different from Maven exact)
+    range = @parser.parse_native("1.0", "nuget")
+    assert range.contains?("1.0")
+    assert range.contains?("1.1")
+    assert range.contains?("2.0")
+    refute range.contains?("0.9")
+  end
+
+  def test_parse_native_nuget_mixed_brackets
+    # [1.0,2.0) := >=1.0 <2.0
+    range = @parser.parse_native("[1.0,2.0)", "nuget")
+    assert range.contains?("1.0")
+    assert range.contains?("1.5")
+    refute range.contains?("2.0")
+    
+    # (1.0,2.0] := >1.0 <=2.0
+    range2 = @parser.parse_native("(1.0,2.0]", "nuget")
+    refute range2.contains?("1.0")
+    assert range2.contains?("1.5")
+    assert range2.contains?("2.0")
+  end
+
+  def test_parse_native_maven_union_ranges
+    # Complex union range like in univers tests: "[2.0,2.3.1] , [2.4.0,2.12.2) , [2.13.0,2.15.0)"
+    range = @parser.parse_native("[2.0,2.3.1] , [2.4.0,2.12.2) , [2.13.0,2.15.0)", "maven")
+    
+    # Should contain versions in each range
+    assert range.contains?("2.0")      # first range start
+    assert range.contains?("2.3.1")    # first range end (inclusive)
+    assert range.contains?("2.4.0")    # second range start  
+    assert range.contains?("2.12.1")   # second range before end
+    assert range.contains?("2.13.0")   # third range start
+    assert range.contains?("2.14.9")   # third range before end
+    
+    # Should not contain versions between ranges
+    refute range.contains?("2.3.5")    # between first and second
+    refute range.contains?("2.12.2")   # second range end (exclusive)
+    refute range.contains?("2.12.5")   # between second and third
+    refute range.contains?("2.15.0")   # third range end (exclusive)
+    refute range.contains?("1.9")      # before all ranges
+    refute range.contains?("3.0")      # after all ranges
+  end
+
+  def test_parse_native_maven_malformed_ranges
+    # Test malformed bracket notation - should raise errors
+    assert_raises(ArgumentError) do
+      @parser.parse_native("(1.0.0]", "maven")  # mismatched brackets
+    end
+    
+    assert_raises(ArgumentError) do
+      @parser.parse_native("[1.0.0)", "maven")  # single version with mixed brackets should be exact
+    end
+  end
+
   def test_parse_native_debian
     range = @parser.parse_native(">> 1.0.0", "deb")
     # >> should be converted to >
@@ -180,6 +305,78 @@ class TestParser < Minitest::Test
     assert range.contains?("1.0.0")
     assert range.contains?("2.0.0")
     refute range.contains?("0.9.0")
+  end
+
+  def test_npm_complex_range_patterns
+    # Test patterns from semantic_range repository
+    
+    # Wildcards
+    range1 = @parser.parse_native("*", "npm")
+    assert range1.contains?("1.2.3")
+    assert range1.contains?("0.0.1")
+    
+    # X-ranges
+    range2 = @parser.parse_native("1.2.x", "npm")
+    assert range2.contains?("1.2.3")
+    assert range2.contains?("1.2.99")
+    refute range2.contains?("1.3.0")
+    refute range2.contains?("1.1.9")
+    
+    # OR logic with ||
+    range3 = @parser.parse_native("1.2.x || 2.x", "npm")
+    assert range3.contains?("1.2.3")  # matches first part
+    assert range3.contains?("2.1.0")  # matches second part
+    refute range3.contains?("1.1.0")  # matches neither
+    refute range3.contains?("3.0.0")  # matches neither
+  end
+
+  def test_npm_prerelease_handling
+    # Caret with prerelease
+    range1 = @parser.parse_native("^1.2.3-beta.4", "npm")
+    assert range1.contains?("1.2.3")
+    assert range1.contains?("1.9.0")
+    refute range1.contains?("2.0.0")
+    refute range1.contains?("1.2.2")
+    
+    # Prerelease in hyphen ranges
+    range2 = @parser.parse_native("1.2.3-pre - 2.4.3-pre", "npm")
+    assert range2.contains?("1.2.3")
+    assert range2.contains?("2.0.0")
+    assert range2.contains?("2.4.3-pre")
+    refute range2.contains?("1.2.2")
+    refute range2.contains?("2.5.0")
+  end
+
+  def test_npm_edge_cases
+    # Empty range should be unbounded
+    range1 = @parser.parse_native("", "npm")
+    assert range1.contains?("1.0.0")
+    
+    # Space-separated AND constraints
+    range2 = @parser.parse_native(">=1.2.3 <2.0.0", "npm")
+    assert range2.contains?("1.2.3")
+    assert range2.contains?("1.9.9")
+    refute range2.contains?("2.0.0")
+    refute range2.contains?("1.2.2")
+    
+    # Multiple space-separated constraints (NPM style)
+    range3 = @parser.parse_native(">=1.0.0 <2.0.0", "npm")
+    assert range3.contains?("1.0.0")
+    assert range3.contains?("1.4.9")
+    assert range3.contains?("1.5.0")
+    refute range3.contains?("2.0.0")
+  end
+
+  def test_invalid_range_handling
+    # Test that invalid ranges are handled gracefully
+    assert_raises(ArgumentError) do
+      @parser.parse_native("blerg", "npm")
+    end
+    
+    # Git URLs should be invalid
+    assert_raises(ArgumentError) do
+      @parser.parse_native("git+https://github.com/foo/bar", "npm")
+    end
   end
 
   def test_to_vers_string_basic

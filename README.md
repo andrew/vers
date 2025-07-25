@@ -210,6 +210,27 @@ puts Vers.satisfies?("1.5.0", "^1.2.3", "npm")            # => true
 
 This gem implements the [PURL Version Range Specification](https://github.com/package-url/purl-spec/blob/main/VERSION-RANGE-SPEC.rst), providing a universal way to express version ranges across different software packaging ecosystems.
 
+Learn more about the motivation and design behind VERS in the [presentation from Open Source Summit NA 2025](https://www.youtube.com/watch?v=EU-TodN27rM) ([slides PDF](https://static.sched.com/hosted_files/ossna2025/74/We%20need%20a%20standard%20for%20open%20source%20package%20requirements.pdf)) by Eve Martin-Jones and Elitsa Bankova. The following table from their talk shows how different package managers express the same version constraints:
+
+| Operator | NPM | Cargo | Carthage | RubyGems | PyPI | Maven | NuGet |
+|----------|-----|-------|----------|----------|------|-------|--------|
+| **behavior with no op** | 1.0.0 | ^1.0.0⁴ | illegal | 1.0.0 | illegal | *⁵ | >=1.0 |
+| **= ==** | =1.0 | = | == | = | == | [1.0]⁵ | [1.0]⁸ |
+| **>** | > | > | | > | > | (1.0,) | (1.0,) |
+| **>=** | >= | >= | >= | >= | >= | 1.0⁵ | 1.0⁷ᵇᵃ |
+| **<** | < | < | | < | < | (,1.0) | (,1.0) |
+| **<=** | <= | <= | | <= | <= | (,1.0] | (,1.0] |
+| **!=** | | | | != | != | | |
+| **^** | ^ | ^² | | | | | |
+| **~** | ~, ~>¹ | ~ | | | ~= | | |
+| **~>** | ¹ | | ~> | ~> | | | |
+| **wildcards** | * x X | * x X | | | * | * | |
+| **OR** | \|\| | | | | | , | |
+| **AND** | space | , | | ,³ | , | | |
+| **RANGE** | - | | | | | [,],(,)⁶ | [,],(,) |
+
+This complexity across ecosystems is exactly why VERS provides a universal format that works consistently across all package managers.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

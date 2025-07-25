@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2025-01-25
+
+### Added
+- **JSON Test Dataset** (`test-suite-data.json`) with 37 comprehensive test cases for cross-language compatibility
+- **Enhanced NPM Support**: X-ranges (`1.2.x`), OR logic (`||`), wildcard support, invalid range validation
+- **Maven Union Ranges**: Complex multi-range support like `"[2.0,2.3.1] , [2.4.0,2.12.2) , [2.13.0,2.15.0)"`
+- **Prerelease Version Handling**: Caret and hyphen ranges with prerelease versions
+- **Specification Compliance Tests**: Automated test suite validating VERS spec compliance
+- **Cross-Ecosystem Compatibility Tests**: Verify equivalent ranges work across package managers
+- **Bidirectional Conversion Tests**: Ensure parsing and regenerating produces equivalent results
+- **Enhanced Rake Tasks**: 
+  - `rake spec:compliance` - Run VERS specification compliance test suite
+  - `rake spec:test_data` - Show JSON test dataset information
+- **Comprehensive Error Handling**: Invalid ranges like `"blerg"` and `"git+https://..."` raise proper errors
+- **Maven Malformed Range Validation**: Detect and reject invalid bracket notation like `"(1.0.0]"`
+
+### Enhanced
+- **NPM Parser**: Added support for empty ranges, X-ranges, OR logic, and invalid range detection
+- **Maven Parser**: Fixed union range parsing with proper bracket preservation
+- **Test Coverage**: Expanded from 113 to 129 tests with 725 assertions, all passing
+- **Documentation**: Added package manager syntax comparison table inspired by Eve Martin-Jones and Elitsa Bankova's presentation
+
 ## [0.1.0] - 2025-01-25
 
 ### Added
@@ -60,5 +82,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **No runtime dependencies** - pure Ruby implementation
 - **Minitest** for testing (development dependency only)
 
-[Unreleased]: https://github.com/andrew/vers/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/andrew/vers/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/andrew/vers/compare/v0.1.0...v1.0.0
 [0.1.0]: https://github.com/andrew/vers/releases/tag/v0.1.0
