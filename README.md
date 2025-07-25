@@ -69,11 +69,16 @@ version.satisfies?("~> 1.2")  # => true
 
 ## Supported Package Managers
 
-- **npm**: Caret ranges (^1.2.3), tilde ranges (~1.2.3), hyphen ranges (1.2.3 - 2.3.4)
-- **RubyGems**: Pessimistic operator (~> 1.2), standard operators (>=, <=, etc.)
-- **PyPI**: Comma-separated constraints (>=1.0,<2.0)
-- **Maven**: Bracket notation ([1.0,2.0], (1.0,2.0))
-- **Debian/RPM**: Standard comparison operators
+- **npm** (Node.js): Caret ranges (^1.2.3), tilde ranges (~1.2.3), hyphen ranges (1.2.3 - 2.3.4), OR logic (||), wildcards (1.x, *)
+- **RubyGems** (Ruby): Pessimistic operator (~> 1.2), standard operators (>=, <=, etc.), comma-separated constraints
+- **PyPI** (Python): Comma-separated constraints (>=1.0,<2.0), exclusions (!=1.5.0), compatible release (~=1.4.2)
+- **Maven** (Java): Bracket notation ([1.0,2.0], (1.0,2.0)), union ranges, open ranges
+- **NuGet** (.NET): Bracket notation ([1.0,2.0], (1.0,2.0)), mixed brackets, open ranges
+- **Packagist** (PHP Composer): Caret ranges (^1.2.3), tilde ranges (~1.2), stability flags (@dev, @alpha)
+- **Debian** (apt): Standard comparison operators (>=1.0.0, <<2.0.0)
+- **RPM** (yum/dnf): Standard comparison operators (>=1.0.0, <=2.0.0)
+
+Many other package managers are also supported using standard comparison operators (>=, <=, <, >, =, !=), including Cargo (Rust), Go modules, and more.
 
 ## Mathematical Model
 
