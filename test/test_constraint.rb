@@ -152,4 +152,28 @@ class TestConstraint < Minitest::Test
       Vers::Constraint.parse(">=")
     end
   end
+
+  def test_constraint_parse_whitespace_handling
+    # Test that whitespace after operators is properly stripped
+    tests = [
+      [">= 0", ">=", "0"],
+      ["<= 1.0", "<=", "1.0"],
+      ["> 0.5", ">", "0.5"],
+      ["< 2.0", "<", "2.0"],
+      ["= 1.2.3", "=", "1.2.3"],
+      ["!= 1.0.0", "!=", "1.0.0"],
+      [">=  1.0.0", ">=", "1.0.0"],  # Multiple spaces
+      [">	0.5", ">", "0.5"],        # Tab character
+      [" 1.2.3 ", "=", "1.2.3"]     # Leading and trailing whitespace
+    ]
+    
+    tests.each do |input, expected_op, expected_version|
+      constraint = Vers::Constraint.parse(input)
+      assert_equal expected_op, constraint.operator, "Failed operator for input: '#{input}'"
+      assert_equal expected_version, constraint.version, "Failed version for input: '#{input}'"
+      
+      # Ensure the version doesn't contain leading/trailing whitespace
+      refute_match(/^\s|\s$/, constraint.version, "Version contains whitespace for input: '#{input}'")
+    end
+  end
 end

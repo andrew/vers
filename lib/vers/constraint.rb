@@ -74,12 +74,12 @@ module Vers
       # Use regex for faster operator detection
       if match = constraint_string.match(OPERATOR_REGEX)
         operator = match[1]
-        version = constraint_string[operator.length..-1]
+        version = constraint_string[operator.length..-1].strip
         raise ArgumentError, "Invalid constraint format: #{constraint_string}" if version.empty?
         new(operator, version)
       else
         # No operator found, treat as exact match
-        new("=", constraint_string)
+        new("=", constraint_string.strip)
       end
     end
 
