@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.2] - 2025-08-20
+
+### Fixed
+- Fixed whitespace handling in version constraint parsing
+
 ## [1.0.1] - 2025-01-25
 
 ### Added
