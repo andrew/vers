@@ -12,6 +12,7 @@ Gem::Specification.new do |spec|
   spec.description = "Vers provides tools for working with version ranges across different package managers, using a mathematical interval model internally and supporting the vers specification from the Package URL (PURL) project."
   spec.homepage = "https://github.com/andrew/vers"
   spec.required_ruby_version = ">= 3.2.0"
+  spec.license = "MIT"
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
   spec.metadata["homepage_uri"] = spec.homepage
