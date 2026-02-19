@@ -85,6 +85,8 @@ module Vers
         parse_maven_range(range_string)
       when "nuget"
         parse_nuget_range(range_string)
+      when "hex", "elixir"
+        parse_hex_range(range_string)
       when "deb", "debian"
         parse_debian_range(range_string)
       when "rpm"
@@ -453,6 +455,44 @@ module Vers
       else
         # Fall back to standard constraint parsing
         parse_constraints(range_string, 'nuget')
+      end
+    end
+
+    # Hex/Elixir range parsing
+    def parse_hex_range(range_string)
+      # Handle "or" disjunction first
+      if range_string.include?(" or ")
+        or_parts = range_string.split(" or ").map(&:strip)
+        ranges = or_parts.map { |part| parse_hex_single_range(part) }
+        return ranges.reduce { |acc, range| acc.union(range) }
+      end
+
+      parse_hex_single_range(range_string)
+    end
+
+    def parse_hex_single_range(range_string)
+      # Handle "and" conjunction
+      if range_string.include?(" and ")
+        and_parts = range_string.split(" and ").map(&:strip)
+        ranges = and_parts.map { |part| parse_hex_constraint(part) }
+        return ranges.reduce { |acc, range| acc.intersect(range) }
+      end
+
+      parse_hex_constraint(range_string)
+    end
+
+    def parse_hex_constraint(constraint_string)
+      if constraint_string.match(/^~>\s*(.+)$/)
+        parse_pessimistic_range(Regexp.last_match(1).strip)
+      else
+        # Normalize == to = for our internal constraint parsing
+        normalized = constraint_string.gsub("==", "=")
+        constraint = Constraint.parse(normalized.strip)
+        if constraint.exclusion?
+          VersionRange.unbounded.exclude(constraint.version)
+        else
+          VersionRange.new([constraint.to_interval])
+        end
       end
     end
 

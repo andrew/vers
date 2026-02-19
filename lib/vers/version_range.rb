@@ -109,7 +109,7 @@ module Vers
       
       intervals.each do |interval|
         if interval.contains?(version)
-          if interval.min && version_compare(interval.min, version) < 0
+          if interval.min.nil? || version_compare(interval.min, version) < 0
             result_intervals << Interval.new(
               min: interval.min,
               max: version,
@@ -117,8 +117,8 @@ module Vers
               max_inclusive: false
             )
           end
-          
-          if interval.max && version_compare(version, interval.max) < 0
+
+          if interval.max.nil? || version_compare(version, interval.max) < 0
             result_intervals << Interval.new(
               min: version,
               max: interval.max,
