@@ -433,4 +433,106 @@ class TestParser < Minitest::Test
     assert range.contains?("1.9.9")
     refute range.contains?("2.0.0")
   end
+
+  # Hex/Elixir tests
+
+  def test_parse_native_hex_pessimistic_patch
+    # ~> 1.2.3 := >= 1.2.3, < 1.3.0
+    range = @parser.parse_native("~> 1.2.3", "hex")
+    assert range.contains?("1.2.3")
+    assert range.contains?("1.2.9")
+    refute range.contains?("1.3.0")
+    refute range.contains?("1.2.2")
+  end
+
+  def test_parse_native_hex_pessimistic_minor
+    # ~> 2.0 := >= 2.0.0, < 3.0.0
+    range = @parser.parse_native("~> 2.0", "hex")
+    assert range.contains?("2.0.0")
+    assert range.contains?("2.9.9")
+    refute range.contains?("3.0.0")
+    refute range.contains?("1.9.9")
+  end
+
+  def test_parse_native_hex_pessimistic_minor_nonzero
+    # ~> 2.1 := >= 2.1.0, < 3.0.0
+    range = @parser.parse_native("~> 2.1", "hex")
+    assert range.contains?("2.1.0")
+    assert range.contains?("2.9.9")
+    refute range.contains?("3.0.0")
+    refute range.contains?("2.0.9")
+  end
+
+  def test_parse_native_hex_exact_match
+    range = @parser.parse_native("== 1.2.3", "hex")
+    assert range.contains?("1.2.3")
+    refute range.contains?("1.2.4")
+    refute range.contains?("1.2.2")
+  end
+
+  def test_parse_native_hex_comparison_operators
+    range = @parser.parse_native(">= 1.0.0", "hex")
+    assert range.contains?("1.0.0")
+    assert range.contains?("2.0.0")
+    refute range.contains?("0.9.0")
+
+    range = @parser.parse_native("> 1.0.0", "hex")
+    refute range.contains?("1.0.0")
+    assert range.contains?("1.0.1")
+
+    range = @parser.parse_native("<= 2.0.0", "hex")
+    assert range.contains?("2.0.0")
+    assert range.contains?("1.0.0")
+    refute range.contains?("2.0.1")
+
+    range = @parser.parse_native("< 2.0.0", "hex")
+    refute range.contains?("2.0.0")
+    assert range.contains?("1.9.9")
+  end
+
+  def test_parse_native_hex_not_equal
+    range = @parser.parse_native("!= 1.5.0", "hex")
+    assert range.contains?("1.4.0")
+    assert range.contains?("1.6.0")
+    refute range.contains?("1.5.0")
+  end
+
+  def test_parse_native_hex_and_conjunction
+    range = @parser.parse_native(">= 1.0.0 and < 2.0.0", "hex")
+    assert range.contains?("1.0.0")
+    assert range.contains?("1.5.0")
+    refute range.contains?("0.9.0")
+    refute range.contains?("2.0.0")
+  end
+
+  def test_parse_native_hex_or_disjunction
+    range = @parser.parse_native("~> 1.0 or ~> 2.0", "hex")
+    assert range.contains?("1.5.0")
+    assert range.contains?("2.5.0")
+    refute range.contains?("3.0.0")
+  end
+
+  def test_parse_native_hex_combined_and_or
+    # ~> 1.0 and != 1.5.0 means >= 1.0.0 and < 2.0.0 but not 1.5.0
+    range = @parser.parse_native("~> 1.0 and != 1.5.0", "hex")
+    assert range.contains?("1.0.0")
+    assert range.contains?("1.4.0")
+    assert range.contains?("1.6.0")
+    refute range.contains?("1.5.0")
+    refute range.contains?("2.0.0")
+  end
+
+  def test_parse_native_hex_elixir_scheme_alias
+    range = @parser.parse_native("~> 1.2.3", "elixir")
+    assert range.contains?("1.2.3")
+    assert range.contains?("1.2.9")
+    refute range.contains?("1.3.0")
+  end
+
+  def test_parse_vers_uri_hex
+    range = @parser.parse("vers:hex/>=1.0.0|<2.0.0")
+    assert range.contains?("1.5.0")
+    refute range.contains?("2.0.0")
+    refute range.contains?("0.9.0")
+  end
 end
