@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-02-24
+
+### Added
+- Scheme-specific version comparison for Maven and NuGet via `Version.compare_with_scheme` and `Vers.compare_with_scheme`
+- `Vers::MavenVersion` module with Maven qualifier ordering (alpha < beta < milestone < rc < snapshot < release < sp), digit/letter transitions, sublist rules, qualifier aliases, and trailing zero normalization
+- `Vers::NuGetVersion` module with 4-part numeric versions, case-insensitive prereleases, and build metadata stripping
+- `scheme` parameter threaded through `Interval`, `VersionRange`, `Constraint`, and `Parser` so Maven and NuGet ranges use their own comparison rules in `contains?`, `intersect`, and other interval operations
+- 1010 conformance test cases from the vers-spec test suite for Maven and NuGet version comparison
+
 ## [1.0.3] - 2026-01-09
 
 ### Added
@@ -117,7 +126,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **No runtime dependencies** - pure Ruby implementation
 - **Minitest** for testing (development dependency only)
 
-[Unreleased]: https://github.com/andrew/vers/compare/v1.0.3...HEAD
+[Unreleased]: https://github.com/andrew/vers/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/andrew/vers/compare/v1.0.3...v1.1.0
 [1.0.3]: https://github.com/andrew/vers/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/andrew/vers/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/andrew/vers/compare/v1.0.0...v1.0.1
