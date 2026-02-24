@@ -602,4 +602,114 @@ class TestParser < Minitest::Test
     refute reparsed.contains?("2.0.0")
     refute reparsed.contains?("1.2.2")
   end
+
+  # Cargo tests (delegates to npm parsing)
+
+  def test_parse_native_cargo_caret
+    range = @parser.parse_native("^1.2.3", "cargo")
+    assert range.contains?("1.2.3")
+    assert range.contains?("1.9.9")
+    refute range.contains?("2.0.0")
+    refute range.contains?("1.2.2")
+  end
+
+  def test_parse_native_cargo_tilde
+    range = @parser.parse_native("~1.2.3", "cargo")
+    assert range.contains?("1.2.3")
+    assert range.contains?("1.2.9")
+    refute range.contains?("1.3.0")
+  end
+
+  def test_parse_native_cargo_hyphen
+    range = @parser.parse_native("1.0.0 - 2.0.0", "cargo")
+    assert range.contains?("1.0.0")
+    assert range.contains?("1.5.0")
+    assert range.contains?("2.0.0")
+    refute range.contains?("0.9.0")
+    refute range.contains?("2.0.1")
+  end
+
+  def test_parse_native_cargo_x_range
+    range = @parser.parse_native("1.x", "cargo")
+    assert range.contains?("1.0.0")
+    assert range.contains?("1.9.9")
+    refute range.contains?("2.0.0")
+    refute range.contains?("0.9.0")
+  end
+
+  def test_parse_native_cargo_or
+    range = @parser.parse_native("^1.0.0 || ^2.0.0", "cargo")
+    assert range.contains?("1.5.0")
+    assert range.contains?("2.5.0")
+    refute range.contains?("3.0.0")
+  end
+
+  def test_parse_native_cargo_space_separated_and
+    range = @parser.parse_native(">=1.0.0 <2.0.0", "cargo")
+    assert range.contains?("1.0.0")
+    assert range.contains?("1.5.0")
+    refute range.contains?("0.9.0")
+    refute range.contains?("2.0.0")
+  end
+
+  # Go module tests
+
+  def test_parse_native_go_comma_separated
+    range = @parser.parse_native(">=1.0.0, <2.0.0", "go")
+    assert range.contains?("1.0.0")
+    assert range.contains?("1.5.0")
+    refute range.contains?("0.9.0")
+    refute range.contains?("2.0.0")
+  end
+
+  def test_parse_native_go_v_prefix
+    range = @parser.parse_native(">=v1.0.0, <v2.0.0", "go")
+    assert range.contains?("v1.0.0")
+    assert range.contains?("v1.5.0")
+    refute range.contains?("v0.9.0")
+    refute range.contains?("v2.0.0")
+  end
+
+  def test_parse_native_go_standard_operators
+    range = @parser.parse_native(">1.0.0", "go")
+    refute range.contains?("1.0.0")
+    assert range.contains?("1.0.1")
+
+    range = @parser.parse_native("<=2.0.0", "go")
+    assert range.contains?("2.0.0")
+    assert range.contains?("1.0.0")
+    refute range.contains?("2.0.1")
+  end
+
+  def test_parse_native_go_single_constraint
+    range = @parser.parse_native(">=1.5.0", "go")
+    assert range.contains?("1.5.0")
+    assert range.contains?("2.0.0")
+    refute range.contains?("1.4.9")
+  end
+
+  def test_parse_native_go_exclusion
+    range = @parser.parse_native(">=1.0.0, !=1.5.0, <2.0.0", "go")
+    assert range.contains?("1.0.0")
+    assert range.contains?("1.4.0")
+    assert range.contains?("1.6.0")
+    refute range.contains?("1.5.0")
+    refute range.contains?("2.0.0")
+  end
+
+  def test_parse_native_go_golang_alias
+    range = @parser.parse_native(">=1.0.0, <2.0.0", "golang")
+    assert range.contains?("1.5.0")
+    refute range.contains?("2.0.0")
+  end
+
+  def test_round_trip_go_v_prefix
+    range = @parser.parse_native(">=v1.0.0, <v2.0.0", "go")
+    vers = @parser.to_vers_string(range, "go")
+    reparsed = @parser.parse(vers)
+
+    assert reparsed.contains?("v1.0.0")
+    assert reparsed.contains?("v1.5.0")
+    refute reparsed.contains?("v2.0.0")
+  end
 end
