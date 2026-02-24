@@ -535,4 +535,42 @@ class TestParser < Minitest::Test
     refute range.contains?("2.0.0")
     refute range.contains?("0.9.0")
   end
+
+  def test_npm_space_between_operator_and_version
+    range = @parser.parse_native("< 2.0.0", "npm")
+    assert range.contains?("1.0.0")
+    refute range.contains?("2.0.0")
+    refute range.contains?("3.0.0")
+  end
+
+  def test_npm_space_between_operators_compound
+    range = @parser.parse_native(">= 1.0.0 < 2.0.0", "npm")
+    assert range.contains?("1.0.0")
+    assert range.contains?("1.5.0")
+    refute range.contains?("0.9.0")
+    refute range.contains?("2.0.0")
+  end
+
+  def test_npm_space_between_lte_operator
+    range = @parser.parse_native("<= 1.5.0", "npm")
+    assert range.contains?("1.0.0")
+    assert range.contains?("1.5.0")
+    refute range.contains?("1.5.1")
+  end
+
+  def test_generic_comma_separated_constraints
+    range = @parser.parse("vers:generic/>= 1.0.0, < 2.0.0")
+    assert range.contains?("1.0.0")
+    assert range.contains?("1.5.0")
+    refute range.contains?("0.9.0")
+    refute range.contains?("2.0.0")
+  end
+
+  def test_generic_comma_separated_three_constraints
+    range = @parser.parse("vers:generic/>= 1.0.0, < 3.0.0, !=2.0.0")
+    assert range.contains?("1.0.0")
+    assert range.contains?("1.5.0")
+    refute range.contains?("2.0.0")
+    refute range.contains?("3.0.0")
+  end
 end

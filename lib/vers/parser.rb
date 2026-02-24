@@ -134,7 +134,7 @@ module Vers
     private
 
     def parse_constraints(constraints_string, scheme)
-      constraint_strings = constraints_string.split('|')
+      constraint_strings = constraints_string.split(/[|,]/)
       intervals = []
       exclusions = []
 
@@ -181,7 +181,16 @@ module Vers
 
       # Handle space-separated AND constraints
       and_parts = range_string.split(/\s+/).reject(&:empty?)
-      ranges = and_parts.map { |part| parse_npm_single_range(part) }
+      # Re-join bare operators with their version
+      merged = []
+      and_parts.each do |part|
+        if merged.last&.match?(/\A(>=|<=|!=|[<>=~^])\z/)
+          merged[-1] = "#{merged.last}#{part}"
+        else
+          merged << part
+        end
+      end
+      ranges = merged.map { |part| parse_npm_single_range(part) }
       ranges.reduce { |acc, range| acc.intersect(range) }
     end
 
