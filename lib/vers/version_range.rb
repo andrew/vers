@@ -5,32 +5,38 @@ require_relative 'version'
 
 module Vers
   class VersionRange
-    attr_reader :intervals, :raw_constraints
+    attr_reader :intervals, :raw_constraints, :scheme
 
-    def initialize(intervals = [], raw_constraints: nil)
-      @intervals = intervals.compact.reject(&:empty?).sort_by { |i| [i.min || '', i.max || ''] }
+    def initialize(intervals = [], raw_constraints: nil, scheme: nil)
+      @scheme = scheme
+      @intervals = intervals.compact.reject(&:empty?)
+      if @scheme
+        @intervals.sort! { |a, b| compare_interval_bounds(a, b) }
+      else
+        @intervals.sort_by! { |i| [i.min || '', i.max || ''] }
+      end
       @raw_constraints = raw_constraints
       merge_overlapping_intervals!
     end
 
-    def self.empty
-      new([])
+    def self.empty(scheme: nil)
+      new([], scheme: scheme)
     end
 
-    def self.unbounded
-      new([Interval.unbounded])
+    def self.unbounded(scheme: nil)
+      new([Interval.unbounded(scheme: scheme)], scheme: scheme)
     end
 
-    def self.exact(version)
-      new([Interval.exact(version)])
+    def self.exact(version, scheme: nil)
+      new([Interval.exact(version, scheme: scheme)], scheme: scheme)
     end
 
-    def self.greater_than(version, inclusive: false)
-      new([Interval.greater_than(version, inclusive: inclusive)])
+    def self.greater_than(version, inclusive: false, scheme: nil)
+      new([Interval.greater_than(version, inclusive: inclusive, scheme: scheme)], scheme: scheme)
     end
 
-    def self.less_than(version, inclusive: false)
-      new([Interval.less_than(version, inclusive: inclusive)])
+    def self.less_than(version, inclusive: false, scheme: nil)
+      new([Interval.less_than(version, inclusive: inclusive, scheme: scheme)], scheme: scheme)
     end
 
     def empty?
@@ -46,6 +52,7 @@ module Vers
     end
 
     def intersect(other)
+      merged_scheme = @scheme || other.scheme
       result_intervals = []
 
       intervals.each do |interval1|
@@ -56,30 +63,36 @@ module Vers
       end
 
       combined_raw = (raw_constraints || intervals) + (other.raw_constraints || other.intervals)
-      self.class.new(result_intervals, raw_constraints: combined_raw)
+      self.class.new(result_intervals, raw_constraints: combined_raw, scheme: merged_scheme)
     end
 
     def union(other)
+      merged_scheme = @scheme || other.scheme
       combined_raw = (raw_constraints || intervals) + (other.raw_constraints || other.intervals)
-      self.class.new(intervals + other.intervals, raw_constraints: combined_raw)
+      self.class.new(intervals + other.intervals, raw_constraints: combined_raw, scheme: merged_scheme)
     end
 
     def complement
-      return self.class.unbounded if empty?
-      return self.class.empty if unbounded?
+      return self.class.unbounded(scheme: @scheme) if empty?
+      return self.class.empty(scheme: @scheme) if unbounded?
 
       result_intervals = []
-      
-      sorted_intervals = intervals.sort_by { |i| i.min || '' }
-      
+
+      sorted_intervals = if @scheme
+                           intervals.sort { |a, b| compare_interval_bounds(a, b) }
+                         else
+                           intervals.sort_by { |i| i.min || '' }
+                         end
+
       first_interval = sorted_intervals.first
       if first_interval.min
         result_intervals << Interval.new(
           max: first_interval.min,
-          max_inclusive: !first_interval.min_inclusive
+          max_inclusive: !first_interval.min_inclusive,
+          scheme: @scheme
         )
       end
-      
+
       sorted_intervals.each_cons(2) do |curr, next_interval|
         if curr.max && next_interval.min
           comparison = version_compare(curr.max, next_interval.min)
@@ -88,21 +101,23 @@ module Vers
               min: curr.max,
               max: next_interval.min,
               min_inclusive: !curr.max_inclusive,
-              max_inclusive: !next_interval.min_inclusive
+              max_inclusive: !next_interval.min_inclusive,
+              scheme: @scheme
             )
           end
         end
       end
-      
+
       last_interval = sorted_intervals.last
       if last_interval.max
         result_intervals << Interval.new(
           min: last_interval.max,
-          min_inclusive: !last_interval.max_inclusive
+          min_inclusive: !last_interval.max_inclusive,
+          scheme: @scheme
         )
       end
-      
-      self.class.new(result_intervals)
+
+      self.class.new(result_intervals, scheme: @scheme)
     end
 
     def exclude(version)
@@ -117,7 +132,8 @@ module Vers
               min: interval.min,
               max: version,
               min_inclusive: interval.min_inclusive,
-              max_inclusive: false
+              max_inclusive: false,
+              scheme: @scheme
             )
           end
 
@@ -126,7 +142,8 @@ module Vers
               min: version,
               max: interval.max,
               min_inclusive: false,
-              max_inclusive: interval.max_inclusive
+              max_inclusive: interval.max_inclusive,
+              scheme: @scheme
             )
           end
         else
@@ -134,7 +151,7 @@ module Vers
         end
       end
 
-      self.class.new(result_intervals, raw_constraints: raw_constraints)
+      self.class.new(result_intervals, raw_constraints: raw_constraints, scheme: @scheme)
     end
 
     def to_s
@@ -168,9 +185,39 @@ module Vers
       return 0 if a == b
       return -1 if a.nil?
       return 1 if b.nil?
-      
-      # Use the Version class for comparison
-      Version.compare(a, b)
+
+      if @scheme
+        Version.compare_with_scheme(a, b, @scheme)
+      else
+        Version.compare(a, b)
+      end
+    end
+
+    def compare_interval_bounds(a, b)
+      min_a = a.min
+      min_b = b.min
+      min_cmp = if min_a.nil? && min_b.nil?
+                  0
+                elsif min_a.nil?
+                  -1
+                elsif min_b.nil?
+                  1
+                else
+                  version_compare(min_a, min_b)
+                end
+      return min_cmp unless min_cmp == 0
+
+      max_a = a.max
+      max_b = b.max
+      if max_a.nil? && max_b.nil?
+        0
+      elsif max_a.nil?
+        1
+      elsif max_b.nil?
+        -1
+      else
+        version_compare(max_a, max_b)
+      end
     end
   end
 end

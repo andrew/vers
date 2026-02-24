@@ -93,21 +93,21 @@ module Vers
     #   Vers::Constraint.new(">=", "1.2.3").to_interval  # => [1.2.3,+∞)
     #   Vers::Constraint.new("=", "1.0.0").to_interval   # => [1.0.0,1.0.0]
     #
-    def to_interval
+    def to_interval(scheme: nil)
       case operator
       when "="
-        Interval.exact(version)
+        Interval.exact(version, scheme: scheme)
       when "!="
         # != constraints need special handling in ranges - they create exclusions
         nil
       when ">"
-        Interval.greater_than(version, inclusive: false)
+        Interval.greater_than(version, inclusive: false, scheme: scheme)
       when ">="
-        Interval.greater_than(version, inclusive: true)
+        Interval.greater_than(version, inclusive: true, scheme: scheme)
       when "<"
-        Interval.less_than(version, inclusive: false)
+        Interval.less_than(version, inclusive: false, scheme: scheme)
       when "<="
-        Interval.less_than(version, inclusive: true)
+        Interval.less_than(version, inclusive: true, scheme: scheme)
       end
     end
 
