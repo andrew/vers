@@ -5,10 +5,11 @@ require_relative 'version'
 
 module Vers
   class VersionRange
-    attr_reader :intervals
+    attr_reader :intervals, :raw_constraints
 
-    def initialize(intervals = [])
+    def initialize(intervals = [], raw_constraints: nil)
       @intervals = intervals.compact.reject(&:empty?).sort_by { |i| [i.min || '', i.max || ''] }
+      @raw_constraints = raw_constraints
       merge_overlapping_intervals!
     end
 
@@ -46,19 +47,21 @@ module Vers
 
     def intersect(other)
       result_intervals = []
-      
+
       intervals.each do |interval1|
         other.intervals.each do |interval2|
           intersection = interval1.intersect(interval2)
           result_intervals << intersection unless intersection.empty?
         end
       end
-      
-      self.class.new(result_intervals)
+
+      combined_raw = (raw_constraints || intervals) + (other.raw_constraints || other.intervals)
+      self.class.new(result_intervals, raw_constraints: combined_raw)
     end
 
     def union(other)
-      self.class.new(intervals + other.intervals)
+      combined_raw = (raw_constraints || intervals) + (other.raw_constraints || other.intervals)
+      self.class.new(intervals + other.intervals, raw_constraints: combined_raw)
     end
 
     def complement
@@ -104,9 +107,9 @@ module Vers
 
     def exclude(version)
       return self if !contains?(version)
-      
+
       result_intervals = []
-      
+
       intervals.each do |interval|
         if interval.contains?(version)
           if interval.min.nil? || version_compare(interval.min, version) < 0
@@ -130,8 +133,8 @@ module Vers
           result_intervals << interval
         end
       end
-      
-      self.class.new(result_intervals)
+
+      self.class.new(result_intervals, raw_constraints: raw_constraints)
     end
 
     def to_s

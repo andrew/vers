@@ -204,9 +204,48 @@ class TestVersion < Minitest::Test
 
   def test_version_increment_with_missing_components
     version = Vers::Version.new("1")
-    
+
     assert_equal "2.0.0", version.increment_major.to_s
     assert_equal "1.1.0", version.increment_minor.to_s
     assert_equal "1.0.1", version.increment_patch.to_s
+  end
+
+  def test_version_v_prefix
+    version = Vers::Version.new("v1.2.3")
+    assert_equal 1, version.major
+    assert_equal 2, version.minor
+    assert_equal 3, version.patch
+    assert_equal "1.2.3", version.to_s
+  end
+
+  def test_version_v_prefix_uppercase
+    version = Vers::Version.new("V2.0.0")
+    assert_equal 2, version.major
+    assert_equal 0, version.minor
+    assert_equal 0, version.patch
+    assert_equal "2.0.0", version.to_s
+  end
+
+  def test_version_v_prefix_normalize
+    assert_equal "1.0.0", Vers::Version.normalize("v1.0.0")
+    assert_equal "3.2.1", Vers::Version.normalize("V3.2.1")
+  end
+
+  def test_version_v_prefix_comparison
+    assert_equal 0, Vers::Version.compare("v1.2.3", "1.2.3")
+    assert_equal(-1, Vers::Version.compare("v1.2.3", "v1.2.4"))
+  end
+
+  def test_version_v_prefix_satisfies
+    version = Vers::Version.new("v1.2.5")
+    assert version.satisfies?("~> 1.2")
+    refute version.satisfies?("~> 1.3")
+  end
+
+  def test_version_v_prefix_with_prerelease
+    version = Vers::Version.new("v1.0.0-alpha")
+    assert_equal 1, version.major
+    assert_equal "alpha", version.prerelease
+    assert_equal "1.0.0-alpha", version.to_s
   end
 end

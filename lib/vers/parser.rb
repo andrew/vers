@@ -108,9 +108,10 @@ module Vers
       return "*" if version_range.unbounded?
       return "vers:#{scheme}/" if version_range.empty?
 
+      intervals = version_range.raw_constraints || version_range.intervals
       constraints = []
-      
-      version_range.intervals.each do |interval|
+
+      intervals.each do |interval|
         if interval.min == interval.max && interval.min_inclusive && interval.max_inclusive
           # Exact version
           constraints << "=#{interval.min}"
@@ -120,7 +121,7 @@ module Vers
             operator = interval.min_inclusive ? ">=" : ">"
             constraints << "#{operator}#{interval.min}"
           end
-          
+
           if interval.max
             operator = interval.max_inclusive ? "<=" : "<"
             constraints << "#{operator}#{interval.max}"
@@ -128,13 +129,22 @@ module Vers
         end
       end
 
+      constraints.sort_by! { |c| sort_key_for_constraint(c) }
+      constraints.uniq!
+
       "vers:#{scheme}/#{constraints.join('|')}"
     end
 
     private
 
+    def sort_key_for_constraint(constraint)
+      version = constraint.sub(/\A[><=!]+/, '')
+      v = Version.cached_new(version)
+      [v.major || 0, v.minor || 0, v.patch || 0, constraint]
+    end
+
     def parse_constraints(constraints_string, scheme)
-      constraint_strings = constraints_string.split('|')
+      constraint_strings = constraints_string.split(/[|,]/)
       intervals = []
       exclusions = []
 
@@ -181,7 +191,16 @@ module Vers
 
       # Handle space-separated AND constraints
       and_parts = range_string.split(/\s+/).reject(&:empty?)
-      ranges = and_parts.map { |part| parse_npm_single_range(part) }
+      # Re-join bare operators with their version
+      merged = []
+      and_parts.each do |part|
+        if merged.last&.match?(/\A(>=|<=|!=|[<>=~^])\z/)
+          merged[-1] = "#{merged.last}#{part}"
+        else
+          merged << part
+        end
+      end
+      ranges = merged.map { |part| parse_npm_single_range(part) }
       ranges.reduce { |acc, range| acc.intersect(range) }
     end
 

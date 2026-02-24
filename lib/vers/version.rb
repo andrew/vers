@@ -295,6 +295,9 @@ module Vers
     private
 
     def parse_version
+      # Strip leading v/V prefix (e.g. "v1.0.0" -> "1.0.0")
+      @original = @original.sub(/\Av/i, '')
+
       # Handle simple numeric versions (optimized case)
       if @original.match(/^\d+$/)
         @major = @original.to_i
