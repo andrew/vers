@@ -83,10 +83,14 @@ module Vers
         parse_pypi_range(range_string)
       when "maven"
         parse_maven_range(range_string)
+      when "cargo"
+        parse_npm_range(range_string)
       when "nuget"
         parse_nuget_range(range_string)
       when "hex", "elixir"
         parse_hex_range(range_string)
+      when "go", "golang"
+        parse_go_range(range_string)
       when "deb", "debian"
         parse_debian_range(range_string)
       when "rpm"
@@ -513,6 +517,41 @@ module Vers
           VersionRange.new([constraint.to_interval])
         end
       end
+    end
+
+    # Go module range parsing (comma-separated AND constraints, v-prefix preserved)
+    def parse_go_range(range_string)
+      return VersionRange.unbounded if range_string.nil? || range_string.strip.empty?
+
+      unless range_string.include?(',')
+        return parse_constraints(range_string, 'go')
+      end
+
+      parts = range_string.split(',').map(&:strip)
+      constraint_intervals = []
+      exclusions = []
+
+      parts.each do |part|
+        constraint = Constraint.parse(part)
+        if constraint.exclusion?
+          exclusions << constraint.version
+        else
+          interval = constraint.to_interval
+          constraint_intervals << interval if interval
+        end
+      end
+
+      if constraint_intervals.any?
+        range = VersionRange.new([constraint_intervals.first])
+        constraint_intervals[1..].each do |interval|
+          range = range.intersect(VersionRange.new([interval]))
+        end
+      else
+        range = VersionRange.unbounded
+      end
+
+      exclusions.each { |version| range = range.exclude(version) }
+      range
     end
 
     # Debian range parsing
