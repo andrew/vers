@@ -4,35 +4,36 @@ require_relative 'version'
 
 module Vers
   class Interval
-    attr_reader :min, :max, :min_inclusive, :max_inclusive
+    attr_reader :min, :max, :min_inclusive, :max_inclusive, :scheme
 
-    def initialize(min: nil, max: nil, min_inclusive: true, max_inclusive: true)
+    def initialize(min: nil, max: nil, min_inclusive: true, max_inclusive: true, scheme: nil)
       @min = min
       @max = max
       @min_inclusive = min_inclusive
       @max_inclusive = max_inclusive
+      @scheme = scheme
 
       validate_bounds!
     end
 
-    def self.empty
-      new(min: "1", max: "0", min_inclusive: true, max_inclusive: true)
+    def self.empty(scheme: nil)
+      new(min: "1", max: "0", min_inclusive: true, max_inclusive: true, scheme: scheme)
     end
 
-    def self.unbounded
-      new
+    def self.unbounded(scheme: nil)
+      new(scheme: scheme)
     end
 
-    def self.exact(version)
-      new(min: version, max: version, min_inclusive: true, max_inclusive: true)
+    def self.exact(version, scheme: nil)
+      new(min: version, max: version, min_inclusive: true, max_inclusive: true, scheme: scheme)
     end
 
-    def self.greater_than(version, inclusive: false)
-      new(min: version, min_inclusive: inclusive)
+    def self.greater_than(version, inclusive: false, scheme: nil)
+      new(min: version, min_inclusive: inclusive, scheme: scheme)
     end
 
-    def self.less_than(version, inclusive: false)
-      new(max: version, max_inclusive: inclusive)
+    def self.less_than(version, inclusive: false, scheme: nil)
+      new(max: version, max_inclusive: inclusive, scheme: scheme)
     end
 
     def empty?
@@ -59,7 +60,8 @@ module Vers
     end
 
     def intersect(other)
-      return self.class.empty if empty? || other.empty?
+      merged_scheme = @scheme || other.scheme
+      return self.class.empty(scheme: merged_scheme) if empty? || other.empty?
 
       new_min = nil
       new_min_inclusive = true
@@ -110,7 +112,8 @@ module Vers
         min: new_min,
         max: new_max,
         min_inclusive: new_min_inclusive,
-        max_inclusive: new_max_inclusive
+        max_inclusive: new_max_inclusive,
+        scheme: merged_scheme
       )
     end
 
@@ -120,6 +123,7 @@ module Vers
 
       return nil unless overlaps?(other) || adjacent?(other)
 
+      merged_scheme = @scheme || other.scheme
       new_min = nil
       new_min_inclusive = true
       new_max = nil
@@ -169,7 +173,8 @@ module Vers
         min: new_min,
         max: new_max,
         min_inclusive: new_min_inclusive,
-        max_inclusive: new_max_inclusive
+        max_inclusive: new_max_inclusive,
+        scheme: merged_scheme
       )
     end
 
@@ -221,9 +226,12 @@ module Vers
       return 0 if a == b
       return -1 if a.nil?
       return 1 if b.nil?
-      
-      # Use the Version class for comparison
-      Version.compare(a, b)
+
+      if @scheme
+        Version.compare_with_scheme(a, b, @scheme)
+      else
+        Version.compare(a, b)
+      end
     end
   end
 end

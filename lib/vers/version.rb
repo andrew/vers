@@ -64,8 +64,27 @@ module Vers
       # Use cached versions for better performance
       version_a = cached_new(a)
       version_b = cached_new(b)
-      
+
       version_a <=> version_b
+    end
+
+    ##
+    # Compares two version strings using scheme-specific rules
+    #
+    # @param a [String] First version string
+    # @param b [String] Second version string
+    # @param scheme [String, nil] Package manager scheme (maven, nuget, or nil for generic)
+    # @return [Integer] -1 if a < b, 0 if a == b, 1 if a > b
+    #
+    def self.compare_with_scheme(a, b, scheme)
+      case scheme
+      when "maven"
+        MavenVersion.compare(a, b)
+      when "nuget"
+        NuGetVersion.compare(a, b)
+      else
+        compare(a, b)
+      end
     end
 
     ##

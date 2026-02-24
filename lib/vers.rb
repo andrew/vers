@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require_relative "vers/version"
+require_relative "vers/maven_version"
+require_relative "vers/nuget_version"
 require_relative "vers/interval"
 require_relative "vers/version_range"
 require_relative "vers/constraint"
@@ -141,6 +143,18 @@ module Vers
   #
   def self.compare(a, b)
     Version.compare(a, b)
+  end
+
+  ##
+  # Compares two version strings using scheme-specific rules
+  #
+  # @param a [String] First version string
+  # @param b [String] Second version string
+  # @param scheme [String, nil] Package manager scheme (maven, nuget, or nil for generic)
+  # @return [Integer] -1 if a < b, 0 if a == b, 1 if a > b
+  #
+  def self.compare_with_scheme(a, b, scheme)
+    Version.compare_with_scheme(a, b, scheme)
   end
 
   ##
