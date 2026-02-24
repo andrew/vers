@@ -108,9 +108,10 @@ module Vers
       return "*" if version_range.unbounded?
       return "vers:#{scheme}/" if version_range.empty?
 
+      intervals = version_range.raw_constraints || version_range.intervals
       constraints = []
-      
-      version_range.intervals.each do |interval|
+
+      intervals.each do |interval|
         if interval.min == interval.max && interval.min_inclusive && interval.max_inclusive
           # Exact version
           constraints << "=#{interval.min}"
@@ -120,7 +121,7 @@ module Vers
             operator = interval.min_inclusive ? ">=" : ">"
             constraints << "#{operator}#{interval.min}"
           end
-          
+
           if interval.max
             operator = interval.max_inclusive ? "<=" : "<"
             constraints << "#{operator}#{interval.max}"
@@ -128,10 +129,19 @@ module Vers
         end
       end
 
+      constraints.sort_by! { |c| sort_key_for_constraint(c) }
+      constraints.uniq!
+
       "vers:#{scheme}/#{constraints.join('|')}"
     end
 
     private
+
+    def sort_key_for_constraint(constraint)
+      version = constraint.sub(/\A[><=!]+/, '')
+      v = Version.cached_new(version)
+      [v.major || 0, v.minor || 0, v.patch || 0, constraint]
+    end
 
     def parse_constraints(constraints_string, scheme)
       constraint_strings = constraints_string.split(/[|,]/)

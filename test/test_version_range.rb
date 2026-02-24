@@ -141,10 +141,50 @@ class TestVersionRange < Minitest::Test
   def test_version_range_sorting
     interval1 = Vers::Interval.new(min: "3.0.0", max: "4.0.0")
     interval2 = Vers::Interval.new(min: "1.0.0", max: "2.0.0")
-    
+
     range = Vers::VersionRange.new([interval1, interval2])
     # Should be sorted by min version
     assert_equal "1.0.0", range.intervals.first.min
     assert_equal "3.0.0", range.intervals.last.min
+  end
+
+  def test_raw_constraints_nil_by_default
+    range = Vers::VersionRange.new([Vers::Interval.new(min: "1.0.0", max: "2.0.0")])
+    assert_nil range.raw_constraints
+  end
+
+  def test_raw_constraints_preserved_through_union
+    range1 = Vers::VersionRange.new([Vers::Interval.new(min: "1.0.0", max: "2.0.0")])
+    range2 = Vers::VersionRange.new([Vers::Interval.new(min: "3.0.0", max: "4.0.0")])
+
+    union = range1.union(range2)
+    assert_equal 2, union.raw_constraints.length
+    assert_equal "1.0.0", union.raw_constraints[0].min
+    assert_equal "3.0.0", union.raw_constraints[1].min
+  end
+
+  def test_raw_constraints_preserved_through_intersect
+    range1 = Vers::VersionRange.new([Vers::Interval.new(min: "1.0.0", max: "3.0.0")])
+    range2 = Vers::VersionRange.new([Vers::Interval.new(min: "2.0.0", max: "4.0.0")])
+
+    intersection = range1.intersect(range2)
+    assert_equal 2, intersection.raw_constraints.length
+    assert_equal "1.0.0", intersection.raw_constraints[0].min
+    assert_equal "2.0.0", intersection.raw_constraints[1].min
+  end
+
+  def test_raw_constraints_preserved_through_exclude
+    interval = Vers::Interval.new(min: "1.0.0", max: "3.0.0")
+    raw = [Vers::Interval.new(min: "1.0.0", max: "3.0.0")]
+    range = Vers::VersionRange.new([interval], raw_constraints: raw)
+
+    excluded = range.exclude("2.0.0")
+    assert_equal raw, excluded.raw_constraints
+  end
+
+  def test_raw_constraints_nil_after_complement
+    range = Vers::VersionRange.new([Vers::Interval.new(min: "1.0.0", max: "2.0.0")])
+    complement = range.complement
+    assert_nil complement.raw_constraints
   end
 end

@@ -573,4 +573,33 @@ class TestParser < Minitest::Test
     refute range.contains?("2.0.0")
     refute range.contains?("3.0.0")
   end
+
+  def test_round_trip_npm_caret
+    range = @parser.parse_native("^1.2.3", "npm")
+    vers = @parser.to_vers_string(range, "npm")
+    assert_equal "vers:npm/>=1.2.3|<2.0.0", vers
+  end
+
+  def test_round_trip_npm_space_separated
+    range = @parser.parse_native(">=1.0.0 <2.0.0", "npm")
+    vers = @parser.to_vers_string(range, "npm")
+    assert_equal "vers:npm/>=1.0.0|<2.0.0", vers
+  end
+
+  def test_round_trip_gem_pessimistic
+    range = @parser.parse_native("~> 1.2.3", "gem")
+    vers = @parser.to_vers_string(range, "gem")
+    assert_equal "vers:gem/>=1.2.3|<1.3.0", vers
+  end
+
+  def test_round_trip_reparse_equivalence
+    range = @parser.parse_native("^1.2.3", "npm")
+    vers = @parser.to_vers_string(range, "npm")
+    reparsed = @parser.parse(vers)
+
+    assert reparsed.contains?("1.2.3")
+    assert reparsed.contains?("1.9.0")
+    refute reparsed.contains?("2.0.0")
+    refute reparsed.contains?("1.2.2")
+  end
 end
