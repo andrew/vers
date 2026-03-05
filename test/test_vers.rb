@@ -54,7 +54,27 @@ class TestVers < Minitest::Test
   def test_valid_version
     assert Vers.valid?("1.2.3")
     assert Vers.valid?("1.0.0-alpha")
+    assert Vers.valid?("v1.0.0")
     refute Vers.valid?("")
+    refute Vers.valid?("not-a-version")
+    refute Vers.valid?("1.0")
+    refute Vers.valid?("latest")
+  end
+
+  def test_clean_version
+    assert_equal "1.0.0", Vers.clean("1.0.0")
+    assert_equal "1.0.0", Vers.clean("v1.0.0")
+    assert_equal "2.5.3", Vers.clean("v2.5.3")
+    assert_equal "1.7.0-alpha.2", Vers.clean("1.7.0-alpha.2")
+    assert_nil Vers.clean("not-a-version")
+    assert_nil Vers.clean("1.0")
+    assert_nil Vers.clean("latest")
+  end
+
+  def test_satisfies_with_or_ranges
+    assert Vers.satisfies?("1.5.0", ">= 1.0.0, < 2.0.0 || >= 3.0.0, < 4.0.0", "gem")
+    assert Vers.satisfies?("3.5.0", ">= 1.0.0, < 2.0.0 || >= 3.0.0, < 4.0.0", "gem")
+    refute Vers.satisfies?("2.5.0", ">= 1.0.0, < 2.0.0 || >= 3.0.0, < 4.0.0", "gem")
   end
 
   def test_exact_range

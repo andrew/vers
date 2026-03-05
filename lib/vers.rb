@@ -119,13 +119,15 @@ module Vers
   #   Vers.satisfies?("1.5.0", "^1.2.3", "npm")            # => true
   #
   def self.satisfies?(version, constraint, scheme = nil)
-    range = if scheme
-              parse_native(constraint, scheme)
-            else
-              parse(constraint)
-            end
-    
-    range.contains?(version)
+    sub_ranges = constraint.split('||').map(&:strip).reject(&:empty?)
+    sub_ranges.any? do |sub_range|
+      range = if scheme
+                parse_native(sub_range, scheme)
+              else
+                parse(sub_range)
+              end
+      range.contains?(version)
+    end
   end
 
   ##
@@ -175,6 +177,10 @@ module Vers
   #
   def self.valid?(version_string)
     Version.valid?(version_string)
+  end
+
+  def self.clean(version_string)
+    Version.clean(version_string)
   end
 
   ##

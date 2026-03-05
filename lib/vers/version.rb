@@ -104,10 +104,12 @@ module Vers
     # @return [Boolean] true if the version is valid
     #
     def self.valid?(version_string)
-      cached_new(version_string)
-      true
-    rescue ArgumentError
-      false
+      version_string.to_s.match?(/\Av?\d+\.\d+\.\d+/)
+    end
+
+    def self.clean(version_string)
+      return nil unless valid?(version_string)
+      version_string.to_s.sub(/\Av/, '')
     end
 
     ##
