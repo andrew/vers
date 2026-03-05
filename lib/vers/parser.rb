@@ -109,16 +109,26 @@ module Vers
     # @return [String] The vers URI string
     #
     def to_vers_string(version_range, scheme)
-      return "*" if version_range.unbounded?
+      return "vers:#{scheme}/*" if version_range.unbounded?
       return "vers:#{scheme}/" if version_range.empty?
 
       intervals = version_range.raw_constraints || version_range.intervals
       constraints = []
 
+      # Detect != pattern: two intervals (-∞,V) ∪ (V,+∞)
+      if intervals.length == 2
+        a, b = intervals
+        if a.min.nil? && !a.max_inclusive && b.max.nil? && !b.min_inclusive && a.max == b.min
+          constraints << "!=#{a.max}"
+          constraints.sort_by! { |c| sort_key_for_constraint(c) }
+          return "vers:#{scheme}/#{constraints.join('|')}"
+        end
+      end
+
       intervals.each do |interval|
         if interval.min == interval.max && interval.min_inclusive && interval.max_inclusive
           # Exact version
-          constraints << "=#{interval.min}"
+          constraints << interval.min.to_s
         else
           # Range constraints
           if interval.min
@@ -134,7 +144,6 @@ module Vers
       end
 
       constraints.sort_by! { |c| sort_key_for_constraint(c) }
-      constraints.uniq!
 
       "vers:#{scheme}/#{constraints.join('|')}"
     end
@@ -144,7 +153,7 @@ module Vers
     def sort_key_for_constraint(constraint)
       version = constraint.sub(/\A[><=!]+/, '')
       v = Version.cached_new(version)
-      [v.major || 0, v.minor || 0, v.patch || 0, constraint]
+      [v, constraint]
     end
 
     def parse_constraints(constraints_string, scheme)
@@ -164,8 +173,14 @@ module Vers
         end
       end
 
-      # Start with the union of all positive constraints
-      range = VersionRange.new(intervals, scheme: interval_scheme)
+      # Start with the union of all positive constraints, or unbounded if only exclusions
+      range = if intervals.any?
+                VersionRange.new(intervals, scheme: interval_scheme)
+              elsif exclusions.any?
+                VersionRange.unbounded
+              else
+                VersionRange.new([], scheme: interval_scheme)
+              end
 
       # Apply exclusions
       exclusions.each do |version|
@@ -185,7 +200,7 @@ module Vers
       # Handle || (OR) operator
       if range_string.include?('||')
         or_parts = range_string.split('||').map(&:strip)
-        ranges = or_parts.map { |part| parse_npm_single_range(part) }
+        ranges = or_parts.map { |part| parse_npm_range(part) }
         return ranges.reduce { |acc, range| acc.union(range) }
       end
 
@@ -206,7 +221,13 @@ module Vers
         end
       end
       ranges = merged.map { |part| parse_npm_single_range(part) }
-      ranges.reduce { |acc, range| acc.intersect(range) }
+      # If all parts are bare versions (no operators), treat as union
+      all_exact = merged.all? { |part| part.match?(/\A\d/) }
+      if all_exact
+        ranges.reduce { |acc, range| acc.union(range) }
+      else
+        ranges.reduce { |acc, range| acc.intersect(range) }
+      end
     end
 
     def parse_npm_single_range(range_string)
@@ -256,8 +277,25 @@ module Vers
                  # Invalid patterns that should raise errors
                  raise ArgumentError, "Invalid NPM range format: #{range_string}"
                else
+                 # Check for operator + x-range (e.g. ">=2.2.x", ">=1.x")
+                 if range_string.match(/\A[><=]+(\d+)\.[xX*]\z/)
+                   major = $1.to_i
+                   return VersionRange.new([
+                     Interval.new(min: "#{major}.0.0", max: "#{major + 1}.0.0", min_inclusive: true, max_inclusive: false)
+                   ])
+                 end
+                 if range_string.match(/\A[><=]+(\d+)\.(\d+)\.[xX*]\z/)
+                   major = $1.to_i
+                   minor = $2.to_i
+                   return VersionRange.new([
+                     Interval.new(min: "#{major}.#{minor}.0", max: "#{major}.#{minor + 1}.0", min_inclusive: true, max_inclusive: false)
+                   ])
+                 end
                  # Standard constraint
                  constraint = Constraint.parse(range_string)
+                 # Normalize version to semver (npm always uses 3 segments)
+                 normalized_version = Version.cached_new(constraint.version).to_s
+                 constraint = Constraint.new(constraint.operator, normalized_version)
                  if constraint.exclusion?
                    VersionRange.unbounded.exclude(constraint.version)
                  else
@@ -289,8 +327,26 @@ module Vers
 
     def parse_tilde_range(version)
       v = Version.cached_new(version)
-      upper_version = if v.minor
+
+      if v.prerelease
+        # ~0.8.0-pre := >=0.8.0-pre <0.8.0 OR >=0.8.0 <0.8.1
+        # Prereleases only match their own major.minor.patch
+        base = "#{v.major}.#{v.minor || 0}.#{v.patch || 0}"
+        next_patch = "#{v.major}.#{v.minor || 0}.#{(v.patch || 0) + 1}"
+        pre_range = VersionRange.new([
+          Interval.new(min: version, max: base, min_inclusive: true, max_inclusive: false)
+        ])
+        release_range = VersionRange.new([
+          Interval.new(min: base, max: next_patch, min_inclusive: true, max_inclusive: false)
+        ])
+        return pre_range.union(release_range)
+      end
+
+      upper_version = if v.patch
                         # ~1.2.3 := >=1.2.3 <1.3.0
+                        "#{v.major}.#{v.minor + 1}.0"
+                      elsif v.minor
+                        # ~1.2 := >=1.2.0 <1.3.0
                         "#{v.major}.#{v.minor + 1}.0"
                       else
                         # ~1 := >=1.0.0 <2.0.0
@@ -318,14 +374,14 @@ module Vers
     def parse_pessimistic_range(version)
       v = Version.cached_new(version)
       upper_version = if v.patch
-                        # ~> 1.2.3 := >= 1.2.3, < 1.3.0
-                        "#{v.major}.#{v.minor + 1}.0"
+                        # ~> 1.2.3 := >= 1.2.3, < 1.3
+                        "#{v.major}.#{v.minor + 1}"
                       elsif v.minor
-                        # ~> 1.2 := >= 1.2.0, < 2.0.0
-                        "#{v.major + 1}.0.0"
+                        # ~> 1.2 := >= 1.2.0, < 2
+                        "#{v.major + 1}"
                       else
-                        # ~> 1 := >= 1.0.0, < 2.0.0
-                        "#{v.major + 1}.0.0"
+                        # ~> 1 := >= 1.0.0, < 2
+                        "#{v.major + 1}"
                       end
 
       VersionRange.new([

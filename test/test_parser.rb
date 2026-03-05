@@ -388,13 +388,13 @@ class TestParser < Minitest::Test
   def test_to_vers_string_exact
     range = Vers::VersionRange.exact("1.2.3")
     vers_string = @parser.to_vers_string(range, "gem")
-    assert_equal "vers:gem/=1.2.3", vers_string
+    assert_equal "vers:gem/1.2.3", vers_string
   end
 
   def test_to_vers_string_unbounded
     range = Vers::VersionRange.unbounded
     vers_string = @parser.to_vers_string(range, "pypi")
-    assert_equal "*", vers_string
+    assert_equal "vers:pypi/*", vers_string
   end
 
   def test_to_vers_string_empty
@@ -597,7 +597,7 @@ class TestParser < Minitest::Test
   def test_round_trip_gem_pessimistic
     range = @parser.parse_native("~> 1.2.3", "gem")
     vers = @parser.to_vers_string(range, "gem")
-    assert_equal "vers:gem/>=1.2.3|<1.3.0", vers
+    assert_equal "vers:gem/>=1.2.3|<1.3", vers
   end
 
   def test_round_trip_reparse_equivalence
