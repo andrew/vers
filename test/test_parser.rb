@@ -505,6 +505,14 @@ class TestParser < Minitest::Test
     refute range.contains?("2.0.0")
   end
 
+  def test_parse_native_hex_comma_separated_conjunction
+    range = @parser.parse_native(">= 3.6.3, <= 3.7.0", "hex")
+    assert range.contains?("3.6.3")
+    assert range.contains?("3.7.0")
+    refute range.contains?("3.6.2")
+    refute range.contains?("3.7.1")
+  end
+
   def test_parse_native_hex_or_disjunction
     range = @parser.parse_native("~> 1.0 or ~> 2.0", "hex")
     assert range.contains?("1.5.0")

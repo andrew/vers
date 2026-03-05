@@ -550,9 +550,9 @@ module Vers
     end
 
     def parse_hex_single_range(range_string)
-      # Handle "and" conjunction
-      if range_string.include?(" and ")
-        and_parts = range_string.split(" and ").map(&:strip)
+      # Handle "and" conjunction and comma-separated AND constraints
+      if range_string.include?(" and ") || range_string.include?(",")
+        and_parts = range_string.split(/\s+and\s+|,/).map(&:strip).reject(&:empty?)
         ranges = and_parts.map { |part| parse_hex_constraint(part) }
         return ranges.reduce { |acc, range| acc.intersect(range) }
       end
