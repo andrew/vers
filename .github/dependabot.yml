@@ -1,0 +1,33 @@
+version: 2
+updates:
+  # Ruby dependencies (Gemfile)
+  - package-ecosystem: "bundler"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "andrew"
+    assignees:
+      - "andrew"
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+
+  # Git submodules
+  - package-ecosystem: "gitsubmodule"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "tuesday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "andrew"
+    assignees:
+      - "andrew"
+    commit-message:
+      prefix: "deps"
+      include: "scope"
