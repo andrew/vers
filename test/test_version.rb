@@ -78,9 +78,21 @@ class TestVersion < Minitest::Test
   def test_version_valid
     assert Vers::Version.valid?("1.2.3")
     assert Vers::Version.valid?("1.0.0-alpha")
-    assert Vers::Version.valid?("1")
+    assert Vers::Version.valid?("v1.0.0")
     assert Vers::Version.valid?("0.0.1")
     refute Vers::Version.valid?("")
+    refute Vers::Version.valid?("1")
+    refute Vers::Version.valid?("1.0")
+    refute Vers::Version.valid?("not-a-version")
+    refute Vers::Version.valid?("latest")
+  end
+
+  def test_version_clean
+    assert_equal "1.0.0", Vers::Version.clean("1.0.0")
+    assert_equal "1.0.0", Vers::Version.clean("v1.0.0")
+    assert_equal "1.7.0-alpha.2", Vers::Version.clean("1.7.0-alpha.2")
+    assert_nil Vers::Version.clean("not-a-version")
+    assert_nil Vers::Version.clean("1.0")
   end
 
   def test_version_equality
