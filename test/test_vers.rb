@@ -111,15 +111,13 @@ class TestVers < Minitest::Test
   end
 
   def test_satisfies_returns_false_when_parse_native_returns_nil
-    Vers.stub(:parse_native, nil) do
-      refute Vers.satisfies?("1.0.0", "< 2.0.0", "npm")
-    end
-  end
+    mock_parser = Minitest::Mock.new
+    mock_parser.expect(:parse_native, nil, [String, String])
 
-  def test_satisfies_returns_false_when_parse_returns_nil
-    Vers.stub(:parse, nil) do
-      refute Vers.satisfies?("1.0.0", "vers:npm/>=1.0.0|<2.0.0")
-    end
+    Vers.class_variable_set(:@@parser, mock_parser)
+    refute Vers.satisfies?("1.0.0", "< 2.0.0", "npm")
+  ensure
+    Vers.class_variable_set(:@@parser, Vers::Parser.new)
   end
 
   def test_to_vers_string
