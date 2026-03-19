@@ -126,7 +126,7 @@ module Vers
               else
                 parse(sub_range)
               end
-      range.contains?(version)
+      range&.contains?(version) || false
     end
   end
 

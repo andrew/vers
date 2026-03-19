@@ -110,6 +110,17 @@ class TestVers < Minitest::Test
     assert range.empty?
   end
 
+  def test_satisfies_returns_false_when_parse_native_returns_nil
+    nil_parser = Object.new
+    nil_parser.define_singleton_method(:parse_native) { |*, **| nil }
+
+    original_parser = Vers.class_variable_get(:@@parser)
+    Vers.class_variable_set(:@@parser, nil_parser)
+    refute Vers.satisfies?("1.0.0", "< 2.0.0", "npm")
+  ensure
+    Vers.class_variable_set(:@@parser, original_parser)
+  end
+
   def test_to_vers_string
     range = Vers.parse("vers:npm/>=1.2.3|<2.0.0")
     vers_string = Vers.to_vers_string(range, "npm")
