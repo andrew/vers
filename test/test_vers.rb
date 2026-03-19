@@ -110,6 +110,18 @@ class TestVers < Minitest::Test
     assert range.empty?
   end
 
+  def test_satisfies_returns_false_when_parse_native_returns_nil
+    Vers.stub(:parse_native, nil) do
+      refute Vers.satisfies?("1.0.0", "< 2.0.0", "npm")
+    end
+  end
+
+  def test_satisfies_returns_false_when_parse_returns_nil
+    Vers.stub(:parse, nil) do
+      refute Vers.satisfies?("1.0.0", "vers:npm/>=1.0.0|<2.0.0")
+    end
+  end
+
   def test_to_vers_string
     range = Vers.parse("vers:npm/>=1.2.3|<2.0.0")
     vers_string = Vers.to_vers_string(range, "npm")
