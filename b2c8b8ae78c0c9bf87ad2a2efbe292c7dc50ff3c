@@ -1,0 +1,25 @@
+lib/vers/interval.rb
+  9059de13114a78d4 15,39,226-231
+Gemfile
+  9059de13114a78d4 12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "b2c8b8ae78c0c9bf87ad2a2efbe292c7dc50ff3c",
+  "prompts": {
+    "9059de13114a78d4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5645c8e9-0dc6-46f3-977c-af9c29fc7b66",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Andrew Nesbitt",
+      "messages": [],
+      "total_additions": 9,
+      "total_deletions": 18,
+      "accepted_lines": 9,
+      "overriden_lines": 0
+    }
+  }
+}
