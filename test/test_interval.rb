@@ -108,6 +108,26 @@ class TestInterval < Minitest::Test
     refute interval1.overlaps?(interval3)
   end
 
+  def test_interval_overlaps_empty
+    empty = Vers::Interval.empty
+    normal = Vers::Interval.new(min: "1.0.0", max: "2.0.0")
+    refute empty.overlaps?(normal)
+    refute normal.overlaps?(empty)
+  end
+
+  def test_interval_overlaps_unbounded
+    unbounded = Vers::Interval.unbounded
+    normal = Vers::Interval.new(min: "1.0.0", max: "2.0.0")
+    assert unbounded.overlaps?(normal)
+    assert normal.overlaps?(unbounded)
+  end
+
+  def test_interval_overlaps_touching_exclusive
+    a = Vers::Interval.new(min: "1.0.0", max: "2.0.0", max_inclusive: false)
+    b = Vers::Interval.new(min: "2.0.0", max: "3.0.0", min_inclusive: false)
+    refute a.overlaps?(b)
+  end
+
   def test_interval_adjacent
     interval1 = Vers::Interval.new(min: "1.0.0", max: "2.0.0", max_inclusive: false)
     interval2 = Vers::Interval.new(min: "2.0.0", max: "3.0.0", min_inclusive: true)
@@ -143,6 +163,18 @@ class TestInterval < Minitest::Test
     
     interval3 = Vers::Interval.new(min: "1.0.0", max: "1.0.0", max_inclusive: false)
     assert interval3.empty?
+  end
+
+  def test_interval_empty_consistent_across_calls
+    empty = Vers::Interval.empty
+    assert_equal empty.empty?, empty.empty?
+
+    non_empty = Vers::Interval.new(min: "1.0.0", max: "2.0.0")
+    assert_equal non_empty.empty?, non_empty.empty?
+
+    exact = Vers::Interval.exact("1.0.0")
+    refute exact.empty?
+    refute exact.empty?
   end
 
   def test_interval_unbounded_conditions

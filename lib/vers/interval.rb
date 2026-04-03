@@ -37,9 +37,13 @@ module Vers
     end
 
     def empty?
-      return true if min && max && version_compare(min, max) > 0
-      return true if min && max && version_compare(min, max) == 0 && (!min_inclusive || !max_inclusive)
-      false
+      return @empty if defined?(@empty)
+      @empty = if min && max
+                 cmp = version_compare(min, max)
+                 cmp > 0 || (cmp == 0 && (!min_inclusive || !max_inclusive))
+               else
+                 false
+               end
     end
 
     def unbounded?
@@ -180,7 +184,22 @@ module Vers
 
     def overlaps?(other)
       return false if empty? || other.empty?
-      !intersect(other).empty?
+      return true if unbounded? || other.unbounded?
+
+      # Check if the intervals can't overlap by comparing bounds directly
+      if max && other.min
+        cmp = version_compare(max, other.min)
+        return false if cmp < 0
+        return false if cmp == 0 && (!max_inclusive || !other.min_inclusive)
+      end
+
+      if min && other.max
+        cmp = version_compare(min, other.max)
+        return false if cmp > 0
+        return false if cmp == 0 && (!min_inclusive || !other.max_inclusive)
+      end
+
+      true
     end
 
     def adjacent?(other)

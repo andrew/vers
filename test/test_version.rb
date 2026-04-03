@@ -62,6 +62,11 @@ class TestVersion < Minitest::Test
     assert_equal "1.2.3-alpha", Vers::Version.new("1.2.3-alpha").to_s
   end
 
+  def test_version_to_s_returns_same_object
+    v = Vers::Version.new("1.2.3")
+    assert_same v.to_s, v.to_s
+  end
+
   def test_version_compare_class_method
     assert_equal(-1, Vers::Version.compare("1.2.3", "1.2.4"))
     assert_equal(1, Vers::Version.compare("2.0.0", "1.9.9"))
@@ -102,6 +107,19 @@ class TestVersion < Minitest::Test
 
     assert_equal v1, v2
     refute_equal v1, v3
+  end
+
+  def test_version_equality_different_representations
+    assert_equal Vers::Version.new("1.0"), Vers::Version.new("1.0.0")
+    refute_equal Vers::Version.new("1.0.0"), Vers::Version.new("1.0.1")
+  end
+
+  def test_version_equality_with_non_version
+    v = Vers::Version.new("1.2.3")
+    refute_equal v, "1.2.3"
+    refute_equal v, nil
+    refute_equal v, 0
+    refute_equal v, 123
   end
 
   def test_version_hash

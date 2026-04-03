@@ -9,7 +9,7 @@ module Vers
 
     def initialize(intervals = [], raw_constraints: nil, scheme: nil)
       @scheme = scheme
-      @intervals = intervals.compact.reject(&:empty?)
+      @intervals = intervals.select { |i| i && !i.empty? }
       if @scheme
         @intervals.sort! { |a, b| compare_interval_bounds(a, b) }
       else
