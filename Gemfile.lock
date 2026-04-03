@@ -1,11 +1,12 @@
 PATH
   remote: .
   specs:
-    vers (1.2.0)
+    vers (1.2.1)
 
 GEM
   remote: https://rubygems.org/
   specs:
+    benchmark (0.5.0)
     date (3.5.1)
     drb (2.2.3)
     erb (6.0.2)
@@ -40,12 +41,14 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  benchmark
   irb
   minitest (~> 6.0)
   rake (~> 13.0)
   vers!
 
 CHECKSUMS
+  benchmark (0.5.0) sha256=465df122341aedcb81a2a24b4d3bd19b6c67c1530713fd533f3ff034e419236c
   date (3.5.1) sha256=750d06384d7b9c15d562c76291407d89e368dda4d4fff957eb94962d325a0dc0
   drb (2.2.3) sha256=0b00d6fdb50995fe4a45dea13663493c841112e4068656854646f418fda13373
   erb (6.0.2) sha256=9fe6264d44f79422c87490a1558479bd0e7dad4dd0e317656e67ea3077b5242b
@@ -61,7 +64,7 @@ CHECKSUMS
   reline (0.6.3) sha256=1198b04973565b36ec0f11542ab3f5cfeeec34823f4e54cebde90968092b1835
   stringio (3.2.0) sha256=c37cb2e58b4ffbd33fe5cd948c05934af997b36e0b6ca6fdf43afa234cf222e1
   tsort (0.2.0) sha256=9650a793f6859a43b6641671278f79cfead60ac714148aabe4e3f0060480089f
-  vers (1.2.0)
+  vers (1.2.1)
 
 BUNDLED WITH
   4.0.3

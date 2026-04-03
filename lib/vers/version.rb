@@ -18,7 +18,7 @@ module Vers
   class Version
     # Cache for parsed versions to avoid repeated parsing
     @@version_cache = {}
-    @@cache_size_limit = 1000
+    @@cache_size_limit = 2000
     # Regex for parsing semantic version components including build metadata
     SEMANTIC_VERSION_REGEX = /\A(\d+)(?:\.(\d+))?(?:\.(\d+))?(?:-([^+]+))?(?:\+(.+))?\z/
 
@@ -41,11 +41,12 @@ module Vers
     # @return [Version] Cached or new Version object
     #
     def self.cached_new(version_string)
-      # Limit cache size to prevent memory bloat
       if @@version_cache.size >= @@cache_size_limit
-        @@version_cache.clear
+        # Keep the most recent half instead of clearing everything
+        keys = @@version_cache.keys
+        keys.first(keys.size / 2).each { |k| @@version_cache.delete(k) }
       end
-      
+
       @@version_cache[version_string] ||= new(version_string)
     end
 
@@ -145,15 +146,17 @@ module Vers
     # @return [String] The normalized version string
     #
     def to_s
-      version = "#{major || 0}"
-      version += ".#{minor || 0}"
-      version += ".#{patch || 0}"
-      version += "-#{prerelease}" if prerelease
-      version
+      @to_s ||= begin
+        version = "#{major || 0}"
+        version += ".#{minor || 0}"
+        version += ".#{patch || 0}"
+        version += "-#{prerelease}" if prerelease
+        version.freeze
+      end
     end
 
     def ==(other)
-      other.is_a?(Version) && self <=> other == 0
+      other.is_a?(Version) && (self <=> other) == 0
     end
 
     def <(other)
@@ -320,7 +323,7 @@ module Vers
       @original = @original.sub(/\Av/i, '')
 
       # Handle simple numeric versions (optimized case)
-      if @original.match(/^\d+$/)
+      if @original.match?(/^\d+$/)
         @major = @original.to_i
         return
       end
@@ -382,7 +385,7 @@ module Vers
         return 1 if part_b.nil?
         
         # Try numeric comparison first
-        if part_a.match(/^\d+$/) && part_b.match(/^\d+$/)
+        if part_a.match?(/^\d+$/) && part_b.match?(/^\d+$/)
           numeric_cmp = part_a.to_i <=> part_b.to_i
           return numeric_cmp unless numeric_cmp == 0
         else

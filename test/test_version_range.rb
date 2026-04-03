@@ -132,10 +132,22 @@ class TestVersionRange < Minitest::Test
   def test_version_range_empty_intervals_filtered
     empty_interval = Vers::Interval.empty
     valid_interval = Vers::Interval.new(min: "1.0.0", max: "2.0.0")
-    
+
     range = Vers::VersionRange.new([empty_interval, valid_interval])
     assert_equal 1, range.intervals.length
     assert_equal valid_interval, range.intervals.first
+  end
+
+  def test_version_range_nil_intervals_filtered
+    valid_interval = Vers::Interval.new(min: "1.0.0", max: "2.0.0")
+    range = Vers::VersionRange.new([nil, valid_interval, nil])
+    assert_equal 1, range.intervals.length
+    assert range.contains?("1.5.0")
+  end
+
+  def test_version_range_all_nil_and_empty_intervals
+    range = Vers::VersionRange.new([nil, Vers::Interval.empty, nil])
+    assert range.empty?
   end
 
   def test_version_range_sorting

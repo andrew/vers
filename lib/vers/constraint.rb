@@ -23,7 +23,7 @@ module Vers
     
     # Cache for parsed constraints
     @@constraint_cache = {}
-    @@cache_size_limit = 500
+    @@cache_size_limit = 1000
 
     attr_reader :operator, :version
 
@@ -54,14 +54,13 @@ module Vers
     #   Vers::Constraint.parse("!=2.0.0")  # => #<Vers::Constraint:0x... @operator="!=", @version="2.0.0">
     #
     def self.parse(constraint_string)
-      # Limit cache size to prevent memory bloat
-      if @@constraint_cache.size >= @@cache_size_limit
-        @@constraint_cache.clear
-      end
-      
-      # Return cached constraint if available
       return @@constraint_cache[constraint_string] if @@constraint_cache.key?(constraint_string)
-      
+
+      if @@constraint_cache.size >= @@cache_size_limit
+        keys = @@constraint_cache.keys
+        keys.first(keys.size / 2).each { |k| @@constraint_cache.delete(k) }
+      end
+
       constraint = parse_uncached(constraint_string)
       @@constraint_cache[constraint_string] = constraint
       constraint

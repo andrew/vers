@@ -26,10 +26,11 @@ module Vers
     NPM_HYPHEN_REGEX = /\A(.+?)\s+-\s+(.+)\z/
     NPM_X_RANGE_MAJOR_REGEX = /\A(\d+)\.x\z/
     NPM_X_RANGE_MINOR_REGEX = /\A(\d+)\.(\d+)\.x\z/
+    OPERATOR_PREFIX_REGEX = /\A[><=!]+/
     
     # Cache for parsed ranges to improve performance
     @@parser_cache = {}
-    @@cache_size_limit = 200
+    @@cache_size_limit = 500
 
     ##
     # Parses a vers URI string into a VersionRange
@@ -151,7 +152,7 @@ module Vers
     private
 
     def sort_key_for_constraint(constraint)
-      version = constraint.sub(/\A[><=!]+/, '')
+      version = constraint.sub(OPERATOR_PREFIX_REGEX, '')
       v = Version.cached_new(version)
       [v, constraint]
     end
@@ -231,15 +232,12 @@ module Vers
     end
 
     def parse_npm_single_range(range_string)
-      # Check cache first
       cache_key = "npm:#{range_string}"
-      if @@parser_cache.key?(cache_key)
-        return @@parser_cache[cache_key]
-      end
-      
-      # Limit cache size
+      return @@parser_cache[cache_key] if @@parser_cache.key?(cache_key)
+
       if @@parser_cache.size >= @@cache_size_limit
-        @@parser_cache.clear
+        keys = @@parser_cache.keys
+        keys.first(keys.size / 2).each { |k| @@parser_cache.delete(k) }
       end
       
       result = case range_string
