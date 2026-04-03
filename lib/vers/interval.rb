@@ -12,8 +12,7 @@ module Vers
       @min_inclusive = min_inclusive
       @max_inclusive = max_inclusive
       @scheme = scheme
-
-      validate_bounds!
+      @empty = compute_empty
     end
 
     def self.empty(scheme: nil)
@@ -37,13 +36,7 @@ module Vers
     end
 
     def empty?
-      return @empty if defined?(@empty)
-      @empty = if min && max
-                 cmp = version_compare(min, max)
-                 cmp > 0 || (cmp == 0 && (!min_inclusive || !max_inclusive))
-               else
-                 false
-               end
+      @empty
     end
 
     def unbounded?
@@ -230,14 +223,12 @@ module Vers
 
     private
 
-    def validate_bounds!
-      return unless min && max
-      
-      comparison = version_compare(min, max)
-      if comparison > 0
-        return
-      elsif comparison == 0 && (!min_inclusive || !max_inclusive)
-        return
+    def compute_empty
+      if min && max
+        cmp = version_compare(min, max)
+        cmp > 0 || (cmp == 0 && (!min_inclusive || !max_inclusive))
+      else
+        false
       end
     end
 
