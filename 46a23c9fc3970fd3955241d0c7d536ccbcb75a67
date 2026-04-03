@@ -1,0 +1,39 @@
+Gemfile
+  2106f9aa361bc7d0 12
+lib/vers/interval.rb
+  2106f9aa361bc7d0 40-46,187-202
+test/test_interval.rb
+  2106f9aa361bc7d0 111-130,168-179
+lib/vers/constraint.rb
+  2106f9aa361bc7d0 26,57-58,60-61,63
+test/test_version.rb
+  2106f9aa361bc7d0 65-69,112-124
+lib/vers/parser.rb
+  2106f9aa361bc7d0 29,33,155,236-237,239-240
+test/test_version_range.rb
+  2106f9aa361bc7d0 135,141-150
+lib/vers/version_range.rb
+  2106f9aa361bc7d0 12
+lib/vers/version.rb
+  2106f9aa361bc7d0 21,45-47,49,149-155,159,326,388
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "46a23c9fc3970fd3955241d0c7d536ccbcb75a67",
+  "prompts": {
+    "2106f9aa361bc7d0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6c4f7570-5737-4687-a538-e7921a4cce3b",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Andrew Nesbitt",
+      "messages": [],
+      "total_additions": 116,
+      "total_deletions": 34,
+      "accepted_lines": 116,
+      "overriden_lines": 0
+    }
+  }
+}
