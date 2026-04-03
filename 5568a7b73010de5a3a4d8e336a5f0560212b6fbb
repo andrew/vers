@@ -1,0 +1,23 @@
+Rakefile
+  9059de13114a78d4 190,192-193,195,197,199,201-203,209-210,212-221,223-225,227-245,247-270,272-277,279-282,284-286,288-301,303,305
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "5568a7b73010de5a3a4d8e336a5f0560212b6fbb",
+  "prompts": {
+    "9059de13114a78d4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5645c8e9-0dc6-46f3-977c-af9c29fc7b66",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Andrew Nesbitt",
+      "messages": [],
+      "total_additions": 100,
+      "total_deletions": 52,
+      "accepted_lines": 97,
+      "overriden_lines": 0
+    }
+  }
+}
