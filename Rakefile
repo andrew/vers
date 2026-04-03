@@ -187,74 +187,122 @@ namespace :benchmark do
   task :memory do
     require "benchmark"
     require "json"
+    require "objspace"
     require_relative "lib/vers"
-    
-    puts "💾 VERS Memory Usage Benchmarks"
+
+    puts "VERS Memory & Allocation Benchmarks"
     puts "=" * 50
-    
-    # Load sample ranges
+
     test_data_file = File.join(__dir__, "test-suite-data.json")
-    
+
     unless File.exist?(test_data_file)
-      puts "❌ test-suite-data.json not found. Using fallback examples."
+      puts "test-suite-data.json not found. Using fallback examples."
       sample_ranges = [
-        { input: "^1.2.3", scheme: "npm" },
-        { input: "~> 1.2", scheme: "gem" },
-        { input: ">=1.0,<2.0", scheme: "pypi" }
+        { "input" => "^1.2.3", "scheme" => "npm" },
+        { "input" => "~> 1.2", "scheme" => "gem" },
+        { "input" => ">=1.0,<2.0", "scheme" => "pypi" }
       ]
     else
       test_data = JSON.parse(File.read(test_data_file))
       sample_ranges = test_data.select { |data| !data["is_invalid"] }.first(100)
     end
-    
-    puts "📊 Testing with #{sample_ranges.length} version ranges"
+
+    puts "Sample size: #{sample_ranges.length} version ranges"
     puts
-    
-    # Parse all ranges and store objects
-    puts "🔍 Parsing and storing #{sample_ranges.length} VersionRange objects..."
+
+    # Measure object allocations during cold parsing (no cache)
+    Vers::Version.class_variable_set(:@@version_cache, {})
+    Vers::Constraint.class_variable_set(:@@constraint_cache, {})
+    Vers::Parser.class_variable_set(:@@parser_cache, {})
+
+    GC.start
+    GC.disable
+    before = ObjectSpace.count_objects.dup
+
     version_ranges = []
-    
-    parsing_time = Benchmark.realtime do
-      sample_ranges.each do |range|
-        begin
-          parsed = Vers.parse_native(range['input'], range['scheme'])
-          version_ranges << parsed
-        rescue
-          # Skip invalid ranges
-        end
-      end
+    sample_ranges.each do |range|
+      parsed = Vers.parse_native(range['input'], range['scheme']) rescue nil
+      version_ranges << parsed if parsed
     end
-    
-    puts "   Parsing completed in #{(parsing_time * 1000).round(2)}ms"
-    puts "   Successfully parsed #{version_ranges.length} ranges"
+
+    after = ObjectSpace.count_objects
+    GC.enable
+
+    string_alloc = after[:T_STRING] - before[:T_STRING]
+    array_alloc = after[:T_ARRAY] - before[:T_ARRAY]
+    hash_alloc = after[:T_HASH] - before[:T_HASH]
+    object_alloc = after[:T_OBJECT] - before[:T_OBJECT]
+    match_alloc = (after[:T_MATCH] || 0) - (before[:T_MATCH] || 0)
+    total_alloc = string_alloc + array_alloc + hash_alloc + object_alloc + match_alloc
+
+    puts "Cold parse allocations (#{version_ranges.length} ranges, no cache):"
+    puts "   Total objects:  #{total_alloc}"
+    puts "   Strings:        #{string_alloc}"
+    puts "   Arrays:         #{array_alloc}"
+    puts "   Hashes:         #{hash_alloc}"
+    puts "   Objects:        #{object_alloc}"
+    puts "   MatchData:      #{match_alloc}"
+    puts "   Per range:      #{(total_alloc.to_f / version_ranges.length).round(1)}"
     puts
-    
-    # Estimate memory usage
-    estimated_memory = version_ranges.length * 300  # ~300 bytes per VersionRange object estimate
-    puts "💾 Memory Usage Estimation:"
-    puts "   #{version_ranges.length} VersionRange objects: ~#{estimated_memory} bytes"
-    puts "   Average per object: ~300 bytes"
+
+    # Measure cached parse allocations (everything already cached)
+    GC.start
+    GC.disable
+    before = ObjectSpace.count_objects.dup
+
+    sample_ranges.each do |range|
+      Vers.parse_native(range['input'], range['scheme']) rescue nil
+    end
+
+    after = ObjectSpace.count_objects
+    GC.enable
+
+    cached_strings = after[:T_STRING] - before[:T_STRING]
+    cached_arrays = after[:T_ARRAY] - before[:T_ARRAY]
+    cached_objects = after[:T_OBJECT] - before[:T_OBJECT]
+    cached_match = (after[:T_MATCH] || 0) - (before[:T_MATCH] || 0)
+    cached_alloc = cached_strings + cached_arrays + cached_objects + cached_match
+
+    puts "Cached parse allocations (#{version_ranges.length} ranges, warm cache):"
+    puts "   Total objects:  #{cached_alloc}"
+    puts "   Strings:        #{cached_strings}"
+    puts "   MatchData:      #{cached_match}"
+    puts "   Per range:      #{(cached_alloc.to_f / version_ranges.length).round(1)}"
     puts
-    
-    # Test repeated operations
-    puts "🔄 Repeated Operations Test:"
-    
+
+    # Measure memory size of retained objects
+    total_memsize = version_ranges.sum { |r| ObjectSpace.memsize_of(r) }
+    puts "Retained memory:"
+    puts "   #{version_ranges.length} VersionRange objects: #{total_memsize} bytes"
+    puts "   Average per object: #{(total_memsize.to_f / version_ranges.length).round(0)} bytes"
+    puts
+
+    # Repeated operation allocations
+    puts "Repeated operation allocations (#{version_ranges.length} calls each):"
+
     operations = {
-      "to_s conversion" => proc { version_ranges.each(&:to_s) },
-      "contains? check" => proc { version_ranges.each { |r| r.contains?("1.5.0") } },
-      "empty? check" => proc { version_ranges.each(&:empty?) },
-      "unbounded? check" => proc { version_ranges.each(&:unbounded?) }
+      "to_s" => proc { version_ranges.each(&:to_s) },
+      "contains?" => proc { version_ranges.each { |r| r.contains?("1.5.0") } },
+      "empty?" => proc { version_ranges.each(&:empty?) },
     }
-    
-    operations.each do |op_name, op_proc|
-      time = Benchmark.realtime { op_proc.call }
-      ops_per_second = version_ranges.length / time
-      
-      puts "   #{op_name.ljust(20)}: #{(time * 1000).round(2)}ms (#{ops_per_second.round(0)} ops/sec)"
+
+    operations.each do |name, op|
+      # Warm up
+      op.call
+
+      GC.start
+      GC.disable
+      before = ObjectSpace.count_objects.dup
+      op.call
+      after = ObjectSpace.count_objects
+      GC.enable
+
+      allocs = [:T_STRING, :T_ARRAY, :T_OBJECT, :T_MATCH, :T_HASH].sum { |k| (after[k] || 0) - (before[k] || 0) }
+      puts "   #{name.ljust(15)}: #{allocs} allocations"
     end
-    
+
     puts
-    puts "✅ Memory benchmark completed!"
+    puts "Memory benchmark completed!"
   end
   
   desc "Run complexity stress tests"
