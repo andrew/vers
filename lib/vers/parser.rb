@@ -32,6 +32,19 @@ module Vers
     @@parser_cache = {}
     @@cache_size_limit = 500
 
+    # Maximum accepted length for a range string at parse/parse_native
+    # entry points. Range strings concatenate multiple constraints so this
+    # is set higher than Version::MAX_LENGTH while still bounding
+    # split/regex work to a few KB.
+    MAX_INPUT_LENGTH = 2048
+
+    # Maximum number of |-separated or ||-separated constraints in a
+    # single range. The exclusion loop in parse_constraints does
+    # O(n^2 log n) work as each != splits an interval and reconstructs the
+    # range; capping n keeps the worst case under a few thousand interval
+    # operations.
+    MAX_CONSTRAINTS = 64
+
     ##
     # Parses a vers URI string into a VersionRange
     #
@@ -47,6 +60,8 @@ module Vers
     #   parser.parse("vers:pypi/==1.2.3")
     #
     def parse(vers_string)
+      validate_input_length!(vers_string)
+
       if vers_string == "*"
         return VersionRange.unbounded
       end
@@ -75,6 +90,8 @@ module Vers
     #   parser.parse_native(">=1.0,<2.0", "pypi")
     #
     def parse_native(range_string, scheme)
+      validate_input_length!(range_string)
+
       case scheme
       when "npm"
         parse_npm_range(range_string)
@@ -151,6 +168,12 @@ module Vers
 
     private
 
+    def validate_input_length!(input)
+      return if input.nil?
+      return if input.length <= MAX_INPUT_LENGTH
+      raise ArgumentError, "Range string too long (#{input.length} > #{MAX_INPUT_LENGTH})"
+    end
+
     def sort_key_for_constraint(constraint)
       version = constraint.sub(OPERATOR_PREFIX_REGEX, '')
       v = Version.cached_new(version)
@@ -158,7 +181,12 @@ module Vers
     end
 
     def parse_constraints(constraints_string, scheme)
-      constraint_strings = constraints_string.split(/[|,]/)
+      # Limit constraint count to bound the O(n^2 log n) exclusion loop
+      # below: each != splits an interval and reconstructs the range.
+      constraint_strings = constraints_string.split(/[|,]/, MAX_CONSTRAINTS + 1)
+      if constraint_strings.length > MAX_CONSTRAINTS
+        raise ArgumentError, "Too many constraints (> #{MAX_CONSTRAINTS})"
+      end
       intervals = []
       exclusions = []
       interval_scheme = %w[maven nuget].include?(scheme) ? scheme : nil
@@ -200,7 +228,10 @@ module Vers
       
       # Handle || (OR) operator
       if range_string.include?('||')
-        or_parts = range_string.split('||').map(&:strip)
+        or_parts = range_string.split('||', MAX_CONSTRAINTS + 1).map(&:strip)
+        if or_parts.length > MAX_CONSTRAINTS
+          raise ArgumentError, "Too many || clauses (> #{MAX_CONSTRAINTS})"
+        end
         ranges = or_parts.map { |part| parse_npm_range(part) }
         return ranges.reduce { |acc, range| acc.union(range) }
       end
@@ -498,7 +529,7 @@ module Vers
               begin
                 parsed_range = parse_maven_range(range_part)
                 ranges << parsed_range
-              rescue
+              rescue ArgumentError
                 # If parsing fails, skip this part
               end
             end
