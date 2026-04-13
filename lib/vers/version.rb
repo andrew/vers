@@ -22,15 +22,24 @@ module Vers
     # Regex for parsing semantic version components including build metadata
     SEMANTIC_VERSION_REGEX = /\A(\d+)(?:\.(\d+))?(?:\.(\d+))?(?:-([^+]+))?(?:\+(.+))?\z/
 
+    # Maximum accepted length for a version string. Real-world version
+    # strings rarely exceed 100 characters; 256 leaves headroom for unusual
+    # prerelease tags while bounding regex/split work and cache key size.
+    MAX_LENGTH = 256
+
     attr_reader :major, :minor, :patch, :prerelease, :build
 
     ##
     # Creates a new Version object
     #
     # @param version_string [String] The version string to parse
+    # @raise [ArgumentError] if the version string exceeds MAX_LENGTH
     #
     def initialize(version_string)
       @original = version_string.to_s
+      if @original.length > MAX_LENGTH
+        raise ArgumentError, "Version string too long (#{@original.length} > #{MAX_LENGTH})"
+      end
       parse_version
     end
 
@@ -41,6 +50,10 @@ module Vers
     # @return [Version] Cached or new Version object
     #
     def self.cached_new(version_string)
+      # Skip caching for oversized keys to bound cache memory by entry
+      # count, not by attacker-controlled key length.
+      return new(version_string) if version_string.to_s.length > MAX_LENGTH
+
       if @@version_cache.size >= @@cache_size_limit
         # Keep the most recent half instead of clearing everything
         keys = @@version_cache.keys

@@ -54,6 +54,12 @@ module Vers
     #   Vers::Constraint.parse("!=2.0.0")  # => #<Vers::Constraint:0x... @operator="!=", @version="2.0.0">
     #
     def self.parse(constraint_string)
+      # Bound input length before cache lookup so oversized strings never
+      # become cache keys and never trigger eviction.
+      if constraint_string.length > Version::MAX_LENGTH
+        raise ArgumentError, "Constraint string too long (#{constraint_string.length} > #{Version::MAX_LENGTH})"
+      end
+
       return @@constraint_cache[constraint_string] if @@constraint_cache.key?(constraint_string)
 
       if @@constraint_cache.size >= @@cache_size_limit
