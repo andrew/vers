@@ -3,6 +3,7 @@
 require_relative "vers/version"
 require_relative "vers/maven_version"
 require_relative "vers/nuget_version"
+require_relative "vers/bazel_version"
 require_relative "vers/interval"
 require_relative "vers/version_range"
 require_relative "vers/constraint"
@@ -152,7 +153,7 @@ module Vers
   #
   # @param a [String] First version string
   # @param b [String] Second version string
-  # @param scheme [String, nil] Package manager scheme (maven, nuget, or nil for generic)
+  # @param scheme [String, nil] Package manager scheme (bazel, maven, nuget, or nil for generic)
   # @return [Integer] -1 if a < b, 0 if a == b, 1 if a > b
   #
   def self.compare_with_scheme(a, b, scheme)
@@ -173,10 +174,33 @@ module Vers
   # Checks if a version string is valid
   #
   # @param version_string [String] The version string to validate
+  # @param scheme [String, nil] Package manager scheme or nil for generic validation
   # @return [Boolean] true if the version is valid
   #
-  def self.valid?(version_string)
-    Version.valid?(version_string)
+  def self.valid?(version_string, scheme = nil)
+    Version.valid?(version_string, scheme)
+  end
+
+  ##
+  # Checks if a version is stable using scheme-specific rules
+  #
+  # @param version_string [String] The version string to classify
+  # @param scheme [String, nil] Package manager scheme or nil for generic classification
+  # @return [Boolean] true if the version is stable
+  #
+  def self.stable?(version_string, scheme = nil)
+    Version.stable?(version_string, scheme)
+  end
+
+  ##
+  # Checks if a version is a prerelease using scheme-specific rules
+  #
+  # @param version_string [String] The version string to classify
+  # @param scheme [String, nil] Package manager scheme or nil for generic classification
+  # @return [Boolean] true if the version is a prerelease
+  #
+  def self.prerelease?(version_string, scheme = nil)
+    Version.prerelease?(version_string, scheme)
   end
 
   def self.clean(version_string)

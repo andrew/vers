@@ -61,6 +61,12 @@ Vers.satisfies?("1.5.0", ">=1.0.0,<2.0.0")  # => true
 # Compare versions
 Vers.compare("1.2.3", "1.2.4")  # => -1
 
+# Use Bazel's module version rules
+Vers.compare_with_scheme("0.7.1", "0.7.1.bcr.1", "bazel")  # => -1
+Vers.valid?("35.1", "bazel")                                # => true
+Vers.stable?("0.7.1.bcr.1", "bazel")                        # => true
+Vers.prerelease?("36.0-rc2", "bazel")                       # => true
+
 # Version operations
 version = Vers::Version.new("1.2.3")
 version.increment_major  # => #<Vers::Version "2.0.0">
@@ -77,8 +83,10 @@ version.satisfies?("~> 1.2")  # => true
 - **Packagist** (PHP Composer): Caret ranges (^1.2.3), tilde ranges (~1.2), stability flags (@dev, @alpha)
 - **Debian** (apt): Standard comparison operators (>=1.0.0, <<2.0.0)
 - **RPM** (yum/dnf): Standard comparison operators (>=1.0.0, <=2.0.0)
+- **Bazel**: Standard comparison operators with Bazel module version comparison, validation, and prerelease classification
 
 Many other package managers are also supported using standard comparison operators (>=, <=, <, >, =, !=), including Cargo (Rust), Go modules, and more.
+Bazel support is an implementation-defined scheme in this library and is separate from the VERS specification conformance suite.
 
 ## Mathematical Model
 
