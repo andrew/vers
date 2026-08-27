@@ -189,7 +189,7 @@ module Vers
       end
       intervals = []
       exclusions = []
-      interval_scheme = %w[maven nuget].include?(scheme) ? scheme : nil
+      interval_scheme = %w[bazel maven nuget].include?(scheme) ? scheme : nil
 
       constraint_strings.each do |constraint_string|
         constraint = Constraint.parse(constraint_string.strip)
@@ -206,7 +206,7 @@ module Vers
       range = if intervals.any?
                 VersionRange.new(intervals, scheme: interval_scheme)
               elsif exclusions.any?
-                VersionRange.unbounded
+                VersionRange.unbounded(scheme: interval_scheme)
               else
                 VersionRange.new([], scheme: interval_scheme)
               end

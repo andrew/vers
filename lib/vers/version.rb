@@ -87,11 +87,13 @@ module Vers
     #
     # @param a [String] First version string
     # @param b [String] Second version string
-    # @param scheme [String, nil] Package manager scheme (maven, nuget, or nil for generic)
+    # @param scheme [String, nil] Package manager scheme (bazel, maven, nuget, or nil for generic)
     # @return [Integer] -1 if a < b, 0 if a == b, 1 if a > b
     #
     def self.compare_with_scheme(a, b, scheme)
       case scheme
+      when "bazel"
+        BazelVersion.compare(a, b)
       when "maven"
         MavenVersion.compare(a, b)
       when "nuget"
@@ -115,10 +117,25 @@ module Vers
     # Checks if a version string is valid
     #
     # @param version_string [String] The version string to validate
+    # @param scheme [String, nil] Package manager scheme or nil for generic validation
     # @return [Boolean] true if the version is valid
     #
-    def self.valid?(version_string)
+    def self.valid?(version_string, scheme = nil)
+      return BazelVersion.valid?(version_string) if scheme == "bazel"
+
       version_string.to_s.match?(/\Av?\d+\.\d+\.\d+/)
+    end
+
+    def self.stable?(version_string, scheme = nil)
+      return BazelVersion.stable?(version_string) if scheme == "bazel"
+
+      cached_new(version_string).stable?
+    end
+
+    def self.prerelease?(version_string, scheme = nil)
+      return BazelVersion.prerelease?(version_string) if scheme == "bazel"
+
+      cached_new(version_string).prerelease?
     end
 
     def self.clean(version_string)
