@@ -130,12 +130,16 @@ module Vers
       return BazelVersion.stable?(version_string) if scheme == "bazel"
 
       cached_new(version_string).stable?
+    rescue ArgumentError
+      false
     end
 
     def self.prerelease?(version_string, scheme = nil)
       return BazelVersion.prerelease?(version_string) if scheme == "bazel"
 
       cached_new(version_string).prerelease?
+    rescue ArgumentError
+      false
     end
 
     def self.clean(version_string)

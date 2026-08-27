@@ -69,6 +69,19 @@ class TestBazelVersion < Minitest::Test
     assert Vers.prerelease?("1.2.3-alpha")
   end
 
+  def test_no_scheme_classification_rejects_unparseable_versions
+    refute Vers.stable?("latest")
+    refute Vers.prerelease?("latest")
+  end
+
+  def test_bazel_parse_errors_inspect_invalid_input
+    error = assert_raises(ArgumentError) do
+      Vers.compare_with_scheme("1.0", "1.0\n", "bazel")
+    end
+
+    assert_equal 'Invalid Bazel version: "1.0\\n"', error.message
+  end
+
   def test_parsed_bazel_range_uses_bazel_comparison
     range = Vers.parse("vers:bazel/>0.7.1")
 

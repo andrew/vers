@@ -55,7 +55,7 @@ module Vers
       end
 
       match = VERSION_REGEX.match(version)
-      raise ArgumentError, "Invalid Bazel version: #{version}" unless match
+      raise ArgumentError, "Invalid Bazel version: #{version.inspect}" unless match
 
       ParsedVersion.new(
         release: parse_identifiers(match[:release], version),
