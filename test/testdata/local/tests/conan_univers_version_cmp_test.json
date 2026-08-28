@@ -1,0 +1,1128 @@
+{
+  "$schema": "https://packageurl.org/schemas/vers-test.schema-0.2.json",
+  "tests": [
+    {
+      "description": "univers Conan orders \"1\" before \"2\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "2",
+          "1"
+        ]
+      },
+      "expected_output": [
+        "1",
+        "2"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1\" and \"2\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1",
+          "2"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.0\" before \"1.1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1",
+          "1.0"
+        ]
+      },
+      "expected_output": [
+        "1.0",
+        "1.1"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.0\" and \"1.1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.0",
+          "1.1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.0.2\" before \"1.1.0\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1.0",
+          "1.0.2"
+        ]
+      },
+      "expected_output": [
+        "1.0.2",
+        "1.1.0"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.0.2\" and \"1.1.0\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.0.2",
+          "1.1.0"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.3\" before \"1.22\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.22",
+          "1.3"
+        ]
+      },
+      "expected_output": [
+        "1.3",
+        "1.22"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.3\" and \"1.22\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.3",
+          "1.22"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.1.3\" before \"1.1.22\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1.22",
+          "1.1.3"
+        ]
+      },
+      "expected_output": [
+        "1.1.3",
+        "1.1.22"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.1.3\" and \"1.1.22\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1.3",
+          "1.1.22"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.1.1.3\" before \"1.1.1.22\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1.1.22",
+          "1.1.1.3"
+        ]
+      },
+      "expected_output": [
+        "1.1.1.3",
+        "1.1.1.22"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.1.1.3\" and \"1.1.1.22\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1.1.3",
+          "1.1.1.22"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.1.1.1.3\" before \"1.1.1.1.22\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1.1.1.22",
+          "1.1.1.1.3"
+        ]
+      },
+      "expected_output": [
+        "1.1.1.1.3",
+        "1.1.1.1.22"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.1.1.1.3\" and \"1.1.1.1.22\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1.1.1.3",
+          "1.1.1.1.22"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.0\" before \"2\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "2",
+          "1.0"
+        ]
+      },
+      "expected_output": [
+        "1.0",
+        "2"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.0\" and \"2\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.0",
+          "2"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.2\" before \"1.3.1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.3.1",
+          "1.2"
+        ]
+      },
+      "expected_output": [
+        "1.2",
+        "1.3.1"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.2\" and \"1.3.1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.2",
+          "1.3.1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.0.2\" before \"1.1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1",
+          "1.0.2"
+        ]
+      },
+      "expected_output": [
+        "1.0.2",
+        "1.1"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.0.2\" and \"1.1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.0.2",
+          "1.1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.1.a\" before \"1.1.b\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1.b",
+          "1.1.a"
+        ]
+      },
+      "expected_output": [
+        "1.1.a",
+        "1.1.b"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.1.a\" and \"1.1.b\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1.a",
+          "1.1.b"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.1.1.abc\" before \"1.1.1.abz\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1.1.abz",
+          "1.1.1.abc"
+        ]
+      },
+      "expected_output": [
+        "1.1.1.abc",
+        "1.1.1.abz"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.1.1.abc\" and \"1.1.1.abz\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1.1.abc",
+          "1.1.1.abz"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"a.b.c\" before \"b.c\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "b.c",
+          "a.b.c"
+        ]
+      },
+      "expected_output": [
+        "a.b.c",
+        "b.c"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"a.b.c\" and \"b.c\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "a.b.c",
+          "b.c"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.1\" before \"1.a\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.a",
+          "1.1"
+        ]
+      },
+      "expected_output": [
+        "1.1",
+        "1.a"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.1\" and \"1.a\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1",
+          "1.a"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.1\" before \"1.1a\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1a",
+          "1.1"
+        ]
+      },
+      "expected_output": [
+        "1.1",
+        "1.1a"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.1\" and \"1.1a\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1",
+          "1.1a"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.1\" before \"1.1.a\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1.a",
+          "1.1"
+        ]
+      },
+      "expected_output": [
+        "1.1",
+        "1.1.a"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.1\" and \"1.1.a\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1",
+          "1.1.a"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.1.a\" before \"1.2\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.2",
+          "1.1.a"
+        ]
+      },
+      "expected_output": [
+        "1.1.a",
+        "1.2"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.1.a\" and \"1.2\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1.a",
+          "1.2"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.1*\" before \"1.20\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.20",
+          "1.1*"
+        ]
+      },
+      "expected_output": [
+        "1.1*",
+        "1.20"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.1*\" and \"1.20\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1*",
+          "1.20"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.1.*\" before \"1.20\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.20",
+          "1.1.*"
+        ]
+      },
+      "expected_output": [
+        "1.1.*",
+        "1.20"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.1.*\" and \"1.20\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1.*",
+          "1.20"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.2.2\" before \"1.3.*\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.3.*",
+          "1.2.2"
+        ]
+      },
+      "expected_output": [
+        "1.2.2",
+        "1.3.*"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.2.2\" and \"1.3.*\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.2.2",
+          "1.3.*"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.2.2\" before \"1.2.3*\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.2.3*",
+          "1.2.2"
+        ]
+      },
+      "expected_output": [
+        "1.2.2",
+        "1.2.3*"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.2.2\" and \"1.2.3*\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.2.2",
+          "1.2.3*"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.1+b1\" before \"1.1+b2\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1+b2",
+          "1.1+b1"
+        ]
+      },
+      "expected_output": [
+        "1.1+b1",
+        "1.1+b2"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.1+b1\" and \"1.1+b2\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1+b1",
+          "1.1+b2"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.1\" before \"1.1+b2\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1+b2",
+          "1.1"
+        ]
+      },
+      "expected_output": [
+        "1.1",
+        "1.1+b2"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.1\" and \"1.1+b2\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1",
+          "1.1+b2"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.1+b1\" before \"1.2\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.2",
+          "1.1+b1"
+        ]
+      },
+      "expected_output": [
+        "1.1+b1",
+        "1.2"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.1+b1\" and \"1.2\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1+b1",
+          "1.2"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.1+b.3\" before \"1.1+b.22\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1+b.22",
+          "1.1+b.3"
+        ]
+      },
+      "expected_output": [
+        "1.1+b.3",
+        "1.1+b.22"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.1+b.3\" and \"1.1+b.22\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1+b.3",
+          "1.1+b.22"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.1-pre1\" before \"1.1-pre2\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1-pre2",
+          "1.1-pre1"
+        ]
+      },
+      "expected_output": [
+        "1.1-pre1",
+        "1.1-pre2"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.1-pre1\" and \"1.1-pre2\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1-pre1",
+          "1.1-pre2"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.1-alpha.3\" before \"1.1-alpha.22\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1-alpha.22",
+          "1.1-alpha.3"
+        ]
+      },
+      "expected_output": [
+        "1.1-alpha.3",
+        "1.1-alpha.22"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.1-alpha.3\" and \"1.1-alpha.22\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1-alpha.3",
+          "1.1-alpha.22"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.1-alpha.3+b1\" before \"1.1-alpha.3+b2\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1-alpha.3+b2",
+          "1.1-alpha.3+b1"
+        ]
+      },
+      "expected_output": [
+        "1.1-alpha.3+b1",
+        "1.1-alpha.3+b2"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.1-alpha.3+b1\" and \"1.1-alpha.3+b2\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1-alpha.3+b1",
+          "1.1-alpha.3+b2"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.1-alpha.1\" before \"1.1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1",
+          "1.1-alpha.1"
+        ]
+      },
+      "expected_output": [
+        "1.1-alpha.1",
+        "1.1"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.1-alpha.1\" and \"1.1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1-alpha.1",
+          "1.1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.1\" before \"1.2-alpha1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.2-alpha1",
+          "1.1"
+        ]
+      },
+      "expected_output": [
+        "1.1",
+        "1.2-alpha1"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.1\" and \"1.2-alpha1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1",
+          "1.2-alpha1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.1-alpha.1\" before \"1.1.0\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1.0",
+          "1.1-alpha.1"
+        ]
+      },
+      "expected_output": [
+        "1.1-alpha.1",
+        "1.1.0"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.1-alpha.1\" and \"1.1.0\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.1-alpha.1",
+          "1.1.0"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan orders \"1.0.0-\" before \"1.0.0-alpha1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.0.0-alpha1",
+          "1.0.0-"
+        ]
+      },
+      "expected_output": [
+        "1.0.0-",
+        "1.0.0-alpha1"
+      ]
+    },
+    {
+      "description": "univers Conan treats \"1.0.0-\" and \"1.0.0-alpha1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.0.0-",
+          "1.0.0-alpha1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Conan treats \"1\" and \"1.0\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1",
+          "1.0"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "univers Conan treats \"1\" and \"1.0.0\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1",
+          "1.0.0"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "univers Conan treats \"1.0\" and \"1.0.0\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.0",
+          "1.0.0"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "univers Conan treats \"1.0\" and \"1.0.0.0\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.0",
+          "1.0.0.0"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "univers Conan treats \"1-pre1\" and \"1.0-pre1\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1-pre1",
+          "1.0-pre1"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "univers Conan treats \"1-pre1\" and \"1.0.0-pre1\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1-pre1",
+          "1.0.0-pre1"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "univers Conan treats \"1.0-pre1\" and \"1.0.0-pre1\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.0-pre1",
+          "1.0.0-pre1"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "univers Conan treats \"1.0-pre1.0\" and \"1.0.0-pre1\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.0-pre1.0",
+          "1.0.0-pre1"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "univers Conan treats \"1-pre1+b1\" and \"1.0-pre1+b1\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1-pre1+b1",
+          "1.0-pre1+b1"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "univers Conan treats \"1-pre1+b1\" and \"1.0.0-pre1+b1\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1-pre1+b1",
+          "1.0.0-pre1+b1"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "univers Conan treats \"1.0-pre1+b1\" and \"1.0.0-pre1+b1\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.0-pre1+b1",
+          "1.0.0-pre1+b1"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "univers Conan treats \"1+b1\" and \"1.0+b1\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1+b1",
+          "1.0+b1"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "univers Conan treats \"1+b1\" and \"1.0+b1.0\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1+b1",
+          "1.0+b1.0"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "univers Conan treats \"1+b1\" and \"1.0.0+b1\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1+b1",
+          "1.0.0+b1"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "univers Conan treats \"1.0+b1\" and \"1.0.0+b1\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "conan",
+        "versions": [
+          "1.0+b1",
+          "1.0.0+b1"
+        ]
+      },
+      "expected_output": true
+    }
+  ]
+}

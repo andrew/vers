@@ -1,0 +1,680 @@
+{
+  "$schema": "https://packageurl.org/schemas/vers-test.schema-0.2.json",
+  "tests": [
+    {
+      "description": "golang.org/x/mod/semver treats \"bad\" and \"v1-alpha.beta.gamma\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "bad",
+          "v1-alpha.beta.gamma"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1-alpha.beta.gamma\" and \"v1-pre\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1-alpha.beta.gamma",
+          "v1-pre"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1-pre\" and \"v1+meta\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1-pre",
+          "v1+meta"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1+meta\" and \"v1-pre+meta\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1+meta",
+          "v1-pre+meta"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1-pre+meta\" and \"v1.2-pre\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1-pre+meta",
+          "v1.2-pre"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1.2-pre\" and \"v1.2+meta\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.2-pre",
+          "v1.2+meta"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1.2+meta\" and \"v1.2-pre+meta\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.2+meta",
+          "v1.2-pre+meta"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "golang.org/x/mod/semver orders \"v1.2-pre+meta\" before \"v1.0.0-alpha\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.0.0-alpha",
+          "v1.2-pre+meta"
+        ]
+      },
+      "expected_output": [
+        "v1.2-pre+meta",
+        "v1.0.0-alpha"
+      ]
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1.2-pre+meta\" and \"v1.0.0-alpha\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.2-pre+meta",
+          "v1.0.0-alpha"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "golang.org/x/mod/semver orders \"v1.0.0-alpha\" before \"v1.0.0-alpha.1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.0.0-alpha.1",
+          "v1.0.0-alpha"
+        ]
+      },
+      "expected_output": [
+        "v1.0.0-alpha",
+        "v1.0.0-alpha.1"
+      ]
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1.0.0-alpha\" and \"v1.0.0-alpha.1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.0.0-alpha",
+          "v1.0.0-alpha.1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "golang.org/x/mod/semver orders \"v1.0.0-alpha.1\" before \"v1.0.0-alpha.beta\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.0.0-alpha.beta",
+          "v1.0.0-alpha.1"
+        ]
+      },
+      "expected_output": [
+        "v1.0.0-alpha.1",
+        "v1.0.0-alpha.beta"
+      ]
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1.0.0-alpha.1\" and \"v1.0.0-alpha.beta\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.0.0-alpha.1",
+          "v1.0.0-alpha.beta"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "golang.org/x/mod/semver orders \"v1.0.0-alpha.beta\" before \"v1.0.0-beta\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.0.0-beta",
+          "v1.0.0-alpha.beta"
+        ]
+      },
+      "expected_output": [
+        "v1.0.0-alpha.beta",
+        "v1.0.0-beta"
+      ]
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1.0.0-alpha.beta\" and \"v1.0.0-beta\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.0.0-alpha.beta",
+          "v1.0.0-beta"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "golang.org/x/mod/semver orders \"v1.0.0-beta\" before \"v1.0.0-beta.2\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.0.0-beta.2",
+          "v1.0.0-beta"
+        ]
+      },
+      "expected_output": [
+        "v1.0.0-beta",
+        "v1.0.0-beta.2"
+      ]
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1.0.0-beta\" and \"v1.0.0-beta.2\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.0.0-beta",
+          "v1.0.0-beta.2"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "golang.org/x/mod/semver orders \"v1.0.0-beta.2\" before \"v1.0.0-beta.11\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.0.0-beta.11",
+          "v1.0.0-beta.2"
+        ]
+      },
+      "expected_output": [
+        "v1.0.0-beta.2",
+        "v1.0.0-beta.11"
+      ]
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1.0.0-beta.2\" and \"v1.0.0-beta.11\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.0.0-beta.2",
+          "v1.0.0-beta.11"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "golang.org/x/mod/semver orders \"v1.0.0-beta.11\" before \"v1.0.0-rc.1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.0.0-rc.1",
+          "v1.0.0-beta.11"
+        ]
+      },
+      "expected_output": [
+        "v1.0.0-beta.11",
+        "v1.0.0-rc.1"
+      ]
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1.0.0-beta.11\" and \"v1.0.0-rc.1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.0.0-beta.11",
+          "v1.0.0-rc.1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "golang.org/x/mod/semver orders \"v1.0.0-rc.1\" before \"v1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1",
+          "v1.0.0-rc.1"
+        ]
+      },
+      "expected_output": [
+        "v1.0.0-rc.1",
+        "v1"
+      ]
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1.0.0-rc.1\" and \"v1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.0.0-rc.1",
+          "v1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1\" and \"v1.0\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1",
+          "v1.0"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1.0\" and \"v1.0.0\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.0",
+          "v1.0.0"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "golang.org/x/mod/semver orders \"v1.0.0\" before \"v1.2\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.2",
+          "v1.0.0"
+        ]
+      },
+      "expected_output": [
+        "v1.0.0",
+        "v1.2"
+      ]
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1.0.0\" and \"v1.2\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.0.0",
+          "v1.2"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1.2\" and \"v1.2.0\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.2",
+          "v1.2.0"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "golang.org/x/mod/semver orders \"v1.2.0\" before \"v1.2.3-456\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.2.3-456",
+          "v1.2.0"
+        ]
+      },
+      "expected_output": [
+        "v1.2.0",
+        "v1.2.3-456"
+      ]
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1.2.0\" and \"v1.2.3-456\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.2.0",
+          "v1.2.3-456"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "golang.org/x/mod/semver orders \"v1.2.3-456\" before \"v1.2.3-456.789\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.2.3-456.789",
+          "v1.2.3-456"
+        ]
+      },
+      "expected_output": [
+        "v1.2.3-456",
+        "v1.2.3-456.789"
+      ]
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1.2.3-456\" and \"v1.2.3-456.789\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.2.3-456",
+          "v1.2.3-456.789"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "golang.org/x/mod/semver orders \"v1.2.3-456.789\" before \"v1.2.3-456-789\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.2.3-456-789",
+          "v1.2.3-456.789"
+        ]
+      },
+      "expected_output": [
+        "v1.2.3-456.789",
+        "v1.2.3-456-789"
+      ]
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1.2.3-456.789\" and \"v1.2.3-456-789\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.2.3-456.789",
+          "v1.2.3-456-789"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "golang.org/x/mod/semver orders \"v1.2.3-456-789\" before \"v1.2.3-456a\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.2.3-456a",
+          "v1.2.3-456-789"
+        ]
+      },
+      "expected_output": [
+        "v1.2.3-456-789",
+        "v1.2.3-456a"
+      ]
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1.2.3-456-789\" and \"v1.2.3-456a\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.2.3-456-789",
+          "v1.2.3-456a"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "golang.org/x/mod/semver orders \"v1.2.3-456a\" before \"v1.2.3-pre\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.2.3-pre",
+          "v1.2.3-456a"
+        ]
+      },
+      "expected_output": [
+        "v1.2.3-456a",
+        "v1.2.3-pre"
+      ]
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1.2.3-456a\" and \"v1.2.3-pre\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.2.3-456a",
+          "v1.2.3-pre"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1.2.3-pre\" and \"v1.2.3-pre+meta\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.2.3-pre",
+          "v1.2.3-pre+meta"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "golang.org/x/mod/semver orders \"v1.2.3-pre+meta\" before \"v1.2.3-pre.1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.2.3-pre.1",
+          "v1.2.3-pre+meta"
+        ]
+      },
+      "expected_output": [
+        "v1.2.3-pre+meta",
+        "v1.2.3-pre.1"
+      ]
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1.2.3-pre+meta\" and \"v1.2.3-pre.1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.2.3-pre+meta",
+          "v1.2.3-pre.1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "golang.org/x/mod/semver orders \"v1.2.3-pre.1\" before \"v1.2.3-zzz\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.2.3-zzz",
+          "v1.2.3-pre.1"
+        ]
+      },
+      "expected_output": [
+        "v1.2.3-pre.1",
+        "v1.2.3-zzz"
+      ]
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1.2.3-pre.1\" and \"v1.2.3-zzz\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.2.3-pre.1",
+          "v1.2.3-zzz"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "golang.org/x/mod/semver orders \"v1.2.3-zzz\" before \"v1.2.3\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.2.3",
+          "v1.2.3-zzz"
+        ]
+      },
+      "expected_output": [
+        "v1.2.3-zzz",
+        "v1.2.3"
+      ]
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1.2.3-zzz\" and \"v1.2.3\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.2.3-zzz",
+          "v1.2.3"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1.2.3\" and \"v1.2.3+meta\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.2.3",
+          "v1.2.3+meta"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1.2.3+meta\" and \"v1.2.3+meta-pre\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.2.3+meta",
+          "v1.2.3+meta-pre"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "golang.org/x/mod/semver treats \"v1.2.3+meta-pre\" and \"v1.2.3+meta-pre.sha.256a\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "go",
+        "versions": [
+          "v1.2.3+meta-pre",
+          "v1.2.3+meta-pre.sha.256a"
+        ]
+      },
+      "expected_output": true
+    }
+  ]
+}

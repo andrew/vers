@@ -38,7 +38,7 @@ require_relative "vers/parser"
 #   gem_range = Vers.parse_native("~> 1.0", "gem")
 #
 #   # Check version containment
-#   Vers.satisfies?("1.5.0", ">=1.0.0,<2.0.0")  # => true
+#   Vers.satisfies?("1.5.0", ">=1.0.0,<2.0.0", "pypi")  # => true
 #
 #   # Compare versions
 #   Vers.compare("1.2.3", "1.2.4")  # => -1
@@ -71,7 +71,7 @@ module Vers
   # == Examples
   #
   #   Vers.parse("vers:npm/>=1.2.3|<2.0.0")
-  #   Vers.parse("vers:gem/~>1.0")
+  #   Vers.parse_native("~>1.0", "gem")
   #   Vers.parse("*")  # unbounded range
   #
   def self.parse(vers_string)
@@ -153,7 +153,7 @@ module Vers
   #
   # @param a [String] First version string
   # @param b [String] Second version string
-  # @param scheme [String, nil] Package manager scheme (bazel, maven, nuget, or nil for generic)
+  # @param scheme [String, nil] Package manager scheme or nil for generic comparison
   # @return [Integer] -1 if a < b, 0 if a == b, 1 if a > b
   #
   def self.compare_with_scheme(a, b, scheme)
@@ -166,8 +166,8 @@ module Vers
   # @param version_string [String] The version string to normalize
   # @return [String] The normalized version string
   #
-  def self.normalize(version_string)
-    Version.normalize(version_string)
+  def self.normalize(version_string, scheme = nil)
+    Version.normalize(version_string, scheme)
   end
 
   ##
@@ -203,8 +203,14 @@ module Vers
     Version.prerelease?(version_string, scheme)
   end
 
-  def self.clean(version_string)
-    Version.clean(version_string)
+  # Returns a normalized version, or nil when the version is invalid.
+  #
+  # @param version_string [String] The version string to clean
+  # @param scheme [String, nil] Package manager scheme or nil for generic cleaning
+  # @return [String, nil] The normalized version or nil
+  #
+  def self.clean(version_string, scheme = nil)
+    Version.clean(version_string, scheme)
   end
 
   ##

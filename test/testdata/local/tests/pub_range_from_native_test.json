@@ -1,0 +1,105 @@
+{
+  "$schema": "https://packageurl.org/schemas/vers-test.schema-0.2.json",
+  "tests": [
+    {
+      "description": "Pub converts any.",
+      "test_group": "recommended",
+      "test_type": "from_native",
+      "input": {
+        "type": "pub",
+        "native_range": "any"
+      },
+      "expected_output": "vers:pub/*"
+    },
+    {
+      "description": "Pub converts an exact version.",
+      "test_group": "recommended",
+      "test_type": "from_native",
+      "input": {
+        "type": "pub",
+        "native_range": "1.2.3"
+      },
+      "expected_output": "vers:pub/1.2.3"
+    },
+    {
+      "description": "Pub converts a traditional range.",
+      "test_group": "recommended",
+      "test_type": "from_native",
+      "input": {
+        "type": "pub",
+        "native_range": ">=1.2.3 <2.0.0"
+      },
+      "expected_output": "vers:pub/>=1.2.3|<2.0.0-0"
+    },
+    {
+      "description": "Pub converts a major caret range.",
+      "test_group": "recommended",
+      "test_type": "from_native",
+      "input": {
+        "type": "pub",
+        "native_range": "^1.2.3"
+      },
+      "expected_output": "vers:pub/>=1.2.3|<2.0.0-0"
+    },
+    {
+      "description": "Pub converts a zero-major caret range.",
+      "test_group": "recommended",
+      "test_type": "from_native",
+      "input": {
+        "type": "pub",
+        "native_range": "^0.1.2"
+      },
+      "expected_output": "vers:pub/>=0.1.2|<0.2.0-0"
+    },
+    {
+      "description": "Pub converts a zero-minor caret range.",
+      "test_group": "recommended",
+      "test_type": "from_native",
+      "input": {
+        "type": "pub",
+        "native_range": "^0.0.3"
+      },
+      "expected_output": "vers:pub/>=0.0.3|<0.1.0-0"
+    },
+    {
+      "description": "Pub converts adjacent constraints.",
+      "test_group": "recommended",
+      "test_type": "from_native",
+      "input": {
+        "type": "pub",
+        "native_range": ">1.0.0>=1.2.3 < 1.3.0"
+      },
+      "expected_output": "vers:pub/>1.0.0|>=1.2.3|<1.3.0-0"
+    },
+    {
+      "description": "Pub converts an exclusive lower bound.",
+      "test_group": "recommended",
+      "test_type": "from_native",
+      "input": {
+        "type": "pub",
+        "native_range": ">1.2.3"
+      },
+      "expected_output": "vers:pub/>1.2.3"
+    },
+    {
+      "description": "Pub converts an exclusive upper bound.",
+      "test_group": "recommended",
+      "test_type": "from_native",
+      "input": {
+        "type": "pub",
+        "native_range": "<1.2.3"
+      },
+      "expected_output": "vers:pub/<1.2.3-0"
+    },
+    {
+      "description": "Pub converts a prerelease range.",
+      "test_group": "recommended",
+      "test_type": "from_native",
+      "input": {
+        "type": "pub",
+        "native_range": ">=1.2.3-alpha <1.2.3"
+      },
+      "expected_output": "vers:pub/>=1.2.3-alpha|<1.2.3"
+    }
+  ]
+}

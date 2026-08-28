@@ -11,12 +11,12 @@ Gem::Specification.new do |spec|
   spec.summary = "A Ruby gem for parsing, comparing and sorting versions according to the VERS spec."
   spec.description = "Vers provides tools for working with version ranges across different package managers, using a mathematical interval model internally and supporting the vers specification from the Package URL (PURL) project."
   spec.homepage = "https://github.com/andrew/vers"
-  spec.required_ruby_version = ">= 3.2.0"
+  spec.required_ruby_version = ">= 3.3.0"
   spec.license = "MIT"
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/andrew/vers"
+  spec.metadata["source_code_uri"] = "#{spec.homepage}/tree/v#{spec.version}"
   spec.metadata["changelog_uri"] = "https://github.com/andrew/vers/blob/main/CHANGELOG.md"
 
   # Specify which files should be added to the gem when it is released.

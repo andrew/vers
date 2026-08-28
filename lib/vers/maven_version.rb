@@ -214,5 +214,21 @@ module Vers
     def qualifier_order(q)
       QUALIFIER_ORDER.fetch(q, UNKNOWN_QUALIFIER_ORDER)
     end
+
+    def valid?(value)
+      string = value.to_s.strip
+      !string.empty? && !string.match?(/[[:space:]]/)
+    end
+
+    def normalize(value)
+      value.to_s.strip
+    end
+
+    def prerelease?(value)
+      release_order = QUALIFIER_ORDER.fetch("")
+      parse_maven_version(value.to_s.strip).any? do |component|
+        !component.is_numeric && qualifier_order(component.qualifier) < release_order
+      end
+    end
   end
 end

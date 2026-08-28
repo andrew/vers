@@ -1,0 +1,924 @@
+{
+  "$schema": "https://packageurl.org/schemas/vers-test.schema-0.2.json",
+  "tests": [
+    {
+      "description": "RPM orders \"1.0\" before \"2.0\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "2.0",
+          "1.0"
+        ]
+      },
+      "expected_output": [
+        "1.0",
+        "2.0"
+      ]
+    },
+    {
+      "description": "RPM treats \"1.0\" and \"2.0\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "1.0",
+          "2.0"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RPM orders \"2.0\" before \"2.0.1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "2.0.1",
+          "2.0"
+        ]
+      },
+      "expected_output": [
+        "2.0",
+        "2.0.1"
+      ]
+    },
+    {
+      "description": "RPM treats \"2.0\" and \"2.0.1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "2.0",
+          "2.0.1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RPM orders \"2.0.1\" before \"2.0.1a\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "2.0.1a",
+          "2.0.1"
+        ]
+      },
+      "expected_output": [
+        "2.0.1",
+        "2.0.1a"
+      ]
+    },
+    {
+      "description": "RPM treats \"2.0.1a\" and \"2.0.1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "2.0.1a",
+          "2.0.1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RPM orders \"5.5p1\" before \"5.5p2\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "5.5p2",
+          "5.5p1"
+        ]
+      },
+      "expected_output": [
+        "5.5p1",
+        "5.5p2"
+      ]
+    },
+    {
+      "description": "RPM treats \"5.5p1\" and \"5.5p2\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "5.5p1",
+          "5.5p2"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RPM orders \"5.5p1\" before \"5.5p10\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "5.5p10",
+          "5.5p1"
+        ]
+      },
+      "expected_output": [
+        "5.5p1",
+        "5.5p10"
+      ]
+    },
+    {
+      "description": "RPM treats \"5.5p1\" and \"5.5p10\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "5.5p1",
+          "5.5p10"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RPM orders \"10xyz\" before \"10.1xyz\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "10.1xyz",
+          "10xyz"
+        ]
+      },
+      "expected_output": [
+        "10xyz",
+        "10.1xyz"
+      ]
+    },
+    {
+      "description": "RPM treats \"10xyz\" and \"10.1xyz\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "10xyz",
+          "10.1xyz"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RPM orders \"xyz10\" before \"xyz10.1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "xyz10.1",
+          "xyz10"
+        ]
+      },
+      "expected_output": [
+        "xyz10",
+        "xyz10.1"
+      ]
+    },
+    {
+      "description": "RPM treats \"xyz10\" and \"xyz10.1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "xyz10",
+          "xyz10.1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RPM orders \"xyz.4\" before \"8\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "8",
+          "xyz.4"
+        ]
+      },
+      "expected_output": [
+        "xyz.4",
+        "8"
+      ]
+    },
+    {
+      "description": "RPM treats \"xyz.4\" and \"8\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "xyz.4",
+          "8"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RPM orders \"xyz.4\" before \"2\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "2",
+          "xyz.4"
+        ]
+      },
+      "expected_output": [
+        "xyz.4",
+        "2"
+      ]
+    },
+    {
+      "description": "RPM treats \"xyz.4\" and \"2\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "xyz.4",
+          "2"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RPM orders \"5.5p2\" before \"5.6p1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "5.6p1",
+          "5.5p2"
+        ]
+      },
+      "expected_output": [
+        "5.5p2",
+        "5.6p1"
+      ]
+    },
+    {
+      "description": "RPM treats \"5.5p2\" and \"5.6p1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "5.5p2",
+          "5.6p1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RPM orders \"5.6p1\" before \"6.5p1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "6.5p1",
+          "5.6p1"
+        ]
+      },
+      "expected_output": [
+        "5.6p1",
+        "6.5p1"
+      ]
+    },
+    {
+      "description": "RPM treats \"5.6p1\" and \"6.5p1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "5.6p1",
+          "6.5p1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RPM orders \"6.0\" before \"6.0.rc1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "6.0.rc1",
+          "6.0"
+        ]
+      },
+      "expected_output": [
+        "6.0",
+        "6.0.rc1"
+      ]
+    },
+    {
+      "description": "RPM treats \"6.0.rc1\" and \"6.0\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "6.0.rc1",
+          "6.0"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RPM orders \"10a1\" before \"10b2\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "10b2",
+          "10a1"
+        ]
+      },
+      "expected_output": [
+        "10a1",
+        "10b2"
+      ]
+    },
+    {
+      "description": "RPM treats \"10b2\" and \"10a1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "10b2",
+          "10a1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RPM orders \"10a2\" before \"10b2\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "10b2",
+          "10a2"
+        ]
+      },
+      "expected_output": [
+        "10a2",
+        "10b2"
+      ]
+    },
+    {
+      "description": "RPM treats \"10a2\" and \"10b2\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "10a2",
+          "10b2"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RPM orders \"1.0a\" before \"1.0aa\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "1.0aa",
+          "1.0a"
+        ]
+      },
+      "expected_output": [
+        "1.0a",
+        "1.0aa"
+      ]
+    },
+    {
+      "description": "RPM treats \"1.0a\" and \"1.0aa\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "1.0a",
+          "1.0aa"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RPM treats \"10.0001\" and \"10.1\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "10.0001",
+          "10.1"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RPM orders \"10.0001\" before \"10.0039\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "10.0039",
+          "10.0001"
+        ]
+      },
+      "expected_output": [
+        "10.0001",
+        "10.0039"
+      ]
+    },
+    {
+      "description": "RPM treats \"10.0001\" and \"10.0039\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "10.0001",
+          "10.0039"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RPM orders \"4.999.9\" before \"5.0\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "5.0",
+          "4.999.9"
+        ]
+      },
+      "expected_output": [
+        "4.999.9",
+        "5.0"
+      ]
+    },
+    {
+      "description": "RPM treats \"4.999.9\" and \"5.0\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "4.999.9",
+          "5.0"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RPM orders \"20101121\" before \"20101122\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "20101122",
+          "20101121"
+        ]
+      },
+      "expected_output": [
+        "20101121",
+        "20101122"
+      ]
+    },
+    {
+      "description": "RPM treats \"20101121\" and \"20101122\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "20101121",
+          "20101122"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RPM treats \"2.0\" and \"2_0\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "2.0",
+          "2_0"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RPM treats \"a+\" and \"a_\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "a+",
+          "a_"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RPM treats \"+a\" and \"_a\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "+a",
+          "_a"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RPM treats \"_+\" and \"+_\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "_+",
+          "+_"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RPM treats \"+\" and \"_\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "+",
+          "_"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RPM orders \"1.0~rc1\" before \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "1.0",
+          "1.0~rc1"
+        ]
+      },
+      "expected_output": [
+        "1.0~rc1",
+        "1.0"
+      ]
+    },
+    {
+      "description": "RPM treats \"1.0~rc1\" and \"1.0\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "1.0~rc1",
+          "1.0"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RPM orders \"1.0~rc1\" before \"1.0~rc2\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "1.0~rc2",
+          "1.0~rc1"
+        ]
+      },
+      "expected_output": [
+        "1.0~rc1",
+        "1.0~rc2"
+      ]
+    },
+    {
+      "description": "RPM treats \"1.0~rc1\" and \"1.0~rc2\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "1.0~rc1",
+          "1.0~rc2"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RPM orders \"1.0~rc1~git123\" before \"1.0~rc1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "1.0~rc1",
+          "1.0~rc1~git123"
+        ]
+      },
+      "expected_output": [
+        "1.0~rc1~git123",
+        "1.0~rc1"
+      ]
+    },
+    {
+      "description": "RPM treats \"1.0~rc1~git123\" and \"1.0~rc1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "1.0~rc1~git123",
+          "1.0~rc1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RPM orders \"1.0\" before \"1.0^\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "1.0^",
+          "1.0"
+        ]
+      },
+      "expected_output": [
+        "1.0",
+        "1.0^"
+      ]
+    },
+    {
+      "description": "RPM treats \"1.0^\" and \"1.0\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "1.0^",
+          "1.0"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RPM orders \"1.0\" before \"1.0^git1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "1.0^git1",
+          "1.0"
+        ]
+      },
+      "expected_output": [
+        "1.0",
+        "1.0^git1"
+      ]
+    },
+    {
+      "description": "RPM treats \"1.0^git1\" and \"1.0\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "1.0^git1",
+          "1.0"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RPM orders \"1.0^git1\" before \"1.0^git2\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "1.0^git2",
+          "1.0^git1"
+        ]
+      },
+      "expected_output": [
+        "1.0^git1",
+        "1.0^git2"
+      ]
+    },
+    {
+      "description": "RPM treats \"1.0^git1\" and \"1.0^git2\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "1.0^git1",
+          "1.0^git2"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RPM orders \"1.0^git1\" before \"1.01\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "1.01",
+          "1.0^git1"
+        ]
+      },
+      "expected_output": [
+        "1.0^git1",
+        "1.01"
+      ]
+    },
+    {
+      "description": "RPM treats \"1.0^git1\" and \"1.01\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "1.0^git1",
+          "1.01"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RPM orders \"1.0^20160101\" before \"1.0.1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "1.0.1",
+          "1.0^20160101"
+        ]
+      },
+      "expected_output": [
+        "1.0^20160101",
+        "1.0.1"
+      ]
+    },
+    {
+      "description": "RPM treats \"1.0^20160101\" and \"1.0.1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "1.0^20160101",
+          "1.0.1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RPM orders \"1.0^20160101^git1\" before \"1.0^20160102\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "1.0^20160102",
+          "1.0^20160101^git1"
+        ]
+      },
+      "expected_output": [
+        "1.0^20160101^git1",
+        "1.0^20160102"
+      ]
+    },
+    {
+      "description": "RPM treats \"1.0^20160102\" and \"1.0^20160101^git1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "1.0^20160102",
+          "1.0^20160101^git1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RPM orders \"1.0~rc1\" before \"1.0~rc1^git1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "1.0~rc1^git1",
+          "1.0~rc1"
+        ]
+      },
+      "expected_output": [
+        "1.0~rc1",
+        "1.0~rc1^git1"
+      ]
+    },
+    {
+      "description": "RPM treats \"1.0~rc1^git1\" and \"1.0~rc1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "1.0~rc1^git1",
+          "1.0~rc1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RPM orders \"1.0^git1~pre\" before \"1.0^git1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "1.0^git1",
+          "1.0^git1~pre"
+        ]
+      },
+      "expected_output": [
+        "1.0^git1~pre",
+        "1.0^git1"
+      ]
+    },
+    {
+      "description": "RPM treats \"1.0^git1\" and \"1.0^git1~pre\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "rpm",
+        "versions": [
+          "1.0^git1",
+          "1.0^git1~pre"
+        ]
+      },
+      "expected_output": false
+    }
+  ]
+}

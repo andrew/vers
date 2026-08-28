@@ -2,6 +2,8 @@
 
 module Vers
   module NuGetVersion
+    PATTERN = /\A[0-9]+(?:\.[0-9]+){0,3}(?:-[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?\z/
+
     module_function
 
     def compare(a, b)
@@ -74,6 +76,18 @@ module Vers
       end
 
       0
+    end
+
+    def valid?(value)
+      value.to_s.strip.match?(PATTERN)
+    end
+
+    def normalize(value)
+      value.to_s.strip
+    end
+
+    def prerelease?(value)
+      !parse_nuget(value.to_s.strip)[:prerelease].empty?
     end
   end
 end

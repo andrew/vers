@@ -29,6 +29,8 @@ module Vers
     end
 
     def valid?(version)
+      return false if version == ""
+
       parse(version)
       true
     rescue ArgumentError
@@ -45,6 +47,12 @@ module Vers
       !parse(version).prerelease.empty?
     rescue ArgumentError
       false
+    end
+
+    def normalize(version)
+      raise ArgumentError, "Invalid Bazel version: #{version.inspect}" unless valid?(version)
+
+      version.split("+", 2).first
     end
 
     def parse(version)

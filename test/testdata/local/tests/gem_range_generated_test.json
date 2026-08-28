@@ -1,0 +1,6596 @@
+{
+  "$schema": "https://packageurl.org/schemas/vers-test.schema-0.2.json",
+  "tests": [
+    {
+      "description": "RubyGems range \"= 0.2.33\" excludes \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.2.33",
+        "version": "1.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.2.33\" excludes \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.2.33",
+        "version": "1.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.2.33\" excludes \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.2.33",
+        "version": "1.0.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.2.33\" excludes \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.2.33",
+        "version": "1.8.2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.2.33\" excludes \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.2.33",
+        "version": "0.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.2.33\" excludes \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.2.33",
+        "version": "1.8.2.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.2.33\" excludes \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.2.33",
+        "version": "1.8.2.b"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.2.33\" excludes \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.2.33",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.2.33\" excludes \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.2.33",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.2.33\" excludes \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.2.33"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.2.33\" excludes \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.2.33",
+        "version": "0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.2.33\" excludes \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.2.33",
+        "version": "0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.2.33\" excludes \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.2.33",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.2.33\" excludes \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.2.33",
+        "version": "0.0.beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.2.33\" excludes \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.2.33",
+        "version": "5.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.2.33\" excludes \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.2.33",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.2.33\" excludes \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.2.33",
+        "version": "5.x"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.2.33\" contains \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.2.33",
+        "version": "1.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.2.33\" contains \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.2.33",
+        "version": "1.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.2.33\" contains \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.2.33",
+        "version": "1.0.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.2.33\" contains \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.2.33",
+        "version": "1.8.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.2.33\" excludes \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.2.33",
+        "version": "0.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.2.33\" contains \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.2.33",
+        "version": "1.8.2.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.2.33\" contains \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.2.33",
+        "version": "1.8.2.b"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.2.33\" contains \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.2.33",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.2.33\" contains \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.2.33",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.2.33\" excludes \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.2.33"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.2.33\" excludes \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.2.33",
+        "version": "0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.2.33\" excludes \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.2.33",
+        "version": "0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.2.33\" excludes \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.2.33",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.2.33\" excludes \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.2.33",
+        "version": "0.0.beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.2.33\" contains \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.2.33",
+        "version": "5.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.2.33\" contains \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.2.33",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.2.33\" contains \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.2.33",
+        "version": "5.x"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"= 1.0\" contains \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0",
+        "version": "1.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"= 1.0\" contains \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0",
+        "version": "1.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"= 1.0\" excludes \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0",
+        "version": "1.0.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0\" excludes \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0",
+        "version": "1.8.2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0\" excludes \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0",
+        "version": "0.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0\" excludes \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0",
+        "version": "1.8.2.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0\" excludes \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0",
+        "version": "1.8.2.b"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0\" excludes \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0\" excludes \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0\" excludes \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0\" excludes \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0",
+        "version": "0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0\" excludes \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0",
+        "version": "0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0\" excludes \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0\" excludes \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0",
+        "version": "0.0.beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0\" excludes \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0",
+        "version": "5.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0\" excludes \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0\" excludes \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0",
+        "version": "5.x"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0.0\" contains \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0.0",
+        "version": "1.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"= 1.0.0\" contains \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0.0",
+        "version": "1.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"= 1.0.0\" excludes \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0.0",
+        "version": "1.0.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0.0\" excludes \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0.0",
+        "version": "1.8.2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0.0\" excludes \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0.0",
+        "version": "0.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0.0\" excludes \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0.0",
+        "version": "1.8.2.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0.0\" excludes \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0.0",
+        "version": "1.8.2.b"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0.0\" excludes \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0.0",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0.0\" excludes \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0.0",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0.0\" excludes \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0.0\" excludes \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0.0",
+        "version": "0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0.0\" excludes \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0.0",
+        "version": "0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0.0\" excludes \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0.0",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0.0\" excludes \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0.0",
+        "version": "0.0.beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0.0\" excludes \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0.0",
+        "version": "5.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0.0\" excludes \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0.0",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.0.0\" excludes \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.0.0",
+        "version": "5.x"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.8.0\" excludes \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.8.0",
+        "version": "1.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.8.0\" excludes \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.8.0",
+        "version": "1.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.8.0\" excludes \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.8.0",
+        "version": "1.0.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.8.0\" contains \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.8.0",
+        "version": "1.8.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.8.0\" excludes \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.8.0",
+        "version": "0.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.8.0\" contains \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.8.0",
+        "version": "1.8.2.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.8.0\" contains \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.8.0",
+        "version": "1.8.2.b"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.8.0\" contains \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.8.0",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.8.0\" contains \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.8.0",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.8.0\" excludes \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.8.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.8.0\" excludes \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.8.0",
+        "version": "0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.8.0\" excludes \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.8.0",
+        "version": "0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.8.0\" excludes \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.8.0",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.8.0\" excludes \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.8.0",
+        "version": "0.0.beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.8.0\" contains \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.8.0",
+        "version": "5.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.8.0\" contains \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.8.0",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.8.0\" contains \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.8.0",
+        "version": "5.x"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.111\" excludes \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.111",
+        "version": "1.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.111\" excludes \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.111",
+        "version": "1.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.111\" excludes \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.111",
+        "version": "1.0.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.111\" excludes \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.111",
+        "version": "1.8.2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.111\" excludes \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.111",
+        "version": "0.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.111\" excludes \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.111",
+        "version": "1.8.2.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.111\" excludes \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.111",
+        "version": "1.8.2.b"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.111\" excludes \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.111",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.111\" excludes \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.111",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.111\" excludes \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.111"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.111\" excludes \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.111",
+        "version": "0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.111\" excludes \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.111",
+        "version": "0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.111\" excludes \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.111",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.111\" excludes \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.111",
+        "version": "0.0.beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.111\" contains \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.111",
+        "version": "5.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.111\" contains \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.111",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.111\" contains \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.111",
+        "version": "5.x"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0\" contains \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0",
+        "version": "1.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0\" contains \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0",
+        "version": "1.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0\" contains \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0",
+        "version": "1.0.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0\" contains \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0",
+        "version": "1.8.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0\" excludes \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0",
+        "version": "0.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0\" contains \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0",
+        "version": "1.8.2.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0\" contains \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0",
+        "version": "1.8.2.b"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0\" contains \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0\" contains \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0\" excludes \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0\" excludes \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0",
+        "version": "0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0\" excludes \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0",
+        "version": "0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0\" excludes \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0\" excludes \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0",
+        "version": "0.0.beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0\" contains \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0",
+        "version": "5.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0\" contains \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0\" contains \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0",
+        "version": "5.x"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0.1\" contains \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0.1",
+        "version": "1.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0.1\" contains \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0.1",
+        "version": "1.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0.1\" contains \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0.1",
+        "version": "1.0.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0.1\" contains \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0.1",
+        "version": "1.8.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0.1\" excludes \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0.1",
+        "version": "0.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0.1\" contains \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0.1",
+        "version": "1.8.2.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0.1\" contains \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0.1",
+        "version": "1.8.2.b"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0.1\" contains \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0.1",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0.1\" contains \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0.1",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0.1\" excludes \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0.1\" excludes \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0.1",
+        "version": "0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0.1\" excludes \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0.1",
+        "version": "0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0.1\" excludes \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0.1",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0.1\" excludes \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0.1",
+        "version": "0.0.beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0.1\" contains \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0.1",
+        "version": "5.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0.1\" contains \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0.1",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.0.0.1\" contains \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.0.0.1",
+        "version": "5.x"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 9.3.2\" excludes \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e9.3.2",
+        "version": "1.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 9.3.2\" excludes \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e9.3.2",
+        "version": "1.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 9.3.2\" excludes \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e9.3.2",
+        "version": "1.0.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 9.3.2\" excludes \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e9.3.2",
+        "version": "1.8.2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 9.3.2\" excludes \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e9.3.2",
+        "version": "0.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 9.3.2\" excludes \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e9.3.2",
+        "version": "1.8.2.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 9.3.2\" excludes \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e9.3.2",
+        "version": "1.8.2.b"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 9.3.2\" excludes \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e9.3.2",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 9.3.2\" excludes \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e9.3.2",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 9.3.2\" excludes \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e9.3.2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 9.3.2\" excludes \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e9.3.2",
+        "version": "0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 9.3.2\" excludes \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e9.3.2",
+        "version": "0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 9.3.2\" excludes \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e9.3.2",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 9.3.2\" excludes \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e9.3.2",
+        "version": "0.0.beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 9.3.2\" excludes \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e9.3.2",
+        "version": "5.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 9.3.2\" excludes \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e9.3.2",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 9.3.2\" excludes \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e9.3.2",
+        "version": "5.x"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"!= 9.3.4\" contains \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=9.3.4",
+        "version": "1.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 9.3.4\" contains \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=9.3.4",
+        "version": "1.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 9.3.4\" contains \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=9.3.4",
+        "version": "1.0.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 9.3.4\" contains \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=9.3.4",
+        "version": "1.8.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 9.3.4\" contains \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=9.3.4",
+        "version": "0.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 9.3.4\" contains \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=9.3.4",
+        "version": "1.8.2.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 9.3.4\" contains \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=9.3.4",
+        "version": "1.8.2.b"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 9.3.4\" contains \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=9.3.4",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 9.3.4\" contains \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=9.3.4",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 9.3.4\" contains \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=9.3.4"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 9.3.4\" contains \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=9.3.4",
+        "version": "0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 9.3.4\" contains \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=9.3.4",
+        "version": "0.beta.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 9.3.4\" contains \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=9.3.4",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 9.3.4\" contains \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=9.3.4",
+        "version": "0.0.beta"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 9.3.4\" contains \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=9.3.4",
+        "version": "5.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 9.3.4\" contains \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=9.3.4",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 9.3.4\" contains \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=9.3.4",
+        "version": "5.x"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e= 9.3.2\" excludes \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=9.3.2",
+        "version": "1.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e= 9.3.2\" excludes \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=9.3.2",
+        "version": "1.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e= 9.3.2\" excludes \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=9.3.2",
+        "version": "1.0.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e= 9.3.2\" excludes \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=9.3.2",
+        "version": "1.8.2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e= 9.3.2\" excludes \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=9.3.2",
+        "version": "0.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e= 9.3.2\" excludes \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=9.3.2",
+        "version": "1.8.2.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e= 9.3.2\" excludes \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=9.3.2",
+        "version": "1.8.2.b"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e= 9.3.2\" excludes \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=9.3.2",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e= 9.3.2\" excludes \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=9.3.2",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e= 9.3.2\" excludes \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=9.3.2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e= 9.3.2\" excludes \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=9.3.2",
+        "version": "0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e= 9.3.2\" excludes \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=9.3.2",
+        "version": "0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e= 9.3.2\" excludes \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=9.3.2",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e= 9.3.2\" excludes \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=9.3.2",
+        "version": "0.0.beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e= 9.3.2\" excludes \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=9.3.2",
+        "version": "5.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e= 9.3.2\" excludes \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=9.3.2",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e= 9.3.2\" excludes \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=9.3.2",
+        "version": "5.x"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0\" excludes \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0",
+        "version": "1.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0\" excludes \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0",
+        "version": "1.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0\" excludes \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0",
+        "version": "1.0.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0\" excludes \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0",
+        "version": "1.8.2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0\" contains \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0",
+        "version": "0.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"= 0\" excludes \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0",
+        "version": "1.8.2.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0\" excludes \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0",
+        "version": "1.8.2.b"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0\" excludes \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0\" excludes \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0\" contains \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"= 0\" contains \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0",
+        "version": "0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"= 0\" excludes \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0",
+        "version": "0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0\" excludes \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0\" excludes \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0",
+        "version": "0.0.beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0\" excludes \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0",
+        "version": "5.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0\" excludes \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0\" excludes \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0",
+        "version": "5.x"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c 0.1\" excludes \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c0.1",
+        "version": "1.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c 0.1\" excludes \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c0.1",
+        "version": "1.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c 0.1\" excludes \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c0.1",
+        "version": "1.0.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c 0.1\" excludes \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c0.1",
+        "version": "1.8.2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c 0.1\" contains \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c0.1",
+        "version": "0.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 0.1\" excludes \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c0.1",
+        "version": "1.8.2.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c 0.1\" excludes \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c0.1",
+        "version": "1.8.2.b"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c 0.1\" excludes \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c0.1",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c 0.1\" excludes \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c0.1",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c 0.1\" contains \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c0.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 0.1\" contains \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c0.1",
+        "version": "0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 0.1\" contains \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c0.1",
+        "version": "0.beta.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 0.1\" contains \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c0.1",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 0.1\" contains \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c0.1",
+        "version": "0.0.beta"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 0.1\" excludes \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c0.1",
+        "version": "5.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c 0.1\" excludes \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c0.1",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c 0.1\" excludes \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c0.1",
+        "version": "5.x"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.a \" contains \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.a",
+        "version": "1.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.a \" contains \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.a",
+        "version": "1.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.a \" contains \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.a",
+        "version": "1.0.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.a \" contains \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.a",
+        "version": "1.8.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.a \" contains \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.a",
+        "version": "0.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.a \" contains \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.a",
+        "version": "1.8.2.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.a \" contains \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.a",
+        "version": "1.8.2.b"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.a \" contains \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.a",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.a \" contains \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.a",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.a \" contains \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.a \" contains \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.a",
+        "version": "0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.a \" contains \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.a",
+        "version": "0.beta.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.a \" contains \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.a",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.a \" contains \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.a",
+        "version": "0.0.beta"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.a \" contains \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.a",
+        "version": "5.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.a \" contains \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.a",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.a \" contains \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.a",
+        "version": "5.x"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.2.rc1\" contains \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.2.rc1",
+        "version": "1.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.2.rc1\" contains \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.2.rc1",
+        "version": "1.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.2.rc1\" contains \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.2.rc1",
+        "version": "1.0.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.2.rc1\" contains \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.2.rc1",
+        "version": "1.8.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.2.rc1\" contains \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.2.rc1",
+        "version": "0.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.2.rc1\" contains \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.2.rc1",
+        "version": "1.8.2.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.2.rc1\" contains \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.2.rc1",
+        "version": "1.8.2.b"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.2.rc1\" contains \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.2.rc1",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.2.rc1\" contains \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.2.rc1",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.2.rc1\" contains \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.2.rc1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.2.rc1\" contains \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.2.rc1",
+        "version": "0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.2.rc1\" contains \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.2.rc1",
+        "version": "0.beta.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.2.rc1\" contains \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.2.rc1",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.2.rc1\" contains \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.2.rc1",
+        "version": "0.0.beta"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.2.rc1\" excludes \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.2.rc1",
+        "version": "5.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.2.rc1\" excludes \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.2.rc1",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.2.rc1\" excludes \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.2.rc1",
+        "version": "5.x"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 3.2.0.rc1\" excludes \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e3.2.0.rc1",
+        "version": "1.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 3.2.0.rc1\" excludes \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e3.2.0.rc1",
+        "version": "1.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 3.2.0.rc1\" excludes \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e3.2.0.rc1",
+        "version": "1.0.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 3.2.0.rc1\" excludes \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e3.2.0.rc1",
+        "version": "1.8.2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 3.2.0.rc1\" excludes \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e3.2.0.rc1",
+        "version": "0.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 3.2.0.rc1\" excludes \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e3.2.0.rc1",
+        "version": "1.8.2.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 3.2.0.rc1\" excludes \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e3.2.0.rc1",
+        "version": "1.8.2.b"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 3.2.0.rc1\" excludes \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e3.2.0.rc1",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 3.2.0.rc1\" excludes \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e3.2.0.rc1",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 3.2.0.rc1\" excludes \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e3.2.0.rc1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 3.2.0.rc1\" excludes \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e3.2.0.rc1",
+        "version": "0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 3.2.0.rc1\" excludes \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e3.2.0.rc1",
+        "version": "0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 3.2.0.rc1\" excludes \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e3.2.0.rc1",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 3.2.0.rc1\" excludes \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e3.2.0.rc1",
+        "version": "0.0.beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 3.2.0.rc1\" contains \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e3.2.0.rc1",
+        "version": "5.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 3.2.0.rc1\" contains \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e3.2.0.rc1",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 3.2.0.rc1\" contains \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e3.2.0.rc1",
+        "version": "5.x"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0\" contains \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0",
+        "version": "1.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0\" contains \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0",
+        "version": "1.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0\" contains \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0",
+        "version": "1.0.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0\" contains \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0",
+        "version": "1.8.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0\" contains \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0",
+        "version": "0.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0\" contains \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0",
+        "version": "1.8.2.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0\" contains \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0",
+        "version": "1.8.2.b"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0\" contains \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0\" contains \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0\" contains \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0\" contains \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0",
+        "version": "0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0\" contains \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0",
+        "version": "0.beta.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0\" contains \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0\" contains \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0",
+        "version": "0.0.beta"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0\" excludes \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0",
+        "version": "5.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0\" excludes \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0\" excludes \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0",
+        "version": "5.x"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.0\" contains \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.0",
+        "version": "1.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.0\" contains \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.0",
+        "version": "1.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.0\" contains \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.0",
+        "version": "1.0.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.0\" contains \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.0",
+        "version": "1.8.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.0\" contains \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.0",
+        "version": "0.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.0\" contains \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.0",
+        "version": "1.8.2.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.0\" contains \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.0",
+        "version": "1.8.2.b"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.0\" contains \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.0",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.0\" contains \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.0",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.0\" contains \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.0\" contains \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.0",
+        "version": "0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.0\" contains \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.0",
+        "version": "0.beta.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.0\" contains \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.0",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.0\" contains \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.0",
+        "version": "0.0.beta"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.0\" excludes \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.0",
+        "version": "5.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.0\" excludes \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.0",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.0\" excludes \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.0",
+        "version": "5.x"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.1\" contains \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.1",
+        "version": "1.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.1\" contains \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.1",
+        "version": "1.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.1\" contains \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.1",
+        "version": "1.0.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.1\" contains \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.1",
+        "version": "1.8.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.1\" contains \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.1",
+        "version": "0.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.1\" contains \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.1",
+        "version": "1.8.2.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.1\" contains \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.1",
+        "version": "1.8.2.b"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.1\" contains \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.1",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.1\" contains \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.1",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.1\" contains \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.1\" contains \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.1",
+        "version": "0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.1\" contains \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.1",
+        "version": "0.beta.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.1\" contains \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.1",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.1\" contains \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.1",
+        "version": "0.0.beta"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.1\" excludes \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.1",
+        "version": "5.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.1\" excludes \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.1",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c 3.0.1\" excludes \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c3.0.1",
+        "version": "5.x"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0\" contains \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0",
+        "version": "1.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0\" contains \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0",
+        "version": "1.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0\" contains \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0",
+        "version": "1.0.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0\" contains \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0",
+        "version": "1.8.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0\" excludes \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0",
+        "version": "0.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0\" contains \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0",
+        "version": "1.8.2.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0\" contains \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0",
+        "version": "1.8.2.b"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0\" contains \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0\" contains \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0\" excludes \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0\" excludes \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0",
+        "version": "0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0\" excludes \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0",
+        "version": "0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0\" excludes \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0\" excludes \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0",
+        "version": "0.0.beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0\" contains \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0",
+        "version": "5.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0\" contains \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0\" contains \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0",
+        "version": "5.x"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.a\" excludes \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.a|\u003c6.a",
+        "version": "1.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.a\" excludes \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.a|\u003c6.a",
+        "version": "1.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.a\" excludes \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.a|\u003c6.a",
+        "version": "1.0.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.a\" excludes \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.a|\u003c6.a",
+        "version": "1.8.2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.a\" excludes \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.a|\u003c6.a",
+        "version": "0.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.a\" excludes \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.a|\u003c6.a",
+        "version": "1.8.2.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.a\" excludes \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.a|\u003c6.a",
+        "version": "1.8.2.b"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.a\" excludes \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.a|\u003c6.a",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.a\" excludes \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.a|\u003c6.a",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.a\" excludes \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.a|\u003c6.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.a\" excludes \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.a|\u003c6.a",
+        "version": "0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.a\" excludes \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.a|\u003c6.a",
+        "version": "0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.a\" excludes \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.a|\u003c6.a",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.a\" excludes \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.a|\u003c6.a",
+        "version": "0.0.beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.a\" contains \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.a|\u003c6.a",
+        "version": "5.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.a\" contains \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.a|\u003c6.a",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.a\" contains \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.a|\u003c6.a",
+        "version": "5.x"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.x\" excludes \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.x|\u003c6.a",
+        "version": "1.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.x\" excludes \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.x|\u003c6.a",
+        "version": "1.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.x\" excludes \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.x|\u003c6.a",
+        "version": "1.0.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.x\" excludes \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.x|\u003c6.a",
+        "version": "1.8.2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.x\" excludes \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.x|\u003c6.a",
+        "version": "0.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.x\" excludes \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.x|\u003c6.a",
+        "version": "1.8.2.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.x\" excludes \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.x|\u003c6.a",
+        "version": "1.8.2.b"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.x\" excludes \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.x|\u003c6.a",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.x\" excludes \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.x|\u003c6.a",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.x\" excludes \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.x|\u003c6.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.x\" excludes \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.x|\u003c6.a",
+        "version": "0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.x\" excludes \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.x|\u003c6.a",
+        "version": "0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.x\" excludes \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.x|\u003c6.a",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.x\" excludes \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.x|\u003c6.a",
+        "version": "0.0.beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.x\" excludes \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.x|\u003c6.a",
+        "version": "5.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.x\" excludes \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.x|\u003c6.a",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 5.x\" contains \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=5.x|\u003c6.a",
+        "version": "5.x"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4\" excludes \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4|\u003c2.a",
+        "version": "1.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4\" excludes \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4|\u003c2.a",
+        "version": "1.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4\" excludes \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4|\u003c2.a",
+        "version": "1.0.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4\" contains \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4|\u003c2.a",
+        "version": "1.8.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4\" excludes \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4|\u003c2.a",
+        "version": "0.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4\" contains \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4|\u003c2.a",
+        "version": "1.8.2.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4\" contains \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4|\u003c2.a",
+        "version": "1.8.2.b"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4\" contains \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4|\u003c2.a",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4\" contains \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4|\u003c2.a",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4\" excludes \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4|\u003c2.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4\" excludes \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4|\u003c2.a",
+        "version": "0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4\" excludes \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4|\u003c2.a",
+        "version": "0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4\" excludes \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4|\u003c2.a",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4\" excludes \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4|\u003c2.a",
+        "version": "0.0.beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4\" excludes \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4|\u003c2.a",
+        "version": "5.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4\" excludes \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4|\u003c2.a",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4\" excludes \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4|\u003c2.a",
+        "version": "5.x"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4.4\" excludes \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4.4|\u003c1.5.a",
+        "version": "1.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4.4\" excludes \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4.4|\u003c1.5.a",
+        "version": "1.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4.4\" excludes \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4.4|\u003c1.5.a",
+        "version": "1.0.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4.4\" excludes \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4.4|\u003c1.5.a",
+        "version": "1.8.2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4.4\" excludes \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4.4|\u003c1.5.a",
+        "version": "0.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4.4\" excludes \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4.4|\u003c1.5.a",
+        "version": "1.8.2.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4.4\" excludes \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4.4|\u003c1.5.a",
+        "version": "1.8.2.b"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4.4\" excludes \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4.4|\u003c1.5.a",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4.4\" excludes \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4.4|\u003c1.5.a",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4.4\" excludes \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4.4|\u003c1.5.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4.4\" excludes \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4.4|\u003c1.5.a",
+        "version": "0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4.4\" excludes \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4.4|\u003c1.5.a",
+        "version": "0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4.4\" excludes \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4.4|\u003c1.5.a",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4.4\" excludes \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4.4|\u003c1.5.a",
+        "version": "0.0.beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4.4\" excludes \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4.4|\u003c1.5.a",
+        "version": "5.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4.4\" excludes \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4.4|\u003c1.5.a",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.4.4\" excludes \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.4.4|\u003c1.5.a",
+        "version": "5.x"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0.0\" contains \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0.0|\u003c1.1.a",
+        "version": "1.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0.0\" contains \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0.0|\u003c1.1.a",
+        "version": "1.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0.0\" excludes \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0.0|\u003c1.1.a",
+        "version": "1.0.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0.0\" excludes \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0.0|\u003c1.1.a",
+        "version": "1.8.2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0.0\" excludes \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0.0|\u003c1.1.a",
+        "version": "0.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0.0\" excludes \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0.0|\u003c1.1.a",
+        "version": "1.8.2.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0.0\" excludes \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0.0|\u003c1.1.a",
+        "version": "1.8.2.b"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0.0\" excludes \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0.0|\u003c1.1.a",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0.0\" excludes \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0.0|\u003c1.1.a",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0.0\" excludes \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0.0|\u003c1.1.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0.0\" excludes \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0.0|\u003c1.1.a",
+        "version": "0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0.0\" excludes \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0.0|\u003c1.1.a",
+        "version": "0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0.0\" excludes \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0.0|\u003c1.1.a",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0.0\" excludes \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0.0|\u003c1.1.a",
+        "version": "0.0.beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0.0\" excludes \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0.0|\u003c1.1.a",
+        "version": "5.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0.0\" excludes \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0.0|\u003c1.1.a",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0.0\" excludes \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0.0|\u003c1.1.a",
+        "version": "5.x"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.1\" excludes \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.1|\u003c2.a",
+        "version": "1.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.1\" excludes \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.1|\u003c2.a",
+        "version": "1.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.1\" excludes \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.1|\u003c2.a",
+        "version": "1.0.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.1\" contains \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.1|\u003c2.a",
+        "version": "1.8.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.1\" excludes \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.1|\u003c2.a",
+        "version": "0.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.1\" contains \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.1|\u003c2.a",
+        "version": "1.8.2.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.1\" contains \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.1|\u003c2.a",
+        "version": "1.8.2.b"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.1\" contains \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.1|\u003c2.a",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.1\" contains \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.1|\u003c2.a",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.1\" excludes \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.1|\u003c2.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.1\" excludes \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.1|\u003c2.a",
+        "version": "0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.1\" excludes \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.1|\u003c2.a",
+        "version": "0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.1\" excludes \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.1|\u003c2.a",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.1\" excludes \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.1|\u003c2.a",
+        "version": "0.0.beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.1\" excludes \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.1|\u003c2.a",
+        "version": "5.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.1\" excludes \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.1|\u003c2.a",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.1\" excludes \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.1|\u003c2.a",
+        "version": "5.x"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0\" contains \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0|\u003c2.a",
+        "version": "1.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0\" contains \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0|\u003c2.a",
+        "version": "1.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0\" excludes \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0|\u003c2.a",
+        "version": "1.0.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0\" contains \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0|\u003c2.a",
+        "version": "1.8.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0\" excludes \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0|\u003c2.a",
+        "version": "0.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0\" contains \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0|\u003c2.a",
+        "version": "1.8.2.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0\" contains \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0|\u003c2.a",
+        "version": "1.8.2.b"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0\" contains \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0|\u003c2.a",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0\" contains \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0|\u003c2.a",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0\" excludes \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0|\u003c2.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0\" excludes \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0|\u003c2.a",
+        "version": "0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0\" excludes \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0|\u003c2.a",
+        "version": "0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0\" excludes \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0|\u003c2.a",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0\" excludes \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0|\u003c2.a",
+        "version": "0.0.beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0\" excludes \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0|\u003c2.a",
+        "version": "5.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0\" excludes \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0|\u003c2.a",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1.0\" excludes \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1.0|\u003c2.a",
+        "version": "5.x"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 2.0\" excludes \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=2.0|\u003c3.a",
+        "version": "1.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 2.0\" excludes \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=2.0|\u003c3.a",
+        "version": "1.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 2.0\" excludes \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=2.0|\u003c3.a",
+        "version": "1.0.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 2.0\" excludes \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=2.0|\u003c3.a",
+        "version": "1.8.2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 2.0\" excludes \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=2.0|\u003c3.a",
+        "version": "0.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 2.0\" excludes \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=2.0|\u003c3.a",
+        "version": "1.8.2.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 2.0\" excludes \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=2.0|\u003c3.a",
+        "version": "1.8.2.b"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 2.0\" excludes \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=2.0|\u003c3.a",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 2.0\" excludes \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=2.0|\u003c3.a",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 2.0\" excludes \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=2.0|\u003c3.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 2.0\" excludes \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=2.0|\u003c3.a",
+        "version": "0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 2.0\" excludes \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=2.0|\u003c3.a",
+        "version": "0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 2.0\" excludes \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=2.0|\u003c3.a",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 2.0\" excludes \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=2.0|\u003c3.a",
+        "version": "0.0.beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 2.0\" excludes \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=2.0|\u003c3.a",
+        "version": "5.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 2.0\" excludes \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=2.0|\u003c3.a",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 2.0\" excludes \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=2.0|\u003c3.a",
+        "version": "5.x"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1\" contains \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1|\u003c2.a",
+        "version": "1.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1\" contains \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1|\u003c2.a",
+        "version": "1.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1\" excludes \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1|\u003c2.a",
+        "version": "1.0.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1\" contains \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1|\u003c2.a",
+        "version": "1.8.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1\" excludes \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1|\u003c2.a",
+        "version": "0.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1\" contains \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1|\u003c2.a",
+        "version": "1.8.2.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1\" contains \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1|\u003c2.a",
+        "version": "1.8.2.b"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1\" contains \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1|\u003c2.a",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1\" contains \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1|\u003c2.a",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1\" excludes \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1|\u003c2.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1\" excludes \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1|\u003c2.a",
+        "version": "0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1\" excludes \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1|\u003c2.a",
+        "version": "0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1\" excludes \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1|\u003c2.a",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1\" excludes \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1|\u003c2.a",
+        "version": "0.0.beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1\" excludes \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1|\u003c2.a",
+        "version": "5.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1\" excludes \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1|\u003c2.a",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"~\u003e 1\" excludes \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e=1|\u003c2.a",
+        "version": "5.x"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.1\" contains \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.1",
+        "version": "1.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.1\" contains \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.1",
+        "version": "1.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.1\" contains \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.1",
+        "version": "1.0.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.1\" contains \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.1",
+        "version": "1.8.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.1\" excludes \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.1",
+        "version": "0.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.1\" contains \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.1",
+        "version": "1.8.2.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.1\" contains \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.1",
+        "version": "1.8.2.b"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.1\" contains \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.1",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.1\" contains \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.1",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.1\" excludes \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.1\" excludes \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.1",
+        "version": "0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.1\" excludes \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.1",
+        "version": "0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.1\" excludes \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.1",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.1\" excludes \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.1",
+        "version": "0.0.beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.1\" contains \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.1",
+        "version": "5.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.1\" contains \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.1",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 0.1\" contains \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e0.1",
+        "version": "5.x"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.2.3\" contains \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.2.3",
+        "version": "1.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.2.3\" contains \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.2.3",
+        "version": "1.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.2.3\" contains \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.2.3",
+        "version": "1.0.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.2.3\" contains \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.2.3",
+        "version": "1.8.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.2.3\" contains \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.2.3",
+        "version": "0.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.2.3\" contains \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.2.3",
+        "version": "1.8.2.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.2.3\" contains \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.2.3",
+        "version": "1.8.2.b"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.2.3\" contains \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.2.3",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.2.3\" contains \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.2.3",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.2.3\" contains \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.2.3"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.2.3\" contains \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.2.3",
+        "version": "0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.2.3\" contains \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.2.3",
+        "version": "0.beta.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.2.3\" contains \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.2.3",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.2.3\" contains \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.2.3",
+        "version": "0.0.beta"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.2.3\" contains \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.2.3",
+        "version": "5.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.2.3\" contains \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.2.3",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.2.3\" contains \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.2.3",
+        "version": "5.x"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.02.3\" contains \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.02.3",
+        "version": "1.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.02.3\" contains \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.02.3",
+        "version": "1.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.02.3\" contains \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.02.3",
+        "version": "1.0.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.02.3\" contains \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.02.3",
+        "version": "1.8.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.02.3\" contains \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.02.3",
+        "version": "0.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.02.3\" contains \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.02.3",
+        "version": "1.8.2.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.02.3\" contains \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.02.3",
+        "version": "1.8.2.b"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.02.3\" contains \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.02.3",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.02.3\" contains \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.02.3",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.02.3\" contains \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.02.3"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.02.3\" contains \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.02.3",
+        "version": "0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.02.3\" contains \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.02.3",
+        "version": "0.beta.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.02.3\" contains \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.02.3",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.02.3\" contains \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.02.3",
+        "version": "0.0.beta"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.02.3\" contains \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.02.3",
+        "version": "5.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.02.3\" contains \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.02.3",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"!= 1.02.3\" contains \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/!=1.02.3",
+        "version": "5.x"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 1.2.3\" contains \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c1.2.3",
+        "version": "1.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 1.2.3\" contains \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c1.2.3",
+        "version": "1.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 1.2.3\" contains \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c1.2.3",
+        "version": "1.0.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 1.2.3\" excludes \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c1.2.3",
+        "version": "1.8.2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c 1.2.3\" contains \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c1.2.3",
+        "version": "0.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 1.2.3\" excludes \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c1.2.3",
+        "version": "1.8.2.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c 1.2.3\" excludes \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c1.2.3",
+        "version": "1.8.2.b"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c 1.2.3\" excludes \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c1.2.3",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c 1.2.3\" excludes \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c1.2.3",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c 1.2.3\" contains \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c1.2.3"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 1.2.3\" contains \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c1.2.3",
+        "version": "0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 1.2.3\" contains \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c1.2.3",
+        "version": "0.beta.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 1.2.3\" contains \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c1.2.3",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 1.2.3\" contains \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c1.2.3",
+        "version": "0.0.beta"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c 1.2.3\" excludes \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c1.2.3",
+        "version": "5.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c 1.2.3\" excludes \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c1.2.3",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c 1.2.3\" excludes \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c1.2.3",
+        "version": "5.x"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1\" excludes \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1",
+        "version": "1.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1\" excludes \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1",
+        "version": "1.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1\" excludes \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1",
+        "version": "1.0.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1\" contains \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1",
+        "version": "1.8.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1\" excludes \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1",
+        "version": "0.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1\" contains \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1",
+        "version": "1.8.2.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1\" contains \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1",
+        "version": "1.8.2.b"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1\" contains \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1\" contains \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1\" excludes \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1\" excludes \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1",
+        "version": "0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1\" excludes \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1",
+        "version": "0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1\" excludes \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1\" excludes \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1",
+        "version": "0.0.beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1\" contains \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1",
+        "version": "5.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1\" contains \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1\" contains \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1",
+        "version": "5.x"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"= 0.1\" excludes \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.1",
+        "version": "1.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.1\" excludes \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.1",
+        "version": "1.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.1\" excludes \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.1",
+        "version": "1.0.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.1\" excludes \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.1",
+        "version": "1.8.2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.1\" excludes \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.1",
+        "version": "0.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.1\" excludes \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.1",
+        "version": "1.8.2.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.1\" excludes \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.1",
+        "version": "1.8.2.b"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.1\" excludes \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.1",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.1\" excludes \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.1",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.1\" excludes \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.1\" excludes \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.1",
+        "version": "0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.1\" excludes \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.1",
+        "version": "0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.1\" excludes \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.1",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.1\" excludes \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.1",
+        "version": "0.0.beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.1\" excludes \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.1",
+        "version": "5.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.1\" excludes \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.1",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 0.1\" excludes \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/0.1",
+        "version": "5.x"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1.1\" excludes \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1.1",
+        "version": "1.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1.1\" excludes \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1.1",
+        "version": "1.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1.1\" excludes \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1.1",
+        "version": "1.0.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1.1\" contains \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1.1",
+        "version": "1.8.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1.1\" excludes \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1.1",
+        "version": "0.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1.1\" contains \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1.1",
+        "version": "1.8.2.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1.1\" contains \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1.1",
+        "version": "1.8.2.b"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1.1\" contains \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1.1",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1.1\" contains \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1.1",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1.1\" excludes \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1.1\" excludes \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1.1",
+        "version": "0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1.1\" excludes \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1.1",
+        "version": "0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1.1\" excludes \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1.1",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1.1\" excludes \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1.1",
+        "version": "0.0.beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1.1\" contains \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1.1",
+        "version": "5.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1.1\" contains \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1.1",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003e 1.1.1\" contains \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003e1.1.1",
+        "version": "5.x"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"= 1.1\" excludes \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.1",
+        "version": "1.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.1\" excludes \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.1",
+        "version": "1.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.1\" excludes \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.1",
+        "version": "1.0.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.1\" excludes \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.1",
+        "version": "1.8.2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.1\" excludes \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.1",
+        "version": "0.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.1\" excludes \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.1",
+        "version": "1.8.2.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.1\" excludes \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.1",
+        "version": "1.8.2.b"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.1\" excludes \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.1",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.1\" excludes \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.1",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.1\" excludes \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.1\" excludes \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.1",
+        "version": "0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.1\" excludes \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.1",
+        "version": "0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.1\" excludes \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.1",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.1\" excludes \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.1",
+        "version": "0.0.beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.1\" excludes \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.1",
+        "version": "5.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.1\" excludes \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.1",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.1\" excludes \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.1",
+        "version": "5.x"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.40\" excludes \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.40",
+        "version": "1.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.40\" excludes \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.40",
+        "version": "1.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.40\" excludes \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.40",
+        "version": "1.0.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.40\" excludes \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.40",
+        "version": "1.8.2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.40\" excludes \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.40",
+        "version": "0.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.40\" excludes \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.40",
+        "version": "1.8.2.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.40\" excludes \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.40",
+        "version": "1.8.2.b"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.40\" excludes \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.40",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.40\" excludes \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.40",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.40\" excludes \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.40"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.40\" excludes \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.40",
+        "version": "0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.40\" excludes \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.40",
+        "version": "0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.40\" excludes \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.40",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.40\" excludes \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.40",
+        "version": "0.0.beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.40\" excludes \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.40",
+        "version": "5.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.40\" excludes \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.40",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"= 1.40\" excludes \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/1.40",
+        "version": "5.x"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "RubyGems range \"\u003c= 9.3.2\" contains \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c=9.3.2",
+        "version": "1.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c= 9.3.2\" contains \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c=9.3.2",
+        "version": "1.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c= 9.3.2\" contains \"1.0.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c=9.3.2",
+        "version": "1.0.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c= 9.3.2\" contains \"1.8.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c=9.3.2",
+        "version": "1.8.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c= 9.3.2\" contains \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c=9.3.2",
+        "version": "0.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c= 9.3.2\" contains \"1.8.2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c=9.3.2",
+        "version": "1.8.2.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c= 9.3.2\" contains \"1.8.2.b\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c=9.3.2",
+        "version": "1.8.2.b"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c= 9.3.2\" contains \"1.8.2.a10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c=9.3.2",
+        "version": "1.8.2.a10"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c= 9.3.2\" contains \"1.8.2.a9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c=9.3.2",
+        "version": "1.8.2.a9"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c= 9.3.2\" contains \"\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c=9.3.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c= 9.3.2\" contains \"0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c=9.3.2",
+        "version": "0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c= 9.3.2\" contains \"0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c=9.3.2",
+        "version": "0.beta.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c= 9.3.2\" contains \"0.0.beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c=9.3.2",
+        "version": "0.0.beta.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c= 9.3.2\" contains \"0.0.beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c=9.3.2",
+        "version": "0.0.beta"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c= 9.3.2\" contains \"5.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c=9.3.2",
+        "version": "5.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c= 9.3.2\" contains \"5.0.0.rc2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c=9.3.2",
+        "version": "5.0.0.rc2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "RubyGems range \"\u003c= 9.3.2\" contains \"5.x\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:gem/\u003c=9.3.2",
+        "version": "5.x"
+      },
+      "expected_output": true
+    }
+  ]
+}

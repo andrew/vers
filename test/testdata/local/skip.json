@@ -1,0 +1,14 @@
+{
+  "skips": [
+    {
+      "file": "local/tests/conan_univers_range_test.json",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:conan/>1|<2.0|>=3.2|<4-",
+        "version": "3.3-a1"
+      },
+      "expected_output": false,
+      "reason": "VERS constraints cannot encode Conan's per-branch prerelease opt-in."
+    }
+  ]
+}

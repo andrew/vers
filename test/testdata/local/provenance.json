@@ -1,0 +1,195 @@
+{
+  "sources": [
+    {
+      "repository": "https://github.com/git-pkgs/vers",
+      "commit": "aca1342a0af1b6308ced629af1913ab42a66dbb5",
+      "license": "MIT",
+      "source_files": [
+        "composer_pub_test.go"
+      ],
+      "generated_files": [
+        "tests/composer_range_containment_test.json",
+        "tests/composer_range_from_native_test.json",
+        "tests/pub_range_containment_test.json",
+        "tests/pub_range_from_native_test.json"
+      ]
+    },
+    {
+      "repository": "https://github.com/npm/node-semver.git",
+      "commit": "6e05b7637396ac66522cff8731f07cfe0ef49a29",
+      "license": "ISC",
+      "source_files": [
+        "test/fixtures/comparisons.js",
+        "test/fixtures/equality.js",
+        "test/fixtures/range-include.js",
+        "test/fixtures/range-exclude.js"
+      ],
+      "generated_files": [
+        "tests/npm_version_cmp_test.json",
+        "tests/npm_range_reference_test.json",
+        "tests/npm_range_generated_test.json"
+      ]
+    },
+    {
+      "repository": "https://github.com/pypa/packaging.git",
+      "commit": "55cbf1b9426f44455fa1a9e0836f1fc082cc8452",
+      "license": "Apache-2.0 OR BSD-2-Clause",
+      "source_files": [
+        "tests/test_version.py",
+        "tests/test_specifiers.py"
+      ],
+      "generated_files": [
+        "tests/pypi_version_cmp_test.json",
+        "tests/pypi_range_reference_test.json",
+        "tests/pypi_range_generated_test.json"
+      ]
+    },
+    {
+      "repository": "https://github.com/rubygems/rubygems.git",
+      "commit": "370fe6876eec1714cd0f8824c3f19f4d368dfe7c",
+      "license": "MIT",
+      "source_files": [
+        "test/rubygems/test_gem_version.rb",
+        "test/rubygems/test_gem_requirement.rb"
+      ],
+      "generated_files": [
+        "tests/gem_version_cmp_test.json",
+        "tests/gem_range_reference_test.json",
+        "tests/gem_range_generated_test.json"
+      ]
+    },
+    {
+      "repository": "https://github.com/composer/semver.git",
+      "commit": "1cbc9b575a27458074d21a3bab95b847c8de387c",
+      "license": "MIT",
+      "source_files": [
+        "tests/ComparatorTest.php",
+        "tests/VersionParserTest.php"
+      ],
+      "generated_files": [
+        "tests/composer_version_cmp_test.json",
+        "tests/composer_range_reference_test.json",
+        "tests/composer_range_generated_test.json"
+      ]
+    },
+    {
+      "repository": "https://github.com/dart-lang/tools.git",
+      "commit": "a22c3a687dc1b35630fb34c296157d66565429cd",
+      "license": "BSD-3-Clause",
+      "source_files": [
+        "pkgs/pub_semver/test/version_test.dart",
+        "pkgs/pub_semver/test/version_range_test.dart",
+        "pkgs/pub_semver/test/version_constraint_test.dart",
+        "pkgs/pub_semver/test/utils.dart"
+      ],
+      "generated_files": [
+        "tests/pub_version_cmp_test.json",
+        "tests/pub_range_reference_test.json",
+        "tests/pub_range_generated_test.json"
+      ]
+    },
+    {
+      "repository": "https://github.com/dtolnay/semver.git",
+      "commit": "280ebcb6edac3aa4cdc545dbff8a26c5ac4861fe",
+      "license": "MIT OR Apache-2.0",
+      "source_files": [
+        "tests/test_version.rs",
+        "tests/test_version_req.rs"
+      ],
+      "generated_files": [
+        "tests/cargo_version_cmp_test.json",
+        "tests/cargo_range_reference_test.json",
+        "tests/cargo_range_generated_test.json"
+      ]
+    },
+    {
+      "repository": "https://github.com/apache/maven.git",
+      "commit": "48514f63b2799844c9f8d7746f73a95123526df7",
+      "license": "Apache-2.0",
+      "source_files": [
+        "compat/maven-artifact/src/test/java/org/apache/maven/artifact/versioning/VersionRangeTest.java"
+      ],
+      "generated_files": [
+        "tests/maven_range_reference_test.json",
+        "tests/maven_range_generated_test.json"
+      ]
+    },
+    {
+      "repository": "https://salsa.debian.org/dpkg-team/dpkg.git",
+      "commit": "c5efef926d16a72fd9270c8efceeba8872419292",
+      "license": "GPL-2.0-or-later",
+      "source_files": [
+        "lib/dpkg/t/t-version.c"
+      ],
+      "generated_files": [
+        "tests/deb_version_cmp_test.json"
+      ]
+    },
+    {
+      "repository": "https://github.com/rpm-software-management/rpm.git",
+      "commit": "ac5062c43e2337fb43a9179f02c0cc5d7d069802",
+      "license": "GPL-2.0-or-later",
+      "source_files": [
+        "tests/rpmvercmp.at"
+      ],
+      "generated_files": [
+        "tests/rpm_version_cmp_test.json"
+      ]
+    },
+    {
+      "repository": "https://github.com/golang/mod.git",
+      "commit": "d3398d06de5fa5c71083d3d1c26f2cda73508e0f",
+      "license": "BSD-3-Clause",
+      "source_files": [
+        "semver/semver_test.go"
+      ],
+      "generated_files": [
+        "tests/go_version_cmp_test.json"
+      ]
+    },
+    {
+      "repository": "https://github.com/package-url/univers.git",
+      "commit": "f365e4ee6eea8ebf1ad9219ccf4c4d523e822fb2",
+      "license": "Apache-2.0 AND BSD-3-Clause AND GPL-2.0-only AND MIT",
+      "source_files": [
+        "tests/test_debian_version.py",
+        "tests/test_debian_version.py.ABOUT",
+        "tests/data/rpmvercmp.at",
+        "tests/data/rpmvercmp.at.ABOUT",
+        "tests/test_gentoo_pkgcore.py",
+        "tests/test_gentoo_pkgcore.py.ABOUT",
+        "tests/data/alpine_test.txt",
+        "tests/data/alpine_test.txt.ABOUT",
+        "tests/test_pacman_vercmp.py",
+        "tests/test_pacman_vercmp.py.ABOUT",
+        "tests/test_conan_version_comparison.py",
+        "tests/test_conan_version_comparison.py.ABOUT",
+        "tests/test_conan_version_range.py",
+        "tests/test_conan_version_range.py.ABOUT",
+        "tests/data/npm_advisory.json"
+      ],
+      "generated_files": [
+        "tests/deb_univers_version_cmp_test.json",
+        "tests/rpm_univers_version_cmp_test.json",
+        "tests/gentoo_univers_version_cmp_test.json",
+        "tests/apk_univers_version_cmp_test.json",
+        "tests/alpm_univers_version_cmp_test.json",
+        "tests/conan_univers_version_cmp_test.json",
+        "tests/conan_univers_range_test.json",
+        "data/npm_advisory.json"
+      ]
+    },
+    {
+      "repository": "https://github.com/alpinelinux/apk-tools.git",
+      "commit": "900a3f5280bfad7ea22eda7de46d0d4c0c9ce8f2",
+      "license": "GPL-2.0-only",
+      "source_files": [
+        "src/version.c",
+        "test/unit/version.data"
+      ],
+      "generated_files": [
+        "tests/apk_tools_version_cmp_test.json"
+      ]
+    }
+  ]
+}
