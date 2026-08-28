@@ -179,6 +179,8 @@ module Vers
       end
 
       intervals.each do |interval|
+        next if interval.unbounded?
+
         if interval.min == interval.max && interval.min_inclusive && interval.max_inclusive
           # Exact version
           constraints << encode_vers_version(normalize_vers_version(interval.min.to_s, scheme))

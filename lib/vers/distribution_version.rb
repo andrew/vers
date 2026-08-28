@@ -446,23 +446,8 @@ module Vers
     def compare_suffixes(left, right)
       index = 0
       loop do
-        return 0 unless left || right
-
-        unless left
-          kind, number = parse_suffix(right[index])
-          rank = SUFFIX_RANKS.fetch(kind, 0)
-          return 0 <=> rank unless rank.zero?
-          return VersionComparison.compare_numbers("0", number)
-        end
-        unless right
-          kind, number = parse_suffix(left[index])
-          rank = SUFFIX_RANKS.fetch(kind, 0)
-          return rank <=> 0 unless rank.zero?
-          return VersionComparison.compare_numbers(number, "0")
-        end
-
-        left_suffix = left[index]
-        right_suffix = right[index]
+        left_suffix = left&.[](index)
+        right_suffix = right&.[](index)
         return 0 unless left_suffix || right_suffix
         unless left_suffix
           kind, number = parse_suffix(right_suffix)

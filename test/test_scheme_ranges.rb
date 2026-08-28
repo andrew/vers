@@ -56,6 +56,24 @@ class TestSchemeRanges < Minitest::Test
     assert_raises(ArgumentError) { npm.intersect(pypi) }
   end
 
+  def test_union_preserves_an_exclusion_outside_the_other_operand
+    excluded = Vers.parse("vers:npm/>=1.0.0").exclude("1.5.0")
+    later = Vers.parse("vers:npm/>=2.0.0")
+    union = excluded.union(later)
+
+    refute union.contains?("1.5.0")
+    refute later.union(excluded).contains?("1.5.0")
+    refute Vers.parse(Vers.to_vers_string(union, "npm")).contains?("1.5.0")
+  end
+
+  def test_union_drops_an_exclusion_covered_by_the_other_operand
+    excluded = Vers.parse("vers:npm/>=1.0.0").exclude("1.5.0")
+    covering = Vers.parse("vers:npm/>=1.4.0")
+
+    assert excluded.union(covering).contains?("1.5.0")
+    assert covering.union(excluded).contains?("1.5.0")
+  end
+
   def test_untyped_range_inherits_a_typed_scheme
     generic = Vers::VersionRange.greater_than("1.0.dev1", inclusive: true)
     pypi = Vers.parse("vers:pypi/*")

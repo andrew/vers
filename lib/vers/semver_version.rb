@@ -22,7 +22,7 @@ module Vers
     end
 
     def parse(value)
-      string = value.to_s
+      string = value.to_s.strip
       index = string.start_with?("v") ? 1 : 0
       core = []
 
@@ -104,7 +104,6 @@ module Vers
       right_parts = right.split(".", -1)
       left_parts.zip(right_parts).each do |left_part, right_part|
         return 1 if right_part.nil?
-        return -1 if left_part.nil?
 
         comparison = compare_identifier(left_part, right_part)
         return comparison unless comparison.zero?
@@ -170,7 +169,6 @@ module Vers
       right_parts = right.split(".", -1)
       left_parts.zip(right_parts).each do |left_part, right_part|
         return 1 if right_part.nil?
-        return -1 if left_part.nil?
 
         comparison = compare_build_identifier(left_part, right_part)
         return comparison unless comparison.zero?

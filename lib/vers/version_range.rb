@@ -177,14 +177,22 @@ module Vers
     def union(other)
       merged_scheme = compatible_scheme(other)
       combined_raw = (raw_constraints || intervals) + (other.raw_constraints || other.intervals)
-      shared_exclusions = exclusions.select do |excluded|
-        other.exclusions.any? { |candidate| Version.compare_with_scheme(excluded, candidate, merged_scheme).zero? }
+      left = with_scheme(merged_scheme)
+      right = other.with_scheme(merged_scheme)
+      combined_exclusions = []
+      left.exclusions.each do |excluded|
+        combined_exclusions << excluded unless right.contains?(excluded)
+      end
+      right.exclusions.each do |excluded|
+        next if left.contains?(excluded) || combined_exclusions.include?(excluded)
+
+        combined_exclusions << excluded
       end
       self.class.new(
         intervals + other.intervals,
         raw_constraints: combined_raw,
         scheme: merged_scheme,
-        exclusions: shared_exclusions
+        exclusions: combined_exclusions
       )
     end
 

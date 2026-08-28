@@ -21,6 +21,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - APK comparison and validation now follow apk-tools tokens instead of Gentoo version rules.
 - The minimum supported Ruby version is now 3.3.
 
+### Fixed
+
+- Unioning an unbounded interval with a bounded interval now remains unbounded.
+- Range unions retain exclusions when the other operand does not contain the excluded version.
+- VERS serialization no longer adds an empty constraint to unbounded ranges with exclusions.
+- SemVer comparison handles surrounding whitespace consistently with validation.
+
 ## [1.1.0] - 2026-02-24
 
 ### Added

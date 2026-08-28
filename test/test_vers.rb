@@ -46,6 +46,27 @@ class TestVers < Minitest::Test
     assert_equal(0, Vers.compare("1.0.0", "1.0.0"))
   end
 
+  def test_compare_semver_with_surrounding_whitespace
+    assert Vers.valid?(" 10.0.0 ", "semver")
+    assert_equal 1, Vers.compare_with_scheme(" 10.0.0 ", "2.0.0", "semver")
+    assert Vers.parse("vers:semver/>=2.0.0").contains?(" 10.0.0 ")
+  end
+
+  def test_serialize_native_exclusion
+    {
+      "npm" => ["!=1.5.0", "1.5.0", "1.6.0"],
+      "hex" => ["!=1.5.0", "1.5.0", "1.6.0"],
+      "go" => ["!=v1.5.0", "v1.5.0", "v1.6.0"]
+    }.each do |scheme, (constraint, excluded, allowed)|
+      range = Vers.parse_native(constraint, scheme)
+      serialized = Vers.to_vers_string(range, scheme)
+
+      assert_equal "vers:#{scheme}/#{constraint}", serialized
+      refute Vers.parse(serialized).contains?(excluded)
+      assert Vers.parse(serialized).contains?(allowed)
+    end
+  end
+
   def test_normalize_version
     assert_equal "1.2.3", Vers.normalize("1.2.3")
     assert_equal "1.0.0", Vers.normalize("1")
