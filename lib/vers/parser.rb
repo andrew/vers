@@ -76,7 +76,11 @@ module Vers
         raise ArgumentError, "Invalid vers URI format: #{vers_string}"
       end
 
-      scheme = Scheme.canonical(remainder[...slash])
+      raw_scheme = remainder[...slash]
+      if raw_scheme != raw_scheme.downcase
+        raise ArgumentError, "non-canonical VERS: type must be lowercase"
+      end
+      scheme = Scheme.canonical(raw_scheme)
       constraints_string = remainder[(slash + 1)..]
       if constraints_string.empty? || constraints_string == "*"
         return VersionRange.unbounded(scheme: scheme)
@@ -164,7 +168,7 @@ module Vers
         return "vers:#{scheme}/"
       end
 
-      intervals = version_range.raw_constraints || version_range.intervals
+      intervals = serialization_intervals(version_range, scheme)
       constraints = []
 
       # Detect != pattern: two intervals (-∞,V) ∪ (V,+∞)
@@ -231,16 +235,23 @@ module Vers
 
       previous = nil
       previous_raw = nil
+      seen_versions = []
       constraints.split("|").each do |raw|
         constraint = Constraint.parse(raw)
         validate_vers_version!(constraint.version, scheme)
         decoded_version = decode_vers_version(constraint.version)
 
-        if require_canonical_order && previous
-          order = Version.compare_with_scheme(previous, decoded_version, scheme)
-          if order.positive? || (order.zero? && previous_raw > raw)
-            raise ArgumentError, "non-canonical VERS: constraints are not sorted by version"
+        if require_canonical_order
+          if seen_versions.any? { |version| Version.compare_with_scheme(version, decoded_version, scheme).zero? }
+            raise ArgumentError, "non-canonical VERS: duplicate versions are not permitted"
           end
+          if previous
+            order = Version.compare_with_scheme(previous, decoded_version, scheme)
+            if order.positive? || (order.zero? && previous_raw > raw)
+              raise ArgumentError, "non-canonical VERS: constraints are not sorted by version"
+            end
+          end
+          seen_versions << decoded_version
         end
 
         previous = decoded_version
@@ -266,6 +277,10 @@ module Vers
         end
 
         index += 3
+      end
+
+      if version.match?(/[><=!*\/]/)
+        raise ArgumentError, "non-canonical VERS: reserved characters in version must be percent-encoded"
       end
 
       return unless scheme == "datetime"
@@ -294,6 +309,35 @@ module Vers
         comparison = Version.compare_with_scheme(left_version, right_version, scheme)
         comparison.zero? ? left <=> right : comparison
       end
+    end
+
+    def serialization_intervals(version_range, scheme)
+      raw_constraints = version_range.raw_constraints
+      return version_range.intervals unless raw_constraints
+      return raw_constraints unless %w[npm cargo].include?(scheme)
+      return raw_constraints if version_range.empty?
+
+      grouped = intersect_consecutive_intervals(raw_constraints, scheme)
+      raw_range = VersionRange.new(grouped, scheme: scheme)
+      equivalent_intervals?(raw_range.intervals, version_range.intervals, scheme) ? raw_constraints : version_range.intervals
+    end
+
+    def equivalent_intervals?(left, right, scheme)
+      return false unless left.length == right.length
+
+      left.zip(right).all? do |left_interval, right_interval|
+        left_interval.min_inclusive == right_interval.min_inclusive &&
+          left_interval.max_inclusive == right_interval.max_inclusive &&
+          equivalent_bound?(left_interval.min, right_interval.min, scheme) &&
+          equivalent_bound?(left_interval.max, right_interval.max, scheme)
+      end
+    end
+
+    def equivalent_bound?(left, right, scheme)
+      return true if left.nil? && right.nil?
+      return false if left.nil? || right.nil?
+
+      Version.compare_for_range(left, right, scheme).zero?
     end
 
     def normalize_vers_version(version, scheme)
@@ -891,22 +935,7 @@ module Vers
                    raise ArgumentError, "Invalid operator for NPM partial range: #{operator}"
                  end
 
-      wildcard = version.match?(/[xX*]/)
-      raw = case
-            when wildcard
-              Interval.new(min: lower, max: upper, min_inclusive: true, max_inclusive: false, scheme: scheme)
-            when operator.empty? || operator == "="
-              Interval.exact(lower, scheme: scheme)
-            when operator == ">="
-              Interval.greater_than(lower, inclusive: true, scheme: scheme)
-            when operator == ">"
-              Interval.greater_than(lower, scheme: scheme)
-            when operator == "<="
-              Interval.less_than(lower, inclusive: true, scheme: scheme)
-            when operator == "<"
-              Interval.less_than(lower, scheme: scheme)
-            end
-      VersionRange.new([interval], raw_constraints: [raw], scheme: scheme)
+      VersionRange.new([interval], raw_constraints: [interval], scheme: scheme)
     end
 
     def npm_partial_bounds(version)

@@ -5,7 +5,7 @@ require_relative 'version'
 
 module Vers
   class VersionRange
-    VALIDATED_CONTAINMENT_SCHEMES = %w[bazel cargo composer npm pypi].freeze
+    VALIDATED_CONTAINMENT_SCHEMES = %w[bazel cargo composer go hex npm pub pypi semver].freeze
 
     attr_reader :intervals, :raw_constraints, :scheme, :exclusions
 
@@ -62,14 +62,13 @@ module Vers
       end
       return false if exclusions.any? { |excluded| excluded_version?(version, excluded) }
 
-      comparison_scheme = scheme == "cargo" ? "semver" : scheme
       intervals.any? do |interval|
         contains = if scheme == "composer"
                      composer_interval_contains?(interval, version)
                    elsif scheme == "pypi"
                      pypi_interval_contains?(interval, version)
                    else
-                     interval.contains?(version, comparison_scheme: comparison_scheme)
+                     interval.contains?(version)
                    end
         contains && prerelease_allowed?(interval, version)
       end
@@ -160,7 +159,7 @@ module Vers
 
       intervals.each do |interval1|
         other.intervals.each do |interval2|
-          intersection = interval1.intersect(interval2)
+          intersection = intersect_intervals(interval1, interval2, merged_scheme)
           result_intervals << intersection unless intersection.empty?
         end
       end
@@ -172,6 +171,37 @@ module Vers
         scheme: merged_scheme,
         exclusions: exclusions + other.exclusions
       )
+    end
+
+    def intersect_intervals(left, right, comparison_scheme)
+      return left.intersect(right) unless comparison_scheme == "pypi"
+
+      left = left.with_scheme(comparison_scheme)
+      right = right.with_scheme(comparison_scheme)
+      left_exact = exact_interval?(left)
+      right_exact = exact_interval?(right)
+      return left.intersect(right) unless left_exact || right_exact
+
+      if left_exact && right_exact
+        left_contains_right = pypi_interval_contains?(left, right.min)
+        right_contains_left = pypi_interval_contains?(right, left.min)
+        return right if left_contains_right && !right_contains_left
+        return left if right_contains_left
+        return left if left_contains_right
+
+        return Interval.empty(scheme: comparison_scheme)
+      end
+
+      exact = left_exact ? left : right
+      other_interval = left_exact ? right : left
+      return exact if pypi_interval_contains?(other_interval, exact.min)
+
+      Interval.empty(scheme: comparison_scheme)
+    end
+
+    def exact_interval?(interval)
+      interval.min && interval.max && interval.min_inclusive && interval.max_inclusive &&
+        Version.compare_for_range(interval.min, interval.max, interval.scheme || scheme).zero?
     end
 
     def union(other)
@@ -313,11 +343,7 @@ module Vers
       return -1 if a.nil?
       return 1 if b.nil?
 
-      if @scheme
-        Version.compare_with_scheme(a, b, @scheme)
-      else
-        Version.compare(a, b)
-      end
+      Version.compare_for_range(a, b, @scheme)
     end
 
     def compare_interval_bounds(a, b)

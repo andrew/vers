@@ -399,6 +399,30 @@ class TestParser < Minitest::Test
     assert @parser.parse(vers_string, require_canonical_order: true).contains?("1.0/0")
   end
 
+  def test_parse_rejects_an_uppercase_vers_type
+    error = assert_raises(ArgumentError) do
+      @parser.parse("vers:NPM/1.0.0", require_canonical_order: true)
+    end
+
+    assert_equal "non-canonical VERS: type must be lowercase", error.message
+  end
+
+  def test_parse_rejects_unencoded_reserved_version_characters
+    error = assert_raises(ArgumentError) do
+      @parser.parse("vers:generic/1*2", require_canonical_order: true)
+    end
+
+    assert_equal "non-canonical VERS: reserved characters in version must be percent-encoded", error.message
+  end
+
+  def test_parse_rejects_duplicate_versions_in_strict_mode
+    error = assert_raises(ArgumentError) do
+      @parser.parse("vers:npm/<1.0.0|>=1.0.0", require_canonical_order: true)
+    end
+
+    assert_equal "non-canonical VERS: duplicate versions are not permitted", error.message
+  end
+
   def test_to_vers_string_normalizes_semver_based_versions
     range = Vers::VersionRange.exact("1.2", scheme: "npm")
 

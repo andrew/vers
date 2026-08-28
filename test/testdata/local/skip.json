@@ -9,6 +9,48 @@
       },
       "expected_output": false,
       "reason": "VERS constraints cannot encode Conan's per-branch prerelease opt-in."
+    },
+    {
+      "file": "vers-spec/tests/npm_range_from_native_test.json",
+      "test_type": "from_native",
+      "input": {"native_range": "<= 1.0", "scheme": "npm"},
+      "expected_output": "vers:npm/<=1.0.0",
+      "reason": "Expected output changes node-semver containment after serialization."
+    },
+    {
+      "file": "vers-spec/tests/npm_range_from_native_test.json",
+      "test_type": "from_native",
+      "input": {"native_range": ">= 2.2.x", "scheme": "npm"},
+      "expected_output": "vers:npm/>=2.2.0|<2.3.0",
+      "reason": "Expected output changes node-semver containment after serialization."
+    },
+    {
+      "file": "vers-spec/tests/npm_range_from_native_test.json",
+      "test_type": "from_native",
+      "input": {"native_range": ">=5.0.3 >=4.2.1", "scheme": "npm"},
+      "expected_output": "vers:npm/>=4.2.1|>=5.0.3",
+      "reason": "Expected output changes node-semver containment after serialization."
+    },
+    {
+      "file": "vers-spec/tests/npm_range_from_native_test.json",
+      "test_type": "from_native",
+      "input": {"native_range": ">= 1.x", "scheme": "npm"},
+      "expected_output": "vers:npm/>=1.0.0|<2.0.0",
+      "reason": "Expected output changes node-semver containment after serialization."
+    },
+    {
+      "file": "vers-spec/tests/npm_range_from_native_test.json",
+      "test_type": "from_native",
+      "input": {"native_range": "2.1 || 2.6", "scheme": "npm"},
+      "expected_output": "vers:npm/2.1.0|2.6.0",
+      "reason": "Expected output changes node-semver containment after serialization."
+    },
+    {
+      "file": "vers-spec/tests/npm_range_from_native_test.json",
+      "test_type": "from_native",
+      "input": {"native_range": "<=2.1 >=1.1", "scheme": "npm"},
+      "expected_output": "vers:npm/>=1.1.0|<=2.1.0",
+      "reason": "Expected output changes node-semver containment after serialization."
     }
   ]
 }

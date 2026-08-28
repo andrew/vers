@@ -67,6 +67,24 @@ class TestVers < Minitest::Test
     end
   end
 
+  def test_serialize_native_npm_ranges_preserves_containment
+    cases = [
+      ["1.2", "vers:npm/>=1.2.0|<1.3.0", "1.2.5"],
+      [">1.2", "vers:npm/>=1.3.0", "1.2.1"],
+      ["<=1.2", "vers:npm/<1.3.0", "1.2.9"],
+      ["~1.2.3-beta.1", "vers:npm/>=1.2.3-beta.1|<1.3.0", "1.2.4"]
+    ]
+
+    cases.each do |native, expected_vers, candidate|
+      range = Vers.parse_native(native, "npm")
+      serialized = Vers.to_vers_string(range, "npm")
+      reparsed = Vers.parse(serialized)
+
+      assert_equal expected_vers, serialized
+      assert_equal range.contains?(candidate), reparsed.contains?(candidate)
+    end
+  end
+
   def test_normalize_version
     assert_equal "1.2.3", Vers.normalize("1.2.3")
     assert_equal "1.0.0", Vers.normalize("1")

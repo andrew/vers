@@ -12,6 +12,12 @@ class TestSchemeRanges < Minitest::Test
     refute range.contains?("*")
   end
 
+  def test_typed_wildcards_reject_invalid_versions
+    %w[semver pub go hex].each do |scheme|
+      refute Vers.parse("vers:#{scheme}/*").contains?("not-a-version")
+    end
+  end
+
   def test_parsed_range_uses_its_scheme_for_containment
     range = Vers.parse("vers:deb/<1.0")
 
@@ -54,6 +60,26 @@ class TestSchemeRanges < Minitest::Test
 
     assert_raises(ArgumentError) { npm.union(pypi) }
     assert_raises(ArgumentError) { npm.intersect(pypi) }
+  end
+
+  def test_cargo_intersection_uses_range_equality_for_build_metadata
+    foo = Vers.parse("vers:cargo/1.0.0+foo")
+    bar = Vers.parse("vers:cargo/1.0.0+bar")
+
+    [foo.intersect(bar), bar.intersect(foo)].each do |intersection|
+      assert intersection.contains?("1.0.0+foo")
+      assert intersection.contains?("1.0.0+bar")
+    end
+  end
+
+  def test_pypi_intersection_preserves_a_local_exact_version
+    public_version = Vers.parse("vers:pypi/1.0")
+    local_version = Vers.parse("vers:pypi/1.0+abc")
+
+    [public_version.intersect(local_version), local_version.intersect(public_version)].each do |intersection|
+      assert intersection.contains?("1.0+abc")
+      refute intersection.contains?("1.0+def")
+    end
   end
 
   def test_union_preserves_an_exclusion_outside_the_other_operand

@@ -112,6 +112,21 @@ module Vers
       handler ? handler.compare(a, b) : compare(a, b)
     end
 
+    def self.compare_for_range(a, b, scheme)
+      return 0 if a == b
+      return -1 if a.nil?
+      return 1 if b.nil?
+
+      case Scheme.canonical(scheme)
+      when "cargo"
+        SemverVersion.compare(a, b)
+      when "pypi"
+        PyPIVersion.compare_public(a, b)
+      else
+        compare_with_scheme(a, b, scheme)
+      end
+    end
+
     ##
     # Normalizes a version string to a consistent format
     #

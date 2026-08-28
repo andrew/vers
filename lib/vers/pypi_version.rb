@@ -40,6 +40,20 @@ module Vers
     def compare(left, right)
       parsed_left = parse(left)
       parsed_right = parse(right)
+      comparison = compare_public_parsed(left, right, parsed_left, parsed_right)
+      return comparison unless comparison.zero?
+      return comparison unless parsed_left && parsed_right
+
+      compare_local(parsed_left.local, parsed_right.local)
+    end
+
+    def compare_public(left, right)
+      parsed_left = parse(left)
+      parsed_right = parse(right)
+      compare_public_parsed(left, right, parsed_left, parsed_right)
+    end
+
+    def compare_public_parsed(left, right, parsed_left, parsed_right)
       return Version.compare(left, right) unless parsed_left && parsed_right
 
       comparison = VersionComparison.compare_numbers(parsed_left.epoch, parsed_right.epoch)
@@ -57,7 +71,7 @@ module Vers
       comparison = compare_dev(parsed_left, parsed_right)
       return comparison unless comparison.zero?
 
-      compare_local(parsed_left.local, parsed_right.local)
+      0
     end
 
     def parse(value)

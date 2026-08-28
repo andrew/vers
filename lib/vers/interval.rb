@@ -257,11 +257,7 @@ module Vers
       return -1 if a.nil?
       return 1 if b.nil?
 
-      if comparison_scheme
-        Version.compare_with_scheme(a, b, comparison_scheme)
-      else
-        Version.compare(a, b)
-      end
+      Version.compare_for_range(a, b, comparison_scheme)
     end
   end
 end
