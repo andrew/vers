@@ -11,7 +11,7 @@ module Vers
       @max = max
       @min_inclusive = min_inclusive
       @max_inclusive = max_inclusive
-      @scheme = scheme
+      @scheme = Scheme.canonical(scheme)
       @empty = compute_empty
     end
 
@@ -43,21 +43,21 @@ module Vers
       min.nil? && max.nil?
     end
 
-    def contains?(version)
+    def contains?(version, comparison_scheme: scheme)
       return false if empty?
       return true if unbounded?
 
       within_min = min.nil? || 
-                   (min_inclusive ? version_compare(version, min) >= 0 : version_compare(version, min) > 0)
+                   (min_inclusive ? version_compare(version, min, comparison_scheme) >= 0 : version_compare(version, min, comparison_scheme) > 0)
       
       within_max = max.nil? || 
-                   (max_inclusive ? version_compare(version, max) <= 0 : version_compare(version, max) < 0)
+                   (max_inclusive ? version_compare(version, max, comparison_scheme) <= 0 : version_compare(version, max, comparison_scheme) < 0)
 
       within_min && within_max
     end
 
     def intersect(other)
-      merged_scheme = @scheme || other.scheme
+      merged_scheme = compatible_scheme(other)
       return self.class.empty(scheme: merged_scheme) if empty? || other.empty?
 
       new_min = nil
@@ -66,7 +66,7 @@ module Vers
       new_max_inclusive = true
 
       if min && other.min
-        comparison = version_compare(min, other.min)
+        comparison = version_compare(min, other.min, merged_scheme)
         if comparison > 0
           new_min = min
           new_min_inclusive = min_inclusive
@@ -86,7 +86,7 @@ module Vers
       end
 
       if max && other.max
-        comparison = version_compare(max, other.max)
+        comparison = version_compare(max, other.max, merged_scheme)
         if comparison < 0
           new_max = max
           new_max_inclusive = max_inclusive
@@ -115,19 +115,19 @@ module Vers
     end
 
     def union(other)
+      merged_scheme = compatible_scheme(other)
       return other if empty?
       return self if other.empty?
 
       return nil unless overlaps?(other) || adjacent?(other)
 
-      merged_scheme = @scheme || other.scheme
       new_min = nil
       new_min_inclusive = true
       new_max = nil
       new_max_inclusive = true
 
       if min && other.min
-        comparison = version_compare(min, other.min)
+        comparison = version_compare(min, other.min, merged_scheme)
         if comparison < 0
           new_min = min
           new_min_inclusive = min_inclusive
@@ -138,16 +138,13 @@ module Vers
           new_min = min
           new_min_inclusive = min_inclusive || other.min_inclusive
         end
-      elsif min.nil?
-        new_min = other.min
-        new_min_inclusive = other.min_inclusive
-      elsif other.min.nil?
-        new_min = min
-        new_min_inclusive = min_inclusive
+      elsif min.nil? || other.min.nil?
+        new_min = nil
+        new_min_inclusive = true
       end
 
       if max && other.max
-        comparison = version_compare(max, other.max)
+        comparison = version_compare(max, other.max, merged_scheme)
         if comparison > 0
           new_max = max
           new_max_inclusive = max_inclusive
@@ -158,12 +155,9 @@ module Vers
           new_max = max
           new_max_inclusive = max_inclusive || other.max_inclusive
         end
-      elsif max.nil?
-        new_max = other.max
-        new_max_inclusive = other.max_inclusive
-      elsif other.max.nil?
-        new_max = max
-        new_max_inclusive = max_inclusive
+      elsif max.nil? || other.max.nil?
+        new_max = nil
+        new_max_inclusive = true
       end
 
       self.class.new(
@@ -176,18 +170,19 @@ module Vers
     end
 
     def overlaps?(other)
+      merged_scheme = compatible_scheme(other)
       return false if empty? || other.empty?
       return true if unbounded? || other.unbounded?
 
       # Check if the intervals can't overlap by comparing bounds directly
       if max && other.min
-        cmp = version_compare(max, other.min)
+        cmp = version_compare(max, other.min, merged_scheme)
         return false if cmp < 0
         return false if cmp == 0 && (!max_inclusive || !other.min_inclusive)
       end
 
       if min && other.max
-        cmp = version_compare(min, other.max)
+        cmp = version_compare(min, other.max, merged_scheme)
         return false if cmp > 0
         return false if cmp == 0 && (!min_inclusive || !other.max_inclusive)
       end
@@ -196,17 +191,42 @@ module Vers
     end
 
     def adjacent?(other)
+      merged_scheme = compatible_scheme(other)
       return false if empty? || other.empty?
       
-      if max && other.min && version_compare(max, other.min) == 0
+      if max && other.min && version_compare(max, other.min, merged_scheme) == 0
         return (max_inclusive && !other.min_inclusive) || (!max_inclusive && other.min_inclusive)
       end
       
-      if min && other.max && version_compare(min, other.max) == 0
+      if min && other.max && version_compare(min, other.max, merged_scheme) == 0
         return (min_inclusive && !other.max_inclusive) || (!min_inclusive && other.max_inclusive)
       end
       
       false
+    end
+
+    def with_scheme(value)
+      canonical = Scheme.canonical(value)
+      if scheme && canonical && scheme != canonical
+        raise ArgumentError, "Cannot combine #{scheme} and #{canonical} version ranges"
+      end
+      return self if scheme == canonical
+
+      self.class.new(
+        min: min,
+        max: max,
+        min_inclusive: min_inclusive,
+        max_inclusive: max_inclusive,
+        scheme: canonical
+      )
+    end
+
+    def compatible_scheme(other)
+      if scheme && other.scheme && scheme != other.scheme
+        raise ArgumentError, "Cannot combine #{scheme} and #{other.scheme} version ranges"
+      end
+
+      scheme || other.scheme
     end
 
     def to_s
@@ -232,16 +252,12 @@ module Vers
       end
     end
 
-    def version_compare(a, b)
+    def version_compare(a, b, comparison_scheme = @scheme)
       return 0 if a == b
       return -1 if a.nil?
       return 1 if b.nil?
 
-      if @scheme
-        Version.compare_with_scheme(a, b, @scheme)
-      else
-        Version.compare(a, b)
-      end
+      Version.compare_for_range(a, b, comparison_scheme)
     end
   end
 end

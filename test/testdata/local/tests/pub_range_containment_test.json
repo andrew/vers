@@ -1,0 +1,175 @@
+{
+  "$schema": "https://packageurl.org/schemas/vers-test.schema-0.2.json",
+  "tests": [
+    {
+      "description": "Pub wildcard contains a release.",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:pub/*",
+        "version": "99.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "Pub exact range contains the same version.",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:pub/1.2.3",
+        "version": "1.2.3"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "Pub exact range excludes another version.",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:pub/1.2.3",
+        "version": "1.2.4"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "Pub traditional range contains an interior version.",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:pub/>=1.2.3|<2.0.0-0",
+        "version": "1.9.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "Pub traditional range excludes a lower version.",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:pub/>=1.2.3|<2.0.0-0",
+        "version": "1.2.2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "Pub traditional range excludes its upper release.",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:pub/>=1.2.3|<2.0.0-0",
+        "version": "2.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "Pub traditional range excludes its upper prerelease.",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:pub/>=1.2.3|<2.0.0-0",
+        "version": "2.0.0-alpha"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "Pub zero-major caret contains a patch release.",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:pub/>=0.1.2|<0.2.0-0",
+        "version": "0.1.9"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "Pub zero-major caret excludes the next minor.",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:pub/>=0.1.2|<0.2.0-0",
+        "version": "0.2.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "Pub zero-minor caret contains a later patch.",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:pub/>=0.0.3|<0.1.0-0",
+        "version": "0.0.9"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "Pub zero-minor caret excludes the next minor prerelease.",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:pub/>=0.0.3|<0.1.0-0",
+        "version": "0.1.0-alpha"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "Pub adjacent constraints contain an interior version.",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:pub/>1.0.0|>=1.2.3|<1.3.0-0",
+        "version": "1.2.5"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "Pub exclusive lower bound contains a build variant.",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:pub/>1.2.3",
+        "version": "1.2.3+foo"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "Pub exclusive upper bound excludes a prerelease of the bound.",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:pub/<1.2.3-0",
+        "version": "1.2.3-alpha"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "Pub exclusive upper bound excludes a build variant of the bound.",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:pub/<1.2.3-0",
+        "version": "1.2.3+foo"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "Pub prerelease range contains a later prerelease.",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:pub/>=1.2.3-alpha|<1.2.3",
+        "version": "1.2.3-beta"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "Pub exact range excludes a build variant.",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:pub/1.2.3",
+        "version": "1.2.3+foo"
+      },
+      "expected_output": false
+    }
+  ]
+}

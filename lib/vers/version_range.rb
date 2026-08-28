@@ -5,17 +5,26 @@ require_relative 'version'
 
 module Vers
   class VersionRange
-    attr_reader :intervals, :raw_constraints, :scheme
+    VALIDATED_CONTAINMENT_SCHEMES = %w[bazel cargo composer go hex npm pub pypi semver].freeze
 
-    def initialize(intervals = [], raw_constraints: nil, scheme: nil)
-      @scheme = scheme
-      @intervals = intervals.select { |i| i && !i.empty? }
+    attr_reader :intervals, :raw_constraints, :scheme, :exclusions
+
+    def initialize(intervals = [], raw_constraints: nil, scheme: nil, exclusions: [])
+      canonical_scheme = Scheme.canonical(scheme)
+      interval_schemes = intervals.compact.map(&:scheme).compact.map { |value| Scheme.canonical(value) }.uniq
+      if interval_schemes.length > 1 || (canonical_scheme && interval_schemes.any? { |value| value != canonical_scheme })
+        raise ArgumentError, "Cannot combine different version range schemes"
+      end
+
+      @scheme = canonical_scheme || interval_schemes.first
+      @intervals = intervals.select { |interval| interval && !interval.empty? }.map { |interval| interval.with_scheme(@scheme) }
       if @scheme
         @intervals.sort! { |a, b| compare_interval_bounds(a, b) }
       else
         @intervals.sort_by! { |i| [i.min || '', i.max || ''] }
       end
       @raw_constraints = raw_constraints
+      @exclusions = exclusions.dup
       merge_overlapping_intervals!
     end
 
@@ -44,35 +53,206 @@ module Vers
     end
 
     def unbounded?
-      intervals.length == 1 && intervals.first.unbounded?
+      exclusions.empty? && intervals.length == 1 && intervals.first.unbounded?
     end
 
     def contains?(version)
-      intervals.any? { |interval| interval.contains?(version) }
+      if VALIDATED_CONTAINMENT_SCHEMES.include?(scheme) && !Version.valid?(version, scheme)
+        return false
+      end
+      return false if exclusions.any? { |excluded| excluded_version?(version, excluded) }
+
+      intervals.any? do |interval|
+        contains = if scheme == "composer"
+                     composer_interval_contains?(interval, version)
+                   elsif scheme == "pypi"
+                     pypi_interval_contains?(interval, version)
+                   else
+                     interval.contains?(version)
+                   end
+        contains && prerelease_allowed?(interval, version)
+      end
+    end
+
+    def composer_interval_contains?(interval, version)
+      candidate_branch = ComposerVersion.branch?(version)
+      minimum_branch = interval.min && ComposerVersion.branch?(interval.min)
+      maximum_branch = interval.max && ComposerVersion.branch?(interval.max)
+      return interval.contains?(version) unless candidate_branch || minimum_branch || maximum_branch
+      return true if interval.unbounded?
+
+      candidate_branch && minimum_branch && maximum_branch &&
+        interval.min_inclusive && interval.max_inclusive && interval.min == interval.max && version == interval.min
+    end
+
+    def pypi_interval_contains?(interval, version)
+      if interval.min && interval.max && interval.min_inclusive && interval.max_inclusive &&
+          PyPIVersion.compare(interval.min, interval.max).zero?
+        return PyPIVersion.specifier_equal?(version, interval.min)
+      end
+      return false unless interval.contains?(version)
+
+      candidate = PyPIVersion.parse(version)
+      return false unless candidate
+
+      if interval.min && !interval.min_inclusive
+        bound = PyPIVersion.parse(interval.min)
+        if bound
+          return false if PyPIVersion.specifier_equal?(version, interval.min)
+
+          without_post = PyPIVersion.without_post_and_dev(candidate)
+          if candidate.post_number && PyPIVersion.versions_equal?(without_post, bound, ignore_local: true)
+            return false
+          end
+        end
+      end
+
+      if interval.max && !interval.max_inclusive
+        bound = PyPIVersion.parse(interval.max)
+        if bound
+          bound_is_release = bound.pre_tag.nil? && bound.post_number.nil? && bound.dev_number.nil?
+          if bound_is_release && PyPIVersion.same_release?(candidate, bound) &&
+              (!candidate.pre_tag.nil? || !candidate.dev_number.nil?)
+            return false
+          end
+
+          without_dev = PyPIVersion.without_dev(candidate)
+          if candidate.dev_number && PyPIVersion.versions_equal?(without_dev, bound, ignore_local: true)
+            return false
+          end
+        end
+      end
+
+      true
+    end
+
+    def prerelease_allowed?(interval, version)
+      return true unless %w[npm cargo].include?(scheme)
+
+      candidate = SemverVersion.parse(version.to_s.strip)
+      return false unless candidate
+      return true if candidate.prerelease.empty?
+
+      [interval.min, interval.max].compact.any? do |bound|
+        parsed_bound = SemverVersion.parse(bound.to_s.strip)
+        next false unless parsed_bound && !parsed_bound.prerelease.empty?
+
+        candidate.core.zip(parsed_bound.core).all? do |candidate_part, bound_part|
+          VersionComparison.compare_numbers(candidate_part, bound_part).zero?
+        end
+      end
+    end
+
+    def excluded_version?(version, excluded)
+      if scheme == "pypi"
+        PyPIVersion.specifier_equal?(version, excluded)
+      elsif scheme == "composer" && (ComposerVersion.branch?(version) || ComposerVersion.branch?(excluded))
+        version == excluded
+      else
+        Version.compare_with_scheme(version, excluded, scheme).zero?
+      end
     end
 
     def intersect(other)
-      merged_scheme = @scheme || other.scheme
+      merged_scheme = compatible_scheme(other)
       result_intervals = []
 
       intervals.each do |interval1|
         other.intervals.each do |interval2|
-          intersection = interval1.intersect(interval2)
+          intersection = intersect_intervals(interval1, interval2, merged_scheme)
           result_intervals << intersection unless intersection.empty?
         end
       end
 
       combined_raw = (raw_constraints || intervals) + (other.raw_constraints || other.intervals)
-      self.class.new(result_intervals, raw_constraints: combined_raw, scheme: merged_scheme)
+      self.class.new(
+        result_intervals,
+        raw_constraints: combined_raw,
+        scheme: merged_scheme,
+        exclusions: exclusions + other.exclusions
+      )
+    end
+
+    def intersect_intervals(left, right, comparison_scheme)
+      return left.intersect(right) unless comparison_scheme == "pypi"
+
+      left = left.with_scheme(comparison_scheme)
+      right = right.with_scheme(comparison_scheme)
+      left_exact = exact_interval?(left)
+      right_exact = exact_interval?(right)
+      return left.intersect(right) unless left_exact || right_exact
+
+      if left_exact && right_exact
+        left_contains_right = pypi_interval_contains?(left, right.min)
+        right_contains_left = pypi_interval_contains?(right, left.min)
+        return right if left_contains_right && !right_contains_left
+        return left if right_contains_left
+        return left if left_contains_right
+
+        return Interval.empty(scheme: comparison_scheme)
+      end
+
+      exact = left_exact ? left : right
+      other_interval = left_exact ? right : left
+      return exact if pypi_interval_contains?(other_interval, exact.min)
+
+      Interval.empty(scheme: comparison_scheme)
+    end
+
+    def exact_interval?(interval)
+      interval.min && interval.max && interval.min_inclusive && interval.max_inclusive &&
+        Version.compare_for_range(interval.min, interval.max, interval.scheme || scheme).zero?
     end
 
     def union(other)
-      merged_scheme = @scheme || other.scheme
+      merged_scheme = compatible_scheme(other)
       combined_raw = (raw_constraints || intervals) + (other.raw_constraints || other.intervals)
-      self.class.new(intervals + other.intervals, raw_constraints: combined_raw, scheme: merged_scheme)
+      left = with_scheme(merged_scheme)
+      right = other.with_scheme(merged_scheme)
+      combined_exclusions = []
+      left.exclusions.each do |excluded|
+        combined_exclusions << excluded unless right.contains?(excluded)
+      end
+      right.exclusions.each do |excluded|
+        next if left.contains?(excluded) || combined_exclusions.include?(excluded)
+
+        combined_exclusions << excluded
+      end
+      self.class.new(
+        intervals + other.intervals,
+        raw_constraints: combined_raw,
+        scheme: merged_scheme,
+        exclusions: combined_exclusions
+      )
+    end
+
+    def with_scheme(value)
+      canonical = Scheme.canonical(value)
+      if scheme && canonical && scheme != canonical
+        raise ArgumentError, "Cannot combine #{scheme} and #{canonical} version ranges"
+      end
+      return self if scheme == canonical
+
+      self.class.new(intervals, raw_constraints: raw_constraints, scheme: canonical, exclusions: exclusions)
+    end
+
+    def compatible_scheme(other)
+      if scheme && other.scheme && scheme != other.scheme
+        raise ArgumentError, "Cannot combine #{scheme} and #{other.scheme} version ranges"
+      end
+
+      scheme || other.scheme
     end
 
     def complement
+      unless exclusions.empty?
+        base = self.class.new(intervals, scheme: scheme).complement
+        exclusions.each do |excluded|
+          base = base.union(self.class.exact(excluded, scheme: scheme))
+        end
+        return base
+      end
+
       return self.class.unbounded(scheme: @scheme) if empty?
       return self.class.empty(scheme: @scheme) if unbounded?
 
@@ -121,37 +301,14 @@ module Vers
     end
 
     def exclude(version)
-      return self if !contains?(version)
+      return self unless contains?(version)
 
-      result_intervals = []
-
-      intervals.each do |interval|
-        if interval.contains?(version)
-          if interval.min.nil? || version_compare(interval.min, version) < 0
-            result_intervals << Interval.new(
-              min: interval.min,
-              max: version,
-              min_inclusive: interval.min_inclusive,
-              max_inclusive: false,
-              scheme: @scheme
-            )
-          end
-
-          if interval.max.nil? || version_compare(version, interval.max) < 0
-            result_intervals << Interval.new(
-              min: version,
-              max: interval.max,
-              min_inclusive: false,
-              max_inclusive: interval.max_inclusive,
-              scheme: @scheme
-            )
-          end
-        else
-          result_intervals << interval
-        end
-      end
-
-      self.class.new(result_intervals, raw_constraints: raw_constraints, scheme: @scheme)
+      self.class.new(
+        intervals,
+        raw_constraints: raw_constraints,
+        scheme: scheme,
+        exclusions: exclusions + [version]
+      )
     end
 
     def to_s
@@ -186,11 +343,7 @@ module Vers
       return -1 if a.nil?
       return 1 if b.nil?
 
-      if @scheme
-        Version.compare_with_scheme(a, b, @scheme)
-      else
-        Version.compare(a, b)
-      end
+      Version.compare_for_range(a, b, @scheme)
     end
 
     def compare_interval_bounds(a, b)

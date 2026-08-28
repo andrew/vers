@@ -1,10 +1,8 @@
 # Vers - Version Range Parser for Ruby
 
-A Ruby library for parsing, comparing and sorting versions according to the [VERS specification](https://github.com/package-url/purl-spec/blob/main/VERSION-RANGE-SPEC.rst).
+A Ruby library for parsing VERS ranges and applying package-manager version rules. It supports canonical VERS strings, native range syntax, scheme-aware comparison, validation, normalization, and release classification.
 
-This gem provides tools for working with version ranges across different package managers, using a mathematical interval model internally and supporting the vers specification from the Package URL (PURL) project.
-
-[![Ruby](https://img.shields.io/badge/ruby-%3E%3D%203.2-red.svg)](https://www.ruby-lang.org/)
+[![Ruby](https://img.shields.io/badge/ruby-%3E%3D%203.3-red.svg)](https://www.ruby-lang.org/)
 [![Gem Version](https://badge.fury.io/rb/vers.svg)](https://rubygems.org/gems/vers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -12,14 +10,11 @@ This gem provides tools for working with version ranges across different package
 
 ## Features
 
-- **Universal version range parsing** with support for 6 package ecosystems (npm, gem, pypi, maven, debian, rpm)
-- **Mathematical interval model** for precise set operations (union, intersection, complement)
-- **VERS specification compliance** with full support for the Package URL version range specification
-- **Native syntax support** - parse native package manager syntax (^1.2.3, ~>1.0, >=1.0,<2.0, [1.0,2.0))
-- **Bidirectional conversion** between native syntax and universal vers URI format
-- **Semantic versioning features** - version increment, constraint checking, prerelease handling
-- **Comprehensive error handling** with detailed parsing exceptions
-- **100% test coverage** with 113 tests and 366 assertions
+- Parse and serialize canonical VERS strings.
+- Parse native ranges for npm, Cargo, RubyGems, PyPI, Composer, Pub, Maven, NuGet, Hex, Go, Debian, RPM, Conan, OpenSSL, and nginx.
+- Compare, validate, normalize, clean, and classify versions with package-manager rules.
+- Combine ranges with union, intersection, complement, and exclusions.
+- Check containment with the range's version scheme.
 
 ## Installation
 
@@ -56,7 +51,7 @@ npm_range = Vers.parse_native("^1.2.3", "npm")
 gem_range = Vers.parse_native("~> 1.0", "gem")
 
 # Check version containment
-Vers.satisfies?("1.5.0", ">=1.0.0,<2.0.0")  # => true
+Vers.satisfies?("1.5.0", ">=1.0.0,<2.0.0", "pypi")  # => true
 
 # Compare versions
 Vers.compare("1.2.3", "1.2.4")  # => -1
@@ -64,6 +59,8 @@ Vers.compare("1.2.3", "1.2.4")  # => -1
 # Use Bazel's module version rules
 Vers.compare_with_scheme("0.7.1", "0.7.1.bcr.1", "bazel")  # => -1
 Vers.valid?("35.1", "bazel")                                # => true
+Vers.normalize("v01.02", "composer")                        # => "1.2.0"
+Vers.clean(" v1.2 ", "npm")                                 # => "1.2.0"
 Vers.stable?("0.7.1.bcr.1", "bazel")                        # => true
 Vers.prerelease?("36.0-rc2", "bazel")                       # => true
 
@@ -73,20 +70,18 @@ version.increment_major  # => #<Vers::Version "2.0.0">
 version.satisfies?("~> 1.2")  # => true
 ```
 
-## Supported Package Managers
+## Version Schemes
 
-- **npm** (Node.js): Caret ranges (^1.2.3), tilde ranges (~1.2.3), hyphen ranges (1.2.3 - 2.3.4), OR logic (||), wildcards (1.x, *)
-- **RubyGems** (Ruby): Pessimistic operator (~> 1.2), standard operators (>=, <=, etc.), comma-separated constraints
-- **PyPI** (Python): Comma-separated constraints (>=1.0,<2.0), exclusions (!=1.5.0), compatible release (~=1.4.2)
-- **Maven** (Java): Bracket notation ([1.0,2.0], (1.0,2.0)), union ranges, open ranges
-- **NuGet** (.NET): Bracket notation ([1.0,2.0], (1.0,2.0)), mixed brackets, open ranges
-- **Packagist** (PHP Composer): Caret ranges (^1.2.3), tilde ranges (~1.2), stability flags (@dev, @alpha)
-- **Debian** (apt): Standard comparison operators (>=1.0.0, <<2.0.0)
-- **RPM** (yum/dnf): Standard comparison operators (>=1.0.0, <=2.0.0)
-- **Bazel**: Standard comparison operators with Bazel module version comparison, validation, and prerelease classification
+Scheme-aware version operations support these groups:
 
-Many other package managers are also supported using standard comparison operators (>=, <=, <, >, =, !=), including Cargo (Rust), Go modules, and more.
-Bazel support is an implementation-defined scheme in this library and is separate from the VERS specification conformance suite.
+- SemVer family: SemVer, npm, Cargo, Go modules, Hex, and nginx.
+- Language registries: RubyGems, PyPI, Composer, Pub, Maven, and NuGet.
+- Distribution packages: Debian, RPM, APK, Gentoo, and ALPM.
+- Other formats: Bazel, Conan, OpenSSL, integer-dot, RFC 3339 datetime, and lexicographic versions.
+
+The aliases `rubygems`, `debian`, `golang`, `elixir`, and `alpine` map to their canonical schemes. Unknown schemes keep the generic version behavior. Bazel is an implementation-defined scheme in this library and remains separate from the VERS specification types.
+
+Native range parsing includes npm and Cargo caret, tilde, wildcard, hyphen, AND, and OR forms; Composer stability and branch forms; Pub caret ranges; RubyGems pessimistic ranges; PyPI specifiers; Maven and NuGet bracket ranges; Conan compatible ranges; OpenSSL exact-version lists; and nginx plus ranges. Other schemes accept standard VERS comparison operators.
 
 ## Mathematical Model
 
@@ -142,7 +137,7 @@ vers_string = Vers.to_vers_string(npm_range, "npm")
 puts vers_string  # => "vers:npm/>=1.2.3|<2.0.0"
 
 # Parse vers URI and use in your application
-range = Vers.parse("vers:gem/~>1.0")
+range = Vers.parse_native("~>1.0", "gem")
 puts range.contains?("1.5.0")  # => true
 ```
 

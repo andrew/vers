@@ -41,7 +41,7 @@ Enhancement suggestions are welcome! Please:
 
 ### Prerequisites
 
-- Ruby 3.2 or higher
+- Ruby 3.3 or higher
 - Bundler gem
 
 ### Setup

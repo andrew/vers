@@ -131,8 +131,12 @@ module Vers
     # @param version_string [String] The version to check
     # @return [Boolean] true if the version satisfies the constraint
     #
-    def satisfies?(version_string)
-      comparison = Version.compare(version_string, version)
+    def satisfies?(version_string, scheme: nil)
+      comparison = if scheme
+                     Version.compare_with_scheme(version_string, version, scheme)
+                   else
+                     Version.compare(version_string, version)
+                   end
       
       case operator
       when "="

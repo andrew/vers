@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Scheme-aware comparison, validation, normalization, cleaning, stable classification, and prerelease classification across language registries, distribution packages, SemVer variants, and other version formats.
+- Native range parsing for Composer, Pub, Conan, OpenSSL, and nginx, with expanded behavior for existing npm, Cargo, RubyGems, PyPI, Maven, and NuGet parsers.
+- Data-driven comparison, containment, native conversion, validation, and canonical parsing tests from `vers-spec`, upstream package managers, and the Go implementation.
+
+### Changed
+
+- Version ranges retain their canonical scheme through containment and set operations, and reject algebra between incompatible schemes.
+- VERS serialization canonicalizes scheme aliases and rejects a scheme that conflicts with the range.
+- Canonical VERS parsing rejects whitespace, malformed pipes, invalid percent encoding, and unsorted constraints when strict parsing is requested.
+- APK comparison and validation now follow apk-tools tokens instead of Gentoo version rules.
+- The minimum supported Ruby version is now 3.3.
+
+### Fixed
+
+- Unioning an unbounded interval with a bounded interval now remains unbounded.
+- Range unions retain exclusions when the other operand does not contain the excluded version.
+- VERS serialization no longer adds an empty constraint to unbounded ranges with exclusions.
+- SemVer comparison handles surrounding whitespace consistently with validation.
+
 ## [1.1.0] - 2026-02-24
 
 ### Added
@@ -126,7 +147,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **No runtime dependencies** - pure Ruby implementation
 - **Minitest** for testing (development dependency only)
 
-[Unreleased]: https://github.com/andrew/vers/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/andrew/vers/compare/v1.3.1...HEAD
 [1.1.0]: https://github.com/andrew/vers/compare/v1.0.3...v1.1.0
 [1.0.3]: https://github.com/andrew/vers/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/andrew/vers/compare/v1.0.1...v1.0.2

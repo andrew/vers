@@ -1,0 +1,531 @@
+{
+  "$schema": "https://packageurl.org/schemas/vers-test.schema-0.2.json",
+  "tests": [
+    {
+      "description": "univers Gentoo orders \"0.1\" before \"0.2\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "0.2",
+          "0.1"
+        ]
+      },
+      "expected_output": [
+        "0.1",
+        "0.2"
+      ]
+    },
+    {
+      "description": "univers Gentoo treats \"0.1\" and \"0.2\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "0.1",
+          "0.2"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Gentoo orders \"6\" before \"6a\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "6a",
+          "6"
+        ]
+      },
+      "expected_output": [
+        "6",
+        "6a"
+      ]
+    },
+    {
+      "description": "univers Gentoo treats \"6a\" and \"6\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "6a",
+          "6"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Gentoo orders \"6a\" before \"6a-r1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "6a-r1",
+          "6a"
+        ]
+      },
+      "expected_output": [
+        "6a",
+        "6a-r1"
+      ]
+    },
+    {
+      "description": "univers Gentoo treats \"6a-r1\" and \"6a\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "6a-r1",
+          "6a"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Gentoo orders \"6\" before \"6.0\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "6.0",
+          "6"
+        ]
+      },
+      "expected_output": [
+        "6",
+        "6.0"
+      ]
+    },
+    {
+      "description": "univers Gentoo treats \"6.0\" and \"6\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "6.0",
+          "6"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Gentoo orders \"6.0b\" before \"6.0.0\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "6.0.0",
+          "6.0b"
+        ]
+      },
+      "expected_output": [
+        "6.0b",
+        "6.0.0"
+      ]
+    },
+    {
+      "description": "univers Gentoo treats \"6.0.0\" and \"6.0b\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "6.0.0",
+          "6.0b"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Gentoo orders \"6.0.0\" before \"6.02\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "6.02",
+          "6.0.0"
+        ]
+      },
+      "expected_output": [
+        "6.0.0",
+        "6.02"
+      ]
+    },
+    {
+      "description": "univers Gentoo treats \"6.02\" and \"6.0.0\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "6.02",
+          "6.0.0"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Gentoo orders \"6.054\" before \"6.2\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "6.2",
+          "6.054"
+        ]
+      },
+      "expected_output": [
+        "6.054",
+        "6.2"
+      ]
+    },
+    {
+      "description": "univers Gentoo treats \"6.2\" and \"6.054\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "6.2",
+          "6.054"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Gentoo orders \"6.0_alpha\" before \"6.0_alpha0_p1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "6.0_alpha0_p1",
+          "6.0_alpha"
+        ]
+      },
+      "expected_output": [
+        "6.0_alpha",
+        "6.0_alpha0_p1"
+      ]
+    },
+    {
+      "description": "univers Gentoo treats \"6.0_alpha0_p1\" and \"6.0_alpha\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "6.0_alpha0_p1",
+          "6.0_alpha"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Gentoo treats \"6.0_alpha\" and \"6.0_alpha0\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "6.0_alpha",
+          "6.0_alpha0"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "univers Gentoo orders \"6.09\" before \"6.1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "6.1",
+          "6.09"
+        ]
+      },
+      "expected_output": [
+        "6.09",
+        "6.1"
+      ]
+    },
+    {
+      "description": "univers Gentoo treats \"6.1\" and \"6.09\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "6.1",
+          "6.09"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Gentoo orders \"6.0\" before \"6.0.1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "6.0.1",
+          "6.0"
+        ]
+      },
+      "expected_output": [
+        "6.0",
+        "6.0.1"
+      ]
+    },
+    {
+      "description": "univers Gentoo treats \"6.0.1\" and \"6.0\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "6.0.1",
+          "6.0"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Gentoo orders \"12.2b\" before \"12.2.5\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "12.2.5",
+          "12.2b"
+        ]
+      },
+      "expected_output": [
+        "12.2b",
+        "12.2.5"
+      ]
+    },
+    {
+      "description": "univers Gentoo treats \"12.2.5\" and \"12.2b\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "12.2.5",
+          "12.2b"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Gentoo orders \"12.2b\" before \"12.2.5-r1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "12.2.5-r1",
+          "12.2b"
+        ]
+      },
+      "expected_output": [
+        "12.2b",
+        "12.2.5-r1"
+      ]
+    },
+    {
+      "description": "univers Gentoo treats \"12.2.5-r1\" and \"12.2b\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "12.2.5-r1",
+          "12.2b"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Gentoo treats \"6.01.0\" and \"6.010.0\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "6.01.0",
+          "6.010.0"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "univers Gentoo treats \"6.0.1\" and \"6.000.1\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "6.0.1",
+          "6.000.1"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "univers Gentoo treats \"6.01.0\" and \"6.01.0-r0\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "6.01.0",
+          "6.01.0-r0"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "univers Gentoo treats \"6.01.0-r0\" and \"6.01.0-r00\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "6.01.0-r0",
+          "6.01.0-r00"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "univers Gentoo treats \"6.01.0-r1\" and \"6.01.0-r001\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "6.01.0-r1",
+          "6.01.0-r001"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "univers Gentoo orders \"1.60_p2009072801401\" before \"1.60_p2010081516093\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "1.60_p2010081516093",
+          "1.60_p2009072801401"
+        ]
+      },
+      "expected_output": [
+        "1.60_p2009072801401",
+        "1.60_p2010081516093"
+      ]
+    },
+    {
+      "description": "univers Gentoo treats \"1.60_p2010081516093\" and \"1.60_p2009072801401\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "1.60_p2010081516093",
+          "1.60_p2009072801401"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Gentoo orders \"1.60_p20090728014017\" before \"1.60_p20100815160931\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "1.60_p20100815160931",
+          "1.60_p20090728014017"
+        ]
+      },
+      "expected_output": [
+        "1.60_p20090728014017",
+        "1.60_p20100815160931"
+      ]
+    },
+    {
+      "description": "univers Gentoo treats \"1.60_p20100815160931\" and \"1.60_p20090728014017\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "1.60_p20100815160931",
+          "1.60_p20090728014017"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Gentoo orders \"1.60_p20090728014017-r1\" before \"1.60_p20100815160931\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "1.60_p20100815160931",
+          "1.60_p20090728014017-r1"
+        ]
+      },
+      "expected_output": [
+        "1.60_p20090728014017-r1",
+        "1.60_p20100815160931"
+      ]
+    },
+    {
+      "description": "univers Gentoo treats \"1.60_p20100815160931\" and \"1.60_p20090728014017-r1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "1.60_p20100815160931",
+          "1.60_p20090728014017-r1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Gentoo treats \"6.0\" and \"6.0-r0\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "gentoo",
+        "versions": [
+          "6.0",
+          "6.0-r0"
+        ]
+      },
+      "expected_output": true
+    }
+  ]
+}

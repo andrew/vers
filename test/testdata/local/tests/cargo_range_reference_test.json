@@ -1,0 +1,1965 @@
+{
+  "$schema": "https://packageurl.org/schemas/vers-test.schema-0.2.json",
+  "tests": [
+    {
+      "description": "semver range \"1.0.0\" contains \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.0.0|\u003c2.0.0",
+        "version": "1.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"1.0.0\" contains \"1.1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.0.0|\u003c2.0.0",
+        "version": "1.1.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"1.0.0\" contains \"1.0.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.0.0|\u003c2.0.0",
+        "version": "1.0.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"1.0.0\" excludes \"0.9.9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.0.0|\u003c2.0.0",
+        "version": "0.9.9"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"1.0.0\" excludes \"0.10.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.0.0|\u003c2.0.0",
+        "version": "0.10.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"1.0.0\" excludes \"0.1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.0.0|\u003c2.0.0",
+        "version": "0.1.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"1.0.0\" excludes \"1.0.0-pre\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.0.0|\u003c2.0.0",
+        "version": "1.0.0-pre"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"1.0.0\" excludes \"1.0.1-pre\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.0.0|\u003c2.0.0",
+        "version": "1.0.1-pre"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"=1.0.0\" contains \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/1.0.0",
+        "version": "1.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"=1.0.0\" excludes \"1.0.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/1.0.0",
+        "version": "1.0.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"=1.0.0\" excludes \"0.9.9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/1.0.0",
+        "version": "0.9.9"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"=1.0.0\" excludes \"0.10.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/1.0.0",
+        "version": "0.10.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"=1.0.0\" excludes \"0.1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/1.0.0",
+        "version": "0.1.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"=1.0.0\" excludes \"1.0.0-pre\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/1.0.0",
+        "version": "1.0.0-pre"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"=0.9.0\" contains \"0.9.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/0.9.0",
+        "version": "0.9.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"=0.9.0\" excludes \"0.9.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/0.9.0",
+        "version": "0.9.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"=0.9.0\" excludes \"1.9.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/0.9.0",
+        "version": "1.9.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"=0.9.0\" excludes \"0.0.9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/0.9.0",
+        "version": "0.0.9"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"=0.9.0\" excludes \"0.9.0-pre\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/0.9.0",
+        "version": "0.9.0-pre"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"=0.0.2\" contains \"0.0.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/0.0.2",
+        "version": "0.0.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"=0.0.2\" excludes \"0.0.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/0.0.2",
+        "version": "0.0.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"=0.0.2\" excludes \"0.0.3\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/0.0.2",
+        "version": "0.0.3"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"=0.0.2\" excludes \"0.0.2-pre\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/0.0.2",
+        "version": "0.0.2-pre"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"=0.1.0-beta2.a\" contains \"0.1.0-beta2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/0.1.0-beta2.a",
+        "version": "0.1.0-beta2.a"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"=0.1.0-beta2.a\" excludes \"0.9.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/0.1.0-beta2.a",
+        "version": "0.9.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"=0.1.0-beta2.a\" excludes \"0.1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/0.1.0-beta2.a",
+        "version": "0.1.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"=0.1.0-beta2.a\" excludes \"0.1.1-beta2.a\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/0.1.0-beta2.a",
+        "version": "0.1.1-beta2.a"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"=0.1.0-beta2.a\" excludes \"0.1.0-beta2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/0.1.0-beta2.a",
+        "version": "0.1.0-beta2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"=0.1.0+meta\" contains \"0.1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/0.1.0+meta",
+        "version": "0.1.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"=0.1.0+meta\" contains \"0.1.0+meta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/0.1.0+meta",
+        "version": "0.1.0+meta"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"=0.1.0+meta\" contains \"0.1.0+any\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/0.1.0+meta",
+        "version": "0.1.0+any"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"\u003e= 1.0.0\" contains \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.0.0",
+        "version": "1.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"\u003e= 1.0.0\" contains \"2.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.0.0",
+        "version": "2.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"\u003e= 1.0.0\" excludes \"0.1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.0.0",
+        "version": "0.1.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"\u003e= 1.0.0\" excludes \"0.0.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.0.0",
+        "version": "0.0.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"\u003e= 1.0.0\" excludes \"1.0.0-pre\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.0.0",
+        "version": "1.0.0-pre"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"\u003e= 1.0.0\" excludes \"2.0.0-pre\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.0.0",
+        "version": "2.0.0-pre"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"\u003e= 2.1.0-alpha2\" contains \"2.1.0-alpha2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=2.1.0-alpha2",
+        "version": "2.1.0-alpha2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"\u003e= 2.1.0-alpha2\" contains \"2.1.0-alpha3\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=2.1.0-alpha2",
+        "version": "2.1.0-alpha3"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"\u003e= 2.1.0-alpha2\" contains \"2.1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=2.1.0-alpha2",
+        "version": "2.1.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"\u003e= 2.1.0-alpha2\" contains \"3.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=2.1.0-alpha2",
+        "version": "3.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"\u003e= 2.1.0-alpha2\" excludes \"2.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=2.1.0-alpha2",
+        "version": "2.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"\u003e= 2.1.0-alpha2\" excludes \"2.1.0-alpha1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=2.1.0-alpha2",
+        "version": "2.1.0-alpha1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"\u003e= 2.1.0-alpha2\" excludes \"2.0.0-alpha2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=2.1.0-alpha2",
+        "version": "2.0.0-alpha2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"\u003e= 2.1.0-alpha2\" excludes \"3.0.0-alpha2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=2.1.0-alpha2",
+        "version": "3.0.0-alpha2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"\u003c 1.0.0\" contains \"0.1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003c1.0.0",
+        "version": "0.1.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"\u003c 1.0.0\" contains \"0.0.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003c1.0.0",
+        "version": "0.0.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"\u003c 1.0.0\" excludes \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003c1.0.0",
+        "version": "1.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"\u003c 1.0.0\" excludes \"1.0.0-beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003c1.0.0",
+        "version": "1.0.0-beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"\u003c 1.0.0\" excludes \"1.0.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003c1.0.0",
+        "version": "1.0.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"\u003c 1.0.0\" excludes \"0.9.9-alpha\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003c1.0.0",
+        "version": "0.9.9-alpha"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"\u003c= 2.1.0-alpha2\" contains \"2.1.0-alpha2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003c=2.1.0-alpha2",
+        "version": "2.1.0-alpha2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"\u003c= 2.1.0-alpha2\" contains \"2.1.0-alpha1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003c=2.1.0-alpha2",
+        "version": "2.1.0-alpha1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"\u003c= 2.1.0-alpha2\" contains \"2.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003c=2.1.0-alpha2",
+        "version": "2.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"\u003c= 2.1.0-alpha2\" contains \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003c=2.1.0-alpha2",
+        "version": "1.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"\u003c= 2.1.0-alpha2\" excludes \"2.1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003c=2.1.0-alpha2",
+        "version": "2.1.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"\u003c= 2.1.0-alpha2\" excludes \"2.2.0-alpha1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003c=2.1.0-alpha2",
+        "version": "2.2.0-alpha1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"\u003c= 2.1.0-alpha2\" excludes \"2.0.0-alpha2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003c=2.1.0-alpha2",
+        "version": "2.0.0-alpha2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"\u003c= 2.1.0-alpha2\" excludes \"1.0.0-alpha2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003c=2.1.0-alpha2",
+        "version": "1.0.0-alpha2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"\u003e1.0.0-alpha, \u003c1.0.0\" contains \"1.0.0-beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e1.0.0-alpha|\u003c1.0.0",
+        "version": "1.0.0-beta"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"\u003e1.0.0-alpha, \u003c1.0\" excludes \"1.0.0-beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/!=0.0.0|0.0.0",
+        "version": "1.0.0-beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"\u003e 0.0.9, \u003c= 2.5.3\" contains \"0.0.10\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e0.0.9|\u003c=2.5.3",
+        "version": "0.0.10"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"\u003e 0.0.9, \u003c= 2.5.3\" contains \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e0.0.9|\u003c=2.5.3",
+        "version": "1.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"\u003e 0.0.9, \u003c= 2.5.3\" contains \"2.5.3\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e0.0.9|\u003c=2.5.3",
+        "version": "2.5.3"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"\u003e 0.0.9, \u003c= 2.5.3\" excludes \"0.0.8\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e0.0.9|\u003c=2.5.3",
+        "version": "0.0.8"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"\u003e 0.0.9, \u003c= 2.5.3\" excludes \"2.5.4\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e0.0.9|\u003c=2.5.3",
+        "version": "2.5.4"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"0.3.0, 0.4.0\" excludes \"0.0.8\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/!=0.0.0|0.0.0",
+        "version": "0.0.8"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"0.3.0, 0.4.0\" excludes \"0.3.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/!=0.0.0|0.0.0",
+        "version": "0.3.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"0.3.0, 0.4.0\" excludes \"0.4.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/!=0.0.0|0.0.0",
+        "version": "0.4.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"\u003c= 0.2.0, \u003e= 0.5.0\" excludes \"0.5.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/!=0.0.0|0.0.0",
+        "version": "0.5.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"0.1.0, 0.1.4, 0.1.6\" contains \"0.1.6\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.1.6|\u003c0.2.0",
+        "version": "0.1.6"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"0.1.0, 0.1.4, 0.1.6\" contains \"0.1.9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.1.6|\u003c0.2.0",
+        "version": "0.1.9"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"0.1.0, 0.1.4, 0.1.6\" excludes \"0.1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.1.6|\u003c0.2.0",
+        "version": "0.1.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"0.1.0, 0.1.4, 0.1.6\" excludes \"0.1.4\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.1.6|\u003c0.2.0",
+        "version": "0.1.4"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"0.1.0, 0.1.4, 0.1.6\" excludes \"0.2.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.1.6|\u003c0.2.0",
+        "version": "0.2.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"\u003e=0.5.1-alpha3, \u003c0.6\" contains \"0.5.1-alpha3\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.5.1-alpha3|\u003c0.6.0-0",
+        "version": "0.5.1-alpha3"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"\u003e=0.5.1-alpha3, \u003c0.6\" contains \"0.5.1-alpha4\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.5.1-alpha3|\u003c0.6.0-0",
+        "version": "0.5.1-alpha4"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"\u003e=0.5.1-alpha3, \u003c0.6\" contains \"0.5.1-beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.5.1-alpha3|\u003c0.6.0-0",
+        "version": "0.5.1-beta"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"\u003e=0.5.1-alpha3, \u003c0.6\" contains \"0.5.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.5.1-alpha3|\u003c0.6.0-0",
+        "version": "0.5.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"\u003e=0.5.1-alpha3, \u003c0.6\" contains \"0.5.5\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.5.1-alpha3|\u003c0.6.0-0",
+        "version": "0.5.5"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"\u003e=0.5.1-alpha3, \u003c0.6\" excludes \"0.5.1-alpha1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.5.1-alpha3|\u003c0.6.0-0",
+        "version": "0.5.1-alpha1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"\u003e=0.5.1-alpha3, \u003c0.6\" excludes \"0.5.2-alpha3\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.5.1-alpha3|\u003c0.6.0-0",
+        "version": "0.5.2-alpha3"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"\u003e=0.5.1-alpha3, \u003c0.6\" excludes \"0.5.5-pre\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.5.1-alpha3|\u003c0.6.0-0",
+        "version": "0.5.5-pre"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"\u003e=0.5.1-alpha3, \u003c0.6\" excludes \"0.5.0-pre\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.5.1-alpha3|\u003c0.6.0-0",
+        "version": "0.5.0-pre"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"\u003e=0.5.1-alpha3, \u003c0.6\" excludes \"0.6.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.5.1-alpha3|\u003c0.6.0-0",
+        "version": "0.6.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"\u003e=0.5.1-alpha3, \u003c0.6\" excludes \"0.6.0-pre\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.5.1-alpha3|\u003c0.6.0-0",
+        "version": "0.6.0-pre"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"~1\" contains \"1.1.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.0.0|\u003c2.0.0",
+        "version": "1.1.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"~1\" excludes \"0.9.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.0.0|\u003c2.0.0",
+        "version": "0.9.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"~1\" excludes \"2.9.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.0.0|\u003c2.0.0",
+        "version": "2.9.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"~1\" excludes \"0.0.9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.0.0|\u003c2.0.0",
+        "version": "0.0.9"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"~1.2\" contains \"1.2.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.2.0|\u003c1.3.0",
+        "version": "1.2.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"~1.2\" contains \"1.2.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.2.0|\u003c1.3.0",
+        "version": "1.2.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"~1.2\" excludes \"1.1.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.2.0|\u003c1.3.0",
+        "version": "1.1.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"~1.2\" excludes \"1.3.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.2.0|\u003c1.3.0",
+        "version": "1.3.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"~1.2\" excludes \"0.0.9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.2.0|\u003c1.3.0",
+        "version": "0.0.9"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"~1.2.2\" contains \"1.2.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.2.2|\u003c1.3.0",
+        "version": "1.2.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"~1.2.2\" contains \"1.2.4\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.2.2|\u003c1.3.0",
+        "version": "1.2.4"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"~1.2.2\" excludes \"1.2.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.2.2|\u003c1.3.0",
+        "version": "1.2.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"~1.2.2\" excludes \"1.9.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.2.2|\u003c1.3.0",
+        "version": "1.9.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"~1.2.2\" excludes \"1.0.9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.2.2|\u003c1.3.0",
+        "version": "1.0.9"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"~1.2.2\" excludes \"2.0.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.2.2|\u003c1.3.0",
+        "version": "2.0.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"~1.2.2\" excludes \"0.1.3\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.2.2|\u003c1.3.0",
+        "version": "0.1.3"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"~1.2.3-beta.2\" contains \"1.2.3\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.2.3-beta.2|\u003c1.3.0",
+        "version": "1.2.3"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"~1.2.3-beta.2\" contains \"1.2.4\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.2.3-beta.2|\u003c1.3.0",
+        "version": "1.2.4"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"~1.2.3-beta.2\" contains \"1.2.3-beta.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.2.3-beta.2|\u003c1.3.0",
+        "version": "1.2.3-beta.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"~1.2.3-beta.2\" contains \"1.2.3-beta.4\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.2.3-beta.2|\u003c1.3.0",
+        "version": "1.2.3-beta.4"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"~1.2.3-beta.2\" excludes \"1.3.3\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.2.3-beta.2|\u003c1.3.0",
+        "version": "1.3.3"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"~1.2.3-beta.2\" excludes \"1.1.4\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.2.3-beta.2|\u003c1.3.0",
+        "version": "1.1.4"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"~1.2.3-beta.2\" excludes \"1.2.3-beta.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.2.3-beta.2|\u003c1.3.0",
+        "version": "1.2.3-beta.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"~1.2.3-beta.2\" excludes \"1.2.4-beta.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.2.3-beta.2|\u003c1.3.0",
+        "version": "1.2.4-beta.2"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^1\" contains \"1.1.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.0.0|\u003c2.0.0",
+        "version": "1.1.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"^1\" contains \"1.2.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.0.0|\u003c2.0.0",
+        "version": "1.2.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"^1\" excludes \"0.1.4\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.0.0|\u003c2.0.0",
+        "version": "0.1.4"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^1\" excludes \"1.0.0-beta1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.0.0|\u003c2.0.0",
+        "version": "1.0.0-beta1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^1\" excludes \"0.1.0-alpha\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.0.0|\u003c2.0.0",
+        "version": "0.1.0-alpha"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^1.1\" contains \"1.1.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.1.0|\u003c2.0.0",
+        "version": "1.1.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"^1.1\" contains \"1.1.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.1.0|\u003c2.0.0",
+        "version": "1.1.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"^1.1\" contains \"1.2.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.1.0|\u003c2.0.0",
+        "version": "1.2.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"^1.1\" excludes \"0.9.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.1.0|\u003c2.0.0",
+        "version": "0.9.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^1.1\" excludes \"2.9.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.1.0|\u003c2.0.0",
+        "version": "2.9.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^1.1\" excludes \"1.0.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.1.0|\u003c2.0.0",
+        "version": "1.0.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^1.1\" excludes \"0.1.4\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.1.0|\u003c2.0.0",
+        "version": "0.1.4"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^1.1.2\" contains \"1.1.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.1.2|\u003c2.0.0",
+        "version": "1.1.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"^1.1.2\" contains \"1.1.4\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.1.2|\u003c2.0.0",
+        "version": "1.1.4"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"^1.1.2\" contains \"1.2.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.1.2|\u003c2.0.0",
+        "version": "1.2.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"^1.1.2\" excludes \"0.9.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.1.2|\u003c2.0.0",
+        "version": "0.9.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^1.1.2\" excludes \"2.9.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.1.2|\u003c2.0.0",
+        "version": "2.9.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^1.1.2\" excludes \"1.1.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.1.2|\u003c2.0.0",
+        "version": "1.1.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^1.1.2\" excludes \"0.0.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.1.2|\u003c2.0.0",
+        "version": "0.0.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^1.1.2\" excludes \"1.1.2-alpha1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.1.2|\u003c2.0.0",
+        "version": "1.1.2-alpha1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^1.1.2\" excludes \"1.1.3-alpha1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.1.2|\u003c2.0.0",
+        "version": "1.1.3-alpha1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^1.1.2\" excludes \"2.9.0-alpha1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.1.2|\u003c2.0.0",
+        "version": "2.9.0-alpha1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^0.1.2\" contains \"0.1.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.1.2|\u003c0.2.0",
+        "version": "0.1.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"^0.1.2\" contains \"0.1.4\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.1.2|\u003c0.2.0",
+        "version": "0.1.4"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"^0.1.2\" excludes \"0.9.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.1.2|\u003c0.2.0",
+        "version": "0.9.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^0.1.2\" excludes \"2.9.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.1.2|\u003c0.2.0",
+        "version": "2.9.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^0.1.2\" excludes \"1.1.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.1.2|\u003c0.2.0",
+        "version": "1.1.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^0.1.2\" excludes \"0.0.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.1.2|\u003c0.2.0",
+        "version": "0.0.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^0.1.2\" excludes \"0.1.2-beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.1.2|\u003c0.2.0",
+        "version": "0.1.2-beta"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^0.1.2\" excludes \"0.1.3-alpha\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.1.2|\u003c0.2.0",
+        "version": "0.1.3-alpha"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^0.1.2\" excludes \"0.2.0-pre\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.1.2|\u003c0.2.0",
+        "version": "0.2.0-pre"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^0.5.1-alpha3\" contains \"0.5.1-alpha3\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.5.1-alpha3|\u003c0.6.0",
+        "version": "0.5.1-alpha3"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"^0.5.1-alpha3\" contains \"0.5.1-alpha4\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.5.1-alpha3|\u003c0.6.0",
+        "version": "0.5.1-alpha4"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"^0.5.1-alpha3\" contains \"0.5.1-beta\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.5.1-alpha3|\u003c0.6.0",
+        "version": "0.5.1-beta"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"^0.5.1-alpha3\" contains \"0.5.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.5.1-alpha3|\u003c0.6.0",
+        "version": "0.5.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"^0.5.1-alpha3\" contains \"0.5.5\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.5.1-alpha3|\u003c0.6.0",
+        "version": "0.5.5"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"^0.5.1-alpha3\" excludes \"0.5.1-alpha1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.5.1-alpha3|\u003c0.6.0",
+        "version": "0.5.1-alpha1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^0.5.1-alpha3\" excludes \"0.5.2-alpha3\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.5.1-alpha3|\u003c0.6.0",
+        "version": "0.5.2-alpha3"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^0.5.1-alpha3\" excludes \"0.5.5-pre\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.5.1-alpha3|\u003c0.6.0",
+        "version": "0.5.5-pre"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^0.5.1-alpha3\" excludes \"0.5.0-pre\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.5.1-alpha3|\u003c0.6.0",
+        "version": "0.5.0-pre"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^0.5.1-alpha3\" excludes \"0.6.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.5.1-alpha3|\u003c0.6.0",
+        "version": "0.6.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^0.0.2\" contains \"0.0.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.0.2|\u003c0.0.3",
+        "version": "0.0.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"^0.0.2\" excludes \"0.9.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.0.2|\u003c0.0.3",
+        "version": "0.9.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^0.0.2\" excludes \"2.9.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.0.2|\u003c0.0.3",
+        "version": "2.9.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^0.0.2\" excludes \"1.1.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.0.2|\u003c0.0.3",
+        "version": "1.1.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^0.0.2\" excludes \"0.0.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.0.2|\u003c0.0.3",
+        "version": "0.0.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^0.0.2\" excludes \"0.1.4\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.0.2|\u003c0.0.3",
+        "version": "0.1.4"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^0.0\" contains \"0.0.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.0.0|\u003c0.1.0",
+        "version": "0.0.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"^0.0\" contains \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.0.0|\u003c0.1.0",
+        "version": "0.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"^0.0\" excludes \"0.9.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.0.0|\u003c0.1.0",
+        "version": "0.9.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^0.0\" excludes \"2.9.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.0.0|\u003c0.1.0",
+        "version": "2.9.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^0.0\" excludes \"1.1.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.0.0|\u003c0.1.0",
+        "version": "1.1.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^0.0\" excludes \"0.1.4\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.0.0|\u003c0.1.0",
+        "version": "0.1.4"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^0\" contains \"0.9.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.0.0|\u003c1.0.0",
+        "version": "0.9.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"^0\" contains \"0.0.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.0.0|\u003c1.0.0",
+        "version": "0.0.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"^0\" contains \"0.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.0.0|\u003c1.0.0",
+        "version": "0.0.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"^0\" excludes \"2.9.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.0.0|\u003c1.0.0",
+        "version": "2.9.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^0\" excludes \"1.1.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.0.0|\u003c1.0.0",
+        "version": "1.1.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^1.4.2-beta.5\" contains \"1.4.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.4.2-beta.5|\u003c2.0.0",
+        "version": "1.4.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"^1.4.2-beta.5\" contains \"1.4.3\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.4.2-beta.5|\u003c2.0.0",
+        "version": "1.4.3"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"^1.4.2-beta.5\" contains \"1.4.2-beta.5\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.4.2-beta.5|\u003c2.0.0",
+        "version": "1.4.2-beta.5"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"^1.4.2-beta.5\" contains \"1.4.2-beta.6\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.4.2-beta.5|\u003c2.0.0",
+        "version": "1.4.2-beta.6"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"^1.4.2-beta.5\" contains \"1.4.2-c\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.4.2-beta.5|\u003c2.0.0",
+        "version": "1.4.2-c"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"^1.4.2-beta.5\" excludes \"0.9.9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.4.2-beta.5|\u003c2.0.0",
+        "version": "0.9.9"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^1.4.2-beta.5\" excludes \"2.0.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.4.2-beta.5|\u003c2.0.0",
+        "version": "2.0.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^1.4.2-beta.5\" excludes \"1.4.2-alpha\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.4.2-beta.5|\u003c2.0.0",
+        "version": "1.4.2-alpha"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^1.4.2-beta.5\" excludes \"1.4.2-beta.4\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.4.2-beta.5|\u003c2.0.0",
+        "version": "1.4.2-beta.4"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"^1.4.2-beta.5\" excludes \"1.4.3-beta.5\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.4.2-beta.5|\u003c2.0.0",
+        "version": "1.4.3-beta.5"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"*\" contains \"0.9.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/*",
+        "version": "0.9.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"*\" contains \"2.9.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/*",
+        "version": "2.9.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"*\" contains \"0.0.9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/*",
+        "version": "0.0.9"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"*\" contains \"1.0.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/*",
+        "version": "1.0.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"*\" contains \"1.1.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/*",
+        "version": "1.1.1"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"*\" excludes \"1.0.0-pre\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/*",
+        "version": "1.0.0-pre"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"1.*\" contains \"1.2.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.0.0|\u003c2.0.0",
+        "version": "1.2.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"1.*\" contains \"1.3.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.0.0|\u003c2.0.0",
+        "version": "1.3.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"1.*\" excludes \"1.2.0-pre\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.0.0|\u003c2.0.0",
+        "version": "1.2.0-pre"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"1.2.*\" contains \"1.2.2\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.2.0|\u003c1.3.0",
+        "version": "1.2.2"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"1.2.*\" contains \"1.2.4\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.2.0|\u003c1.3.0",
+        "version": "1.2.4"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"1.2.*\" excludes \"1.9.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.2.0|\u003c1.3.0",
+        "version": "1.9.0"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"1.2.*\" excludes \"1.0.9\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.2.0|\u003c1.3.0",
+        "version": "1.0.9"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"1.2.*\" excludes \"2.0.1\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.2.0|\u003c1.3.0",
+        "version": "2.0.1"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"1.2.*\" excludes \"0.1.3\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.2.0|\u003c1.3.0",
+        "version": "0.1.3"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"1.2.*\" excludes \"1.2.2-pre\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=1.2.0|\u003c1.3.0",
+        "version": "1.2.2-pre"
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver range \"=2.1.1-really.0\" contains \"2.1.1-really.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/2.1.1-really.0",
+        "version": "2.1.1-really.0"
+      },
+      "expected_output": true
+    },
+    {
+      "description": "semver range \"0.*.*\" contains \"0.5.0\".",
+      "test_group": "recommended",
+      "test_type": "containment",
+      "input": {
+        "vers": "vers:cargo/\u003e=0.0.0|\u003c1.0.0",
+        "version": "0.5.0"
+      },
+      "expected_output": true
+    }
+  ]
+}

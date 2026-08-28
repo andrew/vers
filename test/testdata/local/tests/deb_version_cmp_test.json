@@ -1,0 +1,105 @@
+{
+  "$schema": "https://packageurl.org/schemas/vers-test.schema-0.2.json",
+  "tests": [
+    {
+      "description": "dpkg treats \"0-00\" and \"00-0\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "deb",
+        "versions": [
+          "0-00",
+          "00-0"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "dpkg orders \"0-0\" before \"1:0-0\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "deb",
+        "versions": [
+          "1:0-0",
+          "0-0"
+        ]
+      },
+      "expected_output": [
+        "0-0",
+        "1:0-0"
+      ]
+    },
+    {
+      "description": "dpkg treats \"0-0\" and \"1:0-0\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "deb",
+        "versions": [
+          "0-0",
+          "1:0-0"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "dpkg orders \"a-0\" before \"b-0\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "deb",
+        "versions": [
+          "b-0",
+          "a-0"
+        ]
+      },
+      "expected_output": [
+        "a-0",
+        "b-0"
+      ]
+    },
+    {
+      "description": "dpkg treats \"a-0\" and \"b-0\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "deb",
+        "versions": [
+          "a-0",
+          "b-0"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "dpkg orders \"0-a\" before \"0-b\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "deb",
+        "versions": [
+          "0-b",
+          "0-a"
+        ]
+      },
+      "expected_output": [
+        "0-a",
+        "0-b"
+      ]
+    },
+    {
+      "description": "dpkg treats \"0-a\" and \"0-b\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "deb",
+        "versions": [
+          "0-a",
+          "0-b"
+        ]
+      },
+      "expected_output": false
+    }
+  ]
+}

@@ -1,0 +1,434 @@
+{
+  "$schema": "https://packageurl.org/schemas/vers-test.schema-0.2.json",
+  "tests": [
+    {
+      "description": "semver orders \"1.0.0-alpha\" before \"1.0.0-alpha.1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "1.0.0-alpha.1",
+          "1.0.0-alpha"
+        ]
+      },
+      "expected_output": [
+        "1.0.0-alpha",
+        "1.0.0-alpha.1"
+      ]
+    },
+    {
+      "description": "semver treats \"1.0.0-alpha\" and \"1.0.0-alpha.1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "1.0.0-alpha",
+          "1.0.0-alpha.1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver orders \"1.0.0-alpha.1\" before \"1.0.0-alpha.beta\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "1.0.0-alpha.beta",
+          "1.0.0-alpha.1"
+        ]
+      },
+      "expected_output": [
+        "1.0.0-alpha.1",
+        "1.0.0-alpha.beta"
+      ]
+    },
+    {
+      "description": "semver treats \"1.0.0-alpha.1\" and \"1.0.0-alpha.beta\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "1.0.0-alpha.1",
+          "1.0.0-alpha.beta"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver orders \"1.0.0-alpha.beta\" before \"1.0.0-beta\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "1.0.0-beta",
+          "1.0.0-alpha.beta"
+        ]
+      },
+      "expected_output": [
+        "1.0.0-alpha.beta",
+        "1.0.0-beta"
+      ]
+    },
+    {
+      "description": "semver treats \"1.0.0-alpha.beta\" and \"1.0.0-beta\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "1.0.0-alpha.beta",
+          "1.0.0-beta"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver orders \"1.0.0-beta\" before \"1.0.0-beta.2\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "1.0.0-beta.2",
+          "1.0.0-beta"
+        ]
+      },
+      "expected_output": [
+        "1.0.0-beta",
+        "1.0.0-beta.2"
+      ]
+    },
+    {
+      "description": "semver treats \"1.0.0-beta\" and \"1.0.0-beta.2\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "1.0.0-beta",
+          "1.0.0-beta.2"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver orders \"1.0.0-beta.2\" before \"1.0.0-beta.11\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "1.0.0-beta.11",
+          "1.0.0-beta.2"
+        ]
+      },
+      "expected_output": [
+        "1.0.0-beta.2",
+        "1.0.0-beta.11"
+      ]
+    },
+    {
+      "description": "semver treats \"1.0.0-beta.2\" and \"1.0.0-beta.11\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "1.0.0-beta.2",
+          "1.0.0-beta.11"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver orders \"1.0.0-beta.11\" before \"1.0.0-rc.1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "1.0.0-rc.1",
+          "1.0.0-beta.11"
+        ]
+      },
+      "expected_output": [
+        "1.0.0-beta.11",
+        "1.0.0-rc.1"
+      ]
+    },
+    {
+      "description": "semver treats \"1.0.0-beta.11\" and \"1.0.0-rc.1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "1.0.0-beta.11",
+          "1.0.0-rc.1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver orders \"1.0.0-rc.1\" before \"1.0.0\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "1.0.0",
+          "1.0.0-rc.1"
+        ]
+      },
+      "expected_output": [
+        "1.0.0-rc.1",
+        "1.0.0"
+      ]
+    },
+    {
+      "description": "semver treats \"1.0.0-rc.1\" and \"1.0.0\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "1.0.0-rc.1",
+          "1.0.0"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver orders \"0.0.0\" before \"1.2.3-alpha2\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "1.2.3-alpha2",
+          "0.0.0"
+        ]
+      },
+      "expected_output": [
+        "0.0.0",
+        "1.2.3-alpha2"
+      ]
+    },
+    {
+      "description": "semver treats \"0.0.0\" and \"1.2.3-alpha2\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "0.0.0",
+          "1.2.3-alpha2"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver orders \"1.0.0\" before \"1.2.3-alpha2\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "1.2.3-alpha2",
+          "1.0.0"
+        ]
+      },
+      "expected_output": [
+        "1.0.0",
+        "1.2.3-alpha2"
+      ]
+    },
+    {
+      "description": "semver treats \"1.0.0\" and \"1.2.3-alpha2\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "1.0.0",
+          "1.2.3-alpha2"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver orders \"1.2.0\" before \"1.2.3-alpha2\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "1.2.3-alpha2",
+          "1.2.0"
+        ]
+      },
+      "expected_output": [
+        "1.2.0",
+        "1.2.3-alpha2"
+      ]
+    },
+    {
+      "description": "semver treats \"1.2.0\" and \"1.2.3-alpha2\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "1.2.0",
+          "1.2.3-alpha2"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver orders \"1.2.3-alpha1\" before \"1.2.3\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "1.2.3",
+          "1.2.3-alpha1"
+        ]
+      },
+      "expected_output": [
+        "1.2.3-alpha1",
+        "1.2.3"
+      ]
+    },
+    {
+      "description": "semver treats \"1.2.3-alpha1\" and \"1.2.3\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "1.2.3-alpha1",
+          "1.2.3"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver orders \"1.2.3-alpha1\" before \"1.2.3-alpha2\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "1.2.3-alpha2",
+          "1.2.3-alpha1"
+        ]
+      },
+      "expected_output": [
+        "1.2.3-alpha1",
+        "1.2.3-alpha2"
+      ]
+    },
+    {
+      "description": "semver treats \"1.2.3-alpha1\" and \"1.2.3-alpha2\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "1.2.3-alpha1",
+          "1.2.3-alpha2"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver orders \"1.2.3+23\" before \"1.2.3+42\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "1.2.3+42",
+          "1.2.3+23"
+        ]
+      },
+      "expected_output": [
+        "1.2.3+23",
+        "1.2.3+42"
+      ]
+    },
+    {
+      "description": "semver treats \"1.2.3+23\" and \"1.2.3+42\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "1.2.3+23",
+          "1.2.3+42"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver treats \"0.0.0\" and \"0.0.1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "0.0.0",
+          "0.0.1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver treats \"0.0.0\" and \"0.1.0\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "0.0.0",
+          "0.1.0"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver treats \"0.0.0\" and \"1.0.0\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "0.0.0",
+          "1.0.0"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "semver treats \"1.2.3-alpha\" and \"1.2.3-beta\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "cargo",
+        "versions": [
+          "1.2.3-alpha",
+          "1.2.3-beta"
+        ]
+      },
+      "expected_output": false
+    }
+  ]
+}

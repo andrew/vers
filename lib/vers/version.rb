@@ -1,5 +1,18 @@
 # frozen_string_literal: true
 
+require_relative "bazel_version"
+require_relative "maven_version"
+require_relative "nuget_version"
+require_relative "semver_version"
+require_relative "gem_version"
+require_relative "pypi_version"
+require_relative "composer_version"
+require_relative "pub_version"
+require_relative "distribution_version"
+require_relative "conan_version"
+require_relative "special_version"
+require_relative "scheme"
+
 module Vers
   VERSION = "1.3.1"
 
@@ -91,15 +104,26 @@ module Vers
     # @return [Integer] -1 if a < b, 0 if a == b, 1 if a > b
     #
     def self.compare_with_scheme(a, b, scheme)
-      case scheme
-      when "bazel"
-        BazelVersion.compare(a, b)
-      when "maven"
-        MavenVersion.compare(a, b)
-      when "nuget"
-        NuGetVersion.compare(a, b)
+      return 0 if a == b
+      return -1 if a.nil?
+      return 1 if b.nil?
+
+      handler = Scheme.handler(scheme)
+      handler ? handler.compare(a, b) : compare(a, b)
+    end
+
+    def self.compare_for_range(a, b, scheme)
+      return 0 if a == b
+      return -1 if a.nil?
+      return 1 if b.nil?
+
+      case Scheme.canonical(scheme)
+      when "cargo"
+        SemverVersion.compare(a, b)
+      when "pypi"
+        PyPIVersion.compare_public(a, b)
       else
-        compare(a, b)
+        compare_with_scheme(a, b, scheme)
       end
     end
 
@@ -109,8 +133,13 @@ module Vers
     # @param version_string [String] The version string to normalize
     # @return [String] The normalized version string
     #
-    def self.normalize(version_string)
-      cached_new(version_string).to_s
+    def self.normalize(version_string, scheme = nil)
+      handler = Scheme.handler(scheme)
+      return cached_new(version_string).to_s unless handler
+
+      raise ArgumentError, "Invalid #{Scheme.canonical(scheme)} version: #{version_string}" unless handler.valid?(version_string)
+
+      handler.respond_to?(:normalize) ? handler.normalize(version_string) : version_string.to_s.strip
     end
 
     ##
@@ -121,13 +150,15 @@ module Vers
     # @return [Boolean] true if the version is valid
     #
     def self.valid?(version_string, scheme = nil)
-      return BazelVersion.valid?(version_string) if scheme == "bazel"
+      handler = Scheme.handler(scheme)
+      return handler.valid?(version_string) if handler
 
       version_string.to_s.match?(/\Av?\d+\.\d+\.\d+/)
     end
 
     def self.stable?(version_string, scheme = nil)
-      return BazelVersion.stable?(version_string) if scheme == "bazel"
+      handler = Scheme.handler(scheme)
+      return handler.valid?(version_string) && !handler.prerelease?(version_string) if handler
 
       cached_new(version_string).stable?
     rescue ArgumentError
@@ -135,15 +166,18 @@ module Vers
     end
 
     def self.prerelease?(version_string, scheme = nil)
-      return BazelVersion.prerelease?(version_string) if scheme == "bazel"
+      handler = Scheme.handler(scheme)
+      return handler.valid?(version_string) && handler.prerelease?(version_string) if handler
 
       cached_new(version_string).prerelease?
     rescue ArgumentError
       false
     end
 
-    def self.clean(version_string)
-      return nil unless valid?(version_string)
+    def self.clean(version_string, scheme = nil)
+      return nil unless valid?(version_string, scheme)
+      return normalize(version_string, scheme) if Scheme.handler(scheme)
+
       version_string.to_s.sub(/\Av/, '')
     end
 

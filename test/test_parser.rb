@@ -391,6 +391,44 @@ class TestParser < Minitest::Test
     assert_equal "vers:gem/1.2.3", vers_string
   end
 
+  def test_to_vers_string_percent_encodes_reserved_version_characters
+    range = Vers::VersionRange.exact("1.0/0", scheme: "generic")
+    vers_string = @parser.to_vers_string(range, "generic")
+
+    assert_equal "vers:generic/1.0%2F0", vers_string
+    assert @parser.parse(vers_string, require_canonical_order: true).contains?("1.0/0")
+  end
+
+  def test_parse_rejects_an_uppercase_vers_type
+    error = assert_raises(ArgumentError) do
+      @parser.parse("vers:NPM/1.0.0", require_canonical_order: true)
+    end
+
+    assert_equal "non-canonical VERS: type must be lowercase", error.message
+  end
+
+  def test_parse_rejects_unencoded_reserved_version_characters
+    error = assert_raises(ArgumentError) do
+      @parser.parse("vers:generic/1*2", require_canonical_order: true)
+    end
+
+    assert_equal "non-canonical VERS: reserved characters in version must be percent-encoded", error.message
+  end
+
+  def test_parse_rejects_duplicate_versions_in_strict_mode
+    error = assert_raises(ArgumentError) do
+      @parser.parse("vers:npm/<1.0.0|>=1.0.0", require_canonical_order: true)
+    end
+
+    assert_equal "non-canonical VERS: duplicate versions are not permitted", error.message
+  end
+
+  def test_to_vers_string_normalizes_semver_based_versions
+    range = Vers::VersionRange.exact("1.2", scheme: "npm")
+
+    assert_equal "vers:npm/1.2.0", @parser.to_vers_string(range, "npm")
+  end
+
   def test_to_vers_string_unbounded
     range = Vers::VersionRange.unbounded
     vers_string = @parser.to_vers_string(range, "pypi")
@@ -566,16 +604,16 @@ class TestParser < Minitest::Test
     refute range.contains?("1.5.1")
   end
 
-  def test_generic_comma_separated_constraints
-    range = @parser.parse("vers:generic/>= 1.0.0, < 2.0.0")
+  def test_generic_native_comma_separated_constraints
+    range = @parser.parse_native(">= 1.0.0, < 2.0.0", "generic")
     assert range.contains?("1.0.0")
     assert range.contains?("1.5.0")
     refute range.contains?("0.9.0")
     refute range.contains?("2.0.0")
   end
 
-  def test_generic_comma_separated_three_constraints
-    range = @parser.parse("vers:generic/>= 1.0.0, < 3.0.0, !=2.0.0")
+  def test_generic_native_comma_separated_three_constraints
+    range = @parser.parse_native(">= 1.0.0, < 3.0.0, !=2.0.0", "generic")
     assert range.contains?("1.0.0")
     assert range.contains?("1.5.0")
     refute range.contains?("2.0.0")
@@ -592,6 +630,19 @@ class TestParser < Minitest::Test
     range = @parser.parse_native(">=1.0.0 <2.0.0", "npm")
     vers = @parser.to_vers_string(range, "npm")
     assert_equal "vers:npm/>=1.0.0|<2.0.0", vers
+  end
+
+  def test_round_trip_npm_comparator_without_v_prefix
+    range = @parser.parse_native(">=v2.0.0-alpha8", "npm")
+
+    assert_equal "vers:npm/>=2.0.0-alpha8", @parser.to_vers_string(range, "npm")
+  end
+
+  def test_round_trip_npm_contradictory_exact_constraints
+    range = @parser.parse_native("1.1.2 1.2.2", "npm")
+
+    assert range.empty?
+    assert_equal "vers:npm/1.1.2|1.2.2", @parser.to_vers_string(range, "npm")
   end
 
   def test_round_trip_gem_pessimistic

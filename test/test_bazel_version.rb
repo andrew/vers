@@ -27,7 +27,6 @@ class TestBazelVersion < Minitest::Test
   end
 
   def test_bazel_validation_accepts_relaxed_release_versions
-    assert Vers.valid?("", "bazel")
     assert Vers.valid?("35.1", "bazel")
     assert Vers.valid?("0.7.1.bcr.1", "bazel")
     assert Vers.valid?("36.0-rc2", "bazel")
@@ -37,6 +36,7 @@ class TestBazelVersion < Minitest::Test
 
   def test_bazel_validation_rejects_invalid_versions
     invalid_versions = [
+      "",
       "-abc",
       "1_2",
       "ßážëł",

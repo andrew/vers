@@ -1,0 +1,1043 @@
+{
+  "$schema": "https://packageurl.org/schemas/vers-test.schema-0.2.json",
+  "tests": [
+    {
+      "description": "univers Pacman orders \"1.5.0\" before \"1.5.1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5.1",
+          "1.5.0"
+        ]
+      },
+      "expected_output": [
+        "1.5.0",
+        "1.5.1"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1.5.1\" and \"1.5.0\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5.1",
+          "1.5.0"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"1.5\" before \"1.5.1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5.1",
+          "1.5"
+        ]
+      },
+      "expected_output": [
+        "1.5",
+        "1.5.1"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1.5.1\" and \"1.5\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5.1",
+          "1.5"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"1.5.0-1\" before \"1.5.0-2\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5.0-2",
+          "1.5.0-1"
+        ]
+      },
+      "expected_output": [
+        "1.5.0-1",
+        "1.5.0-2"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1.5.0-1\" and \"1.5.0-2\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5.0-1",
+          "1.5.0-2"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"1.5.0-1\" before \"1.5.1-1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5.1-1",
+          "1.5.0-1"
+        ]
+      },
+      "expected_output": [
+        "1.5.0-1",
+        "1.5.1-1"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1.5.0-1\" and \"1.5.1-1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5.0-1",
+          "1.5.1-1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"1.5.0-2\" before \"1.5.1-1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5.1-1",
+          "1.5.0-2"
+        ]
+      },
+      "expected_output": [
+        "1.5.0-2",
+        "1.5.1-1"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1.5.0-2\" and \"1.5.1-1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5.0-2",
+          "1.5.1-1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"1.5\" before \"1.5.a\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5.a",
+          "1.5"
+        ]
+      },
+      "expected_output": [
+        "1.5",
+        "1.5.a"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1.5.a\" and \"1.5\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5.a",
+          "1.5"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"1.5.a\" before \"1.5.b\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5.b",
+          "1.5.a"
+        ]
+      },
+      "expected_output": [
+        "1.5.a",
+        "1.5.b"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1.5.b\" and \"1.5.a\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5.b",
+          "1.5.a"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"1.5.b\" before \"1.5.1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5.1",
+          "1.5.b"
+        ]
+      },
+      "expected_output": [
+        "1.5.b",
+        "1.5.1"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1.5.1\" and \"1.5.b\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5.1",
+          "1.5.b"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"0:1.0\" before \"0:1.1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "0:1.1",
+          "0:1.0"
+        ]
+      },
+      "expected_output": [
+        "0:1.0",
+        "0:1.1"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"0:1.0\" and \"0:1.1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "0:1.0",
+          "0:1.1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"0:1.0\" before \"1:1.0\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1:1.0",
+          "0:1.0"
+        ]
+      },
+      "expected_output": [
+        "0:1.0",
+        "1:1.0"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1:1.0\" and \"0:1.0\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1:1.0",
+          "0:1.0"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"0:1.1\" before \"1:1.0\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1:1.0",
+          "0:1.1"
+        ]
+      },
+      "expected_output": [
+        "0:1.1",
+        "1:1.0"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1:1.0\" and \"0:1.1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1:1.0",
+          "0:1.1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"1:1.0\" before \"2:1.1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "2:1.1",
+          "1:1.0"
+        ]
+      },
+      "expected_output": [
+        "1:1.0",
+        "2:1.1"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1:1.0\" and \"2:1.1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1:1.0",
+          "2:1.1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"0:1.0-1\" before \"1:1.0\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1:1.0",
+          "0:1.0-1"
+        ]
+      },
+      "expected_output": [
+        "0:1.0-1",
+        "1:1.0"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1:1.0\" and \"0:1.0-1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1:1.0",
+          "0:1.0-1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"0:1.1-1\" before \"1:1.0-1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1:1.0-1",
+          "0:1.1-1"
+        ]
+      },
+      "expected_output": [
+        "0:1.1-1",
+        "1:1.0-1"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1:1.0-1\" and \"0:1.1-1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1:1.0-1",
+          "0:1.1-1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman treats \"0:1.0\" and \"1.0\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "0:1.0",
+          "1.0"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "univers Pacman orders \"0:1.0\" before \"1.1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.1",
+          "0:1.0"
+        ]
+      },
+      "expected_output": [
+        "0:1.0",
+        "1.1"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"0:1.0\" and \"1.1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "0:1.0",
+          "1.1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"1.0\" before \"0:1.1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "0:1.1",
+          "1.0"
+        ]
+      },
+      "expected_output": [
+        "1.0",
+        "0:1.1"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"0:1.1\" and \"1.0\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "0:1.1",
+          "1.0"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"1.0\" before \"1:1.0\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1:1.0",
+          "1.0"
+        ]
+      },
+      "expected_output": [
+        "1.0",
+        "1:1.0"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1:1.0\" and \"1.0\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1:1.0",
+          "1.0"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"1.1\" before \"1:1.0\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1:1.0",
+          "1.1"
+        ]
+      },
+      "expected_output": [
+        "1.1",
+        "1:1.0"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1:1.0\" and \"1.1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1:1.0",
+          "1.1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"1.1\" before \"1:1.1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1:1.1",
+          "1.1"
+        ]
+      },
+      "expected_output": [
+        "1.1",
+        "1:1.1"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1:1.1\" and \"1.1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1:1.1",
+          "1.1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman treats \"1.5.b-1\" and \"1.5.b\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5.b-1",
+          "1.5.b"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "univers Pacman orders \"1.5-1\" before \"1.5.b\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5.b",
+          "1.5-1"
+        ]
+      },
+      "expected_output": [
+        "1.5-1",
+        "1.5.b"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1.5-1\" and \"1.5.b\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5-1",
+          "1.5.b"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"1.5-1\" before \"1.5.1-1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5.1-1",
+          "1.5-1"
+        ]
+      },
+      "expected_output": [
+        "1.5-1",
+        "1.5.1-1"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1.5-1\" and \"1.5.1-1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5-1",
+          "1.5.1-1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"1.5-2\" before \"1.5.1-1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5.1-1",
+          "1.5-2"
+        ]
+      },
+      "expected_output": [
+        "1.5-2",
+        "1.5.1-1"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1.5-2\" and \"1.5.1-1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5-2",
+          "1.5.1-1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"1.5-2\" before \"1.5.1-2\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5.1-2",
+          "1.5-2"
+        ]
+      },
+      "expected_output": [
+        "1.5-2",
+        "1.5.1-2"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1.5-2\" and \"1.5.1-2\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5-2",
+          "1.5.1-2"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman treats \"1.5\" and \"1.5-1\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5",
+          "1.5-1"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "univers Pacman treats \"1.1-1\" and \"1.1\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.1-1",
+          "1.1"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "univers Pacman orders \"1.0-1\" before \"1.1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.1",
+          "1.0-1"
+        ]
+      },
+      "expected_output": [
+        "1.0-1",
+        "1.1"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1.0-1\" and \"1.1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.0-1",
+          "1.1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"1.0\" before \"1.1-1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.1-1",
+          "1.0"
+        ]
+      },
+      "expected_output": [
+        "1.0",
+        "1.1-1"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1.1-1\" and \"1.0\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.1-1",
+          "1.0"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"1.5b-1\" before \"1.5-1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5-1",
+          "1.5b-1"
+        ]
+      },
+      "expected_output": [
+        "1.5b-1",
+        "1.5-1"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1.5b-1\" and \"1.5-1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5b-1",
+          "1.5-1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"1.5b  \" before \"1.5  \".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5  ",
+          "1.5b  "
+        ]
+      },
+      "expected_output": [
+        "1.5b  ",
+        "1.5  "
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1.5b  \" and \"1.5  \" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5b  ",
+          "1.5  "
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"1.5b-1\" before \"1.5  \".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5  ",
+          "1.5b-1"
+        ]
+      },
+      "expected_output": [
+        "1.5b-1",
+        "1.5  "
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1.5b-1\" and \"1.5  \" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5b-1",
+          "1.5  "
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"1.5b  \" before \"1.5.1\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5.1",
+          "1.5b  "
+        ]
+      },
+      "expected_output": [
+        "1.5b  ",
+        "1.5.1"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1.5b  \" and \"1.5.1\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.5b  ",
+          "1.5.1"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"1.0a\" before \"1.0alpha\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.0alpha",
+          "1.0a"
+        ]
+      },
+      "expected_output": [
+        "1.0a",
+        "1.0alpha"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1.0a\" and \"1.0alpha\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.0a",
+          "1.0alpha"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"1.0alpha\" before \"1.0b\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.0b",
+          "1.0alpha"
+        ]
+      },
+      "expected_output": [
+        "1.0alpha",
+        "1.0b"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1.0alpha\" and \"1.0b\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.0alpha",
+          "1.0b"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"1.0b\" before \"1.0beta\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.0beta",
+          "1.0b"
+        ]
+      },
+      "expected_output": [
+        "1.0b",
+        "1.0beta"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1.0b\" and \"1.0beta\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.0b",
+          "1.0beta"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"1.0beta\" before \"1.0rc\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.0rc",
+          "1.0beta"
+        ]
+      },
+      "expected_output": [
+        "1.0beta",
+        "1.0rc"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1.0beta\" and \"1.0rc\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.0beta",
+          "1.0rc"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "univers Pacman orders \"1.0rc\" before \"1.0\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.0",
+          "1.0rc"
+        ]
+      },
+      "expected_output": [
+        "1.0rc",
+        "1.0"
+      ]
+    },
+    {
+      "description": "univers Pacman treats \"1.0rc\" and \"1.0\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "alpm",
+        "versions": [
+          "1.0rc",
+          "1.0"
+        ]
+      },
+      "expected_output": false
+    }
+  ]
+}

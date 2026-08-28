@@ -1,0 +1,260 @@
+{
+  "$schema": "https://packageurl.org/schemas/vers-test.schema-0.2.json",
+  "tests": [
+    {
+      "description": "composer/semver orders \"1.24.0\" before \"1.25.0\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "composer",
+        "versions": [
+          "1.25.0",
+          "1.24.0"
+        ]
+      },
+      "expected_output": [
+        "1.24.0",
+        "1.25.0"
+      ]
+    },
+    {
+      "description": "composer/semver treats \"1.25.0\" and \"1.24.0\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "composer",
+        "versions": [
+          "1.25.0",
+          "1.24.0"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "composer/semver orders \"1.25.0\" before \"1.26.0\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "composer",
+        "versions": [
+          "1.26.0",
+          "1.25.0"
+        ]
+      },
+      "expected_output": [
+        "1.25.0",
+        "1.26.0"
+      ]
+    },
+    {
+      "description": "composer/semver treats \"1.25.0\" and \"1.26.0\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "composer",
+        "versions": [
+          "1.25.0",
+          "1.26.0"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "composer/semver orders \"1.25.0-beta2.1\" before \"1.25.0-b.3\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "composer",
+        "versions": [
+          "1.25.0-b.3",
+          "1.25.0-beta2.1"
+        ]
+      },
+      "expected_output": [
+        "1.25.0-beta2.1",
+        "1.25.0-b.3"
+      ]
+    },
+    {
+      "description": "composer/semver treats \"1.25.0-beta2.1\" and \"1.25.0-b.3\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "composer",
+        "versions": [
+          "1.25.0-beta2.1",
+          "1.25.0-b.3"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "composer/semver orders \"1.25.0-b2.1\" before \"1.25.0beta.3\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "composer",
+        "versions": [
+          "1.25.0beta.3",
+          "1.25.0-b2.1"
+        ]
+      },
+      "expected_output": [
+        "1.25.0-b2.1",
+        "1.25.0beta.3"
+      ]
+    },
+    {
+      "description": "composer/semver treats \"1.25.0-b2.1\" and \"1.25.0beta.3\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "composer",
+        "versions": [
+          "1.25.0-b2.1",
+          "1.25.0beta.3"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "composer/semver orders \"1.25.0-b-2.1\" before \"1.25.0-rc\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "composer",
+        "versions": [
+          "1.25.0-rc",
+          "1.25.0-b-2.1"
+        ]
+      },
+      "expected_output": [
+        "1.25.0-b-2.1",
+        "1.25.0-rc"
+      ]
+    },
+    {
+      "description": "composer/semver treats \"1.25.0-b-2.1\" and \"1.25.0-rc\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "composer",
+        "versions": [
+          "1.25.0-b-2.1",
+          "1.25.0-rc"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "composer/semver treats \"1.25.0-beta2.1\" and \"1.25.0-b.2.1\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "composer",
+        "versions": [
+          "1.25.0-beta2.1",
+          "1.25.0-b.2.1"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "composer/semver treats \"1.25.0beta2.1\" and \"1.25.0-b2.1\" as equal.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "composer",
+        "versions": [
+          "1.25.0beta2.1",
+          "1.25.0-b2.1"
+        ]
+      },
+      "expected_output": true
+    },
+    {
+      "description": "composer/semver orders \"dev-foo\" before \"1.26.0\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "composer",
+        "versions": [
+          "1.26.0",
+          "dev-foo"
+        ]
+      },
+      "expected_output": [
+        "dev-foo",
+        "1.26.0"
+      ]
+    },
+    {
+      "description": "composer/semver treats \"1.26.0\" and \"dev-foo\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "composer",
+        "versions": [
+          "1.26.0",
+          "dev-foo"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "composer/semver orders \"1.0.0\" before \"1.2-dev\".",
+      "test_group": "recommended",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "composer",
+        "versions": [
+          "1.2-dev",
+          "1.0.0"
+        ]
+      },
+      "expected_output": [
+        "1.0.0",
+        "1.2-dev"
+      ]
+    },
+    {
+      "description": "composer/semver treats \"1.0.0\" and \"1.2-dev\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "composer",
+        "versions": [
+          "1.0.0",
+          "1.2-dev"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "composer/semver treats \"dev-foo\" and \"dev-master\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "composer",
+        "versions": [
+          "dev-foo",
+          "dev-master"
+        ]
+      },
+      "expected_output": false
+    },
+    {
+      "description": "composer/semver treats \"dev-foo\" and \"dev-bar\" as different.",
+      "test_group": "recommended",
+      "test_type": "equality",
+      "input": {
+        "input_type": "composer",
+        "versions": [
+          "dev-foo",
+          "dev-bar"
+        ]
+      },
+      "expected_output": false
+    }
+  ]
+}
