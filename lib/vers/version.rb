@@ -14,7 +14,7 @@ require_relative "special_version"
 require_relative "scheme"
 
 module Vers
-  VERSION = "1.3.1"
+  VERSION = "2.0.0"
 
   ##
   # Handles version comparison and normalization across different package ecosystems.
