@@ -22,7 +22,7 @@ class TestParser < Minitest::Test
   end
 
   def test_parse_vers_uri_exact_version
-    range = @parser.parse("vers:pypi/=1.2.3")
+    range = @parser.parse("vers:pypi/1.2.3")
     assert range.contains?("1.2.3")
     refute range.contains?("1.2.4")
   end

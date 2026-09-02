@@ -14,6 +14,14 @@ class TestVers < Minitest::Test
     refute range.contains?("1.0.0")
   end
 
+  def test_parse_rejects_explicit_equality_comparator
+    ["vers:npm/=1.0.0", "vers:npm/==1.0.0"].each do |vers_string|
+      error = assert_raises(ArgumentError) { Vers.parse(vers_string) }
+
+      assert_equal "non-canonical VERS: explicit equality comparator is not permitted", error.message
+    end
+  end
+
   def test_parse_native_npm_caret
     range = Vers.parse_native("^1.2.3", "npm")
     assert range.contains?("1.2.3")
