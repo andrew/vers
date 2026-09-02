@@ -237,6 +237,10 @@ module Vers
       previous_raw = nil
       seen_versions = []
       constraints.split("|").each do |raw|
+        if raw.start_with?("=")
+          raise ArgumentError, "non-canonical VERS: explicit equality comparator is not permitted"
+        end
+
         constraint = Constraint.parse(raw)
         validate_vers_version!(constraint.version, scheme)
         decoded_version = decode_vers_version(constraint.version)
