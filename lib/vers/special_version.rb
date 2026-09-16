@@ -289,8 +289,8 @@ module Vers
     extend self
 
     def compare(left, right)
-      left_parts = left.to_s.split(".", -1)
-      right_parts = right.to_s.split(".", -1)
+      left_parts = left.to_s[/\A[\d.]*/].split(".", -1)
+      right_parts = right.to_s[/\A[\d.]*/].split(".", -1)
 
       [left_parts.length, right_parts.length].max.times do |index|
         comparison = VersionComparison.compare_numbers(left_parts[index], right_parts[index])

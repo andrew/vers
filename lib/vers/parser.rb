@@ -66,7 +66,7 @@ module Vers
       unless vers_string.is_a?(String) && vers_string.start_with?("vers:")
         raise ArgumentError, "Invalid vers URI format: #{vers_string}"
       end
-      if vers_string.match?(/[ \t\r\n]/)
+      if vers_string.match?(/[\t\r\n]/) || (require_canonical_order && vers_string.include?(" "))
         raise ArgumentError, "non-canonical VERS: whitespace is not permitted"
       end
 
@@ -82,9 +82,13 @@ module Vers
       end
       scheme = Scheme.canonical(raw_scheme)
       constraints_string = remainder[(slash + 1)..]
-      if constraints_string.empty? || constraints_string == "*"
+      if constraints_string.empty?
+        if require_canonical_order
+          raise ArgumentError, "non-canonical VERS: constraints must not be empty"
+        end
         return VersionRange.unbounded(scheme: scheme)
       end
+      return VersionRange.unbounded(scheme: scheme) if constraints_string == "*"
 
       validate_vers_constraints!(constraints_string, scheme, require_canonical_order)
 
@@ -278,6 +282,9 @@ module Vers
         end
         if lowercase_ascii_hex?(first) || lowercase_ascii_hex?(second)
           raise ArgumentError, "non-canonical VERS: percent-encoding in version is not canonical"
+        end
+        if first == 48 && [57, 65, 66, 67, 68].include?(second)
+          raise ArgumentError, "non-canonical VERS: whitespace is not permitted"
         end
 
         index += 3
