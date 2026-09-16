@@ -44,8 +44,8 @@ class TestRangeConformance < Minitest::Test
             when "parse"
               range = Vers::Parser.new.parse(test_case.fetch("input"), require_canonical_order: true)
               {
-                "scheme" => range.scheme,
-                "version_constraints" => range_constraints(range)
+                "type" => range.scheme,
+                "constraints" => range_constraints(range)
               }
             when "validate"
               range = Vers.parse(test_case.fetch("input"))
