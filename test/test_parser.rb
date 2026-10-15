@@ -711,6 +711,42 @@ class TestParser < Minitest::Test
     refute range.contains?("2.0.0")
   end
 
+  def test_parse_native_cargo_comma_separated_and
+    range = @parser.parse_native(">= 2.1.0, < 2.41.0", "cargo")
+    assert range.contains?("2.1.0")
+    assert range.contains?("2.40.0")
+    refute range.contains?("2.0.0")
+    refute range.contains?("2.41.0")
+  end
+
+  def test_parse_native_cargo_comma_without_spaces
+    range = @parser.parse_native(">=1.0.0,<2.0.0", "cargo")
+    assert range.contains?("1.5.0")
+    refute range.contains?("2.0.0")
+  end
+
+  def test_parse_native_cargo_bare_version_is_caret
+    range = @parser.parse_native("1.2.3", "cargo")
+    assert range.contains?("1.2.3")
+    assert range.contains?("1.9.0")
+    refute range.contains?("2.0.0")
+    refute range.contains?("1.2.2")
+  end
+
+  def test_parse_native_cargo_bare_partial_version_is_caret
+    range = @parser.parse_native("1.2", "cargo")
+    assert range.contains?("1.2.0")
+    assert range.contains?("1.9.0")
+    refute range.contains?("2.0.0")
+  end
+
+  def test_parse_native_cargo_bare_zero_major
+    range = @parser.parse_native("0.2.3", "cargo")
+    assert range.contains?("0.2.3")
+    assert range.contains?("0.2.9")
+    refute range.contains?("0.3.0")
+  end
+
   # Go module tests
 
   def test_parse_native_go_comma_separated

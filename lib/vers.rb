@@ -119,7 +119,7 @@ module Vers
   #   Vers.satisfies?("1.5.0", "vers:npm/>=1.0.0|<2.0.0")  # => true
   #   Vers.satisfies?("1.5.0", "^1.2.3", "npm")            # => true
   #
-  def self.satisfies?(version, constraint, scheme = nil)
+  def self.satisfies?(version, constraint, scheme = nil, include_prerelease: false)
     sub_ranges = constraint.split('||').map(&:strip).reject(&:empty?)
     sub_ranges.any? do |sub_range|
       range = if scheme
@@ -127,7 +127,7 @@ module Vers
               else
                 parse(sub_range)
               end
-      range&.contains?(version) || false
+      range&.contains?(version, include_prerelease: include_prerelease) || false
     end
   end
 

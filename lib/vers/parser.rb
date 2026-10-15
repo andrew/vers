@@ -133,7 +133,7 @@ module Vers
       when "maven"
         parse_maven_range(range_string)
       when "cargo"
-        parse_npm_range(range_string, scheme: "cargo")
+        parse_cargo_range(range_string)
       when "nuget"
         parse_nuget_range(range_string)
       when "hex"
@@ -817,6 +817,10 @@ module Vers
       parse_constraints(constraint, "nginx")
     end
 
+    def parse_cargo_range(range_string)
+      parse_npm_range(range_string.to_s.tr(",", " "), scheme: "cargo")
+    end
+
     # NPM range parsing (^, ~, -, ||, etc.)
     def parse_npm_range(range_string, scheme: "npm")
       constraint = range_string.to_s.strip
@@ -855,6 +859,9 @@ module Vers
 
     def parse_npm_single_range(range_string, scheme: "npm")
       constraint = range_string.to_s.strip
+      if scheme == "cargo" && !constraint.match?(/\A[~^><=!]/)
+        return parse_caret_range(constraint, scheme: scheme)
+      end
       return parse_caret_range(constraint.delete_prefix("^").strip, scheme: scheme) if constraint.start_with?("^")
       return parse_tilde_range(constraint.delete_prefix("~>").strip, scheme: scheme) if constraint.start_with?("~>")
       return parse_tilde_range(constraint.delete_prefix("~").strip, scheme: scheme) if constraint.start_with?("~")

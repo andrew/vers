@@ -48,6 +48,28 @@ class TestVers < Minitest::Test
     refute Vers.satisfies?("2.0.0", "^1.2.3", "npm")
   end
 
+  def test_satisfies_excludes_prerelease_by_default
+    refute Vers.satisfies?("1.7.0-alpha.2", "< 3.0.0", "npm")
+    refute Vers.satisfies?("1.7.0-alpha.2", "^1.0.0", "cargo")
+  end
+
+  def test_satisfies_include_prerelease
+    assert Vers.satisfies?("1.7.0-alpha.2", "< 3.0.0", "npm", include_prerelease: true)
+    assert Vers.satisfies?("1.7.0-alpha.2", "^1.0.0", "cargo", include_prerelease: true)
+    refute Vers.satisfies?("3.1.0-alpha.1", "< 3.0.0", "npm", include_prerelease: true)
+  end
+
+  def test_contains_include_prerelease
+    range = Vers.parse_native("^1.0.0", "npm")
+    refute range.contains?("1.7.0-alpha.2")
+    assert range.contains?("1.7.0-alpha.2", include_prerelease: true)
+  end
+
+  def test_satisfies_cargo_comma_separated_and
+    assert Vers.satisfies?("2.1.0", ">= 2.1.0, < 2.41.0", "cargo")
+    refute Vers.satisfies?("2.41.0", ">= 2.1.0, < 2.41.0", "cargo")
+  end
+
   def test_compare_versions
     assert_equal(-1, Vers.compare("1.2.3", "1.2.4"))
     assert_equal(1, Vers.compare("2.0.0", "1.9.9"))
