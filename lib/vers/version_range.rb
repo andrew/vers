@@ -56,7 +56,7 @@ module Vers
       exclusions.empty? && intervals.length == 1 && intervals.first.unbounded?
     end
 
-    def contains?(version)
+    def contains?(version, include_prerelease: false)
       if VALIDATED_CONTAINMENT_SCHEMES.include?(scheme) && !Version.valid?(version, scheme)
         return false
       end
@@ -70,7 +70,7 @@ module Vers
                    else
                      interval.contains?(version)
                    end
-        contains && prerelease_allowed?(interval, version)
+        contains && (include_prerelease || prerelease_allowed?(interval, version))
       end
     end
 
