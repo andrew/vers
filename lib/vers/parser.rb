@@ -859,6 +859,10 @@ module Vers
 
     def parse_npm_single_range(range_string, scheme: "npm")
       constraint = range_string.to_s.strip
+      if %w[> >= < <= = != ^ ~ ~>].include?(constraint)
+        raise ArgumentError, "Missing version in #{scheme} range: #{range_string}"
+      end
+
       if scheme == "cargo" && !constraint.match?(/\A[~^><=!]/)
         return parse_caret_range(constraint, scheme: scheme)
       end
