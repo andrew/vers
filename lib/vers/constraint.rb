@@ -60,7 +60,8 @@ module Vers
         raise ArgumentError, "Constraint string too long (#{constraint_string.length} > #{Version::MAX_LENGTH})"
       end
 
-      return @@constraint_cache[constraint_string] if @@constraint_cache.key?(constraint_string)
+      cached = @@constraint_cache[constraint_string]
+      return cached if cached
 
       if @@constraint_cache.size >= @@cache_size_limit
         keys = @@constraint_cache.keys

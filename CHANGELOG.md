@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Concurrent constraint cache eviction no longer causes valid range checks to raise `NoMethodError`.
 - Unioning an unbounded interval with a bounded interval now remains unbounded.
 - Range unions retain exclusions when the other operand does not contain the excluded version.
 - VERS serialization no longer adds an empty constraint to unbounded ranges with exclusions.
