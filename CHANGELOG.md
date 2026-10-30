@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- npm and Cargo ranges reject operators without a version instead of matching every version.
 - Concurrent constraint cache eviction no longer causes valid range checks to raise `NoMethodError`.
 - Unioning an unbounded interval with a bounded interval now remains unbounded.
 - Range unions retain exclusions when the other operand does not contain the excluded version.
