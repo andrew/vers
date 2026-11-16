@@ -8,5 +8,5 @@ gemspec
 gem "irb"
 gem "rake", "~> 13.4"
 
-gem "minitest", "~> 6.0"
+gem "minitest", "~> 6.1"
 gem "benchmark", group: :development
