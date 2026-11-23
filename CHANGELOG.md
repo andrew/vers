@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Range unions retain exclusions when the other operand does not contain the excluded version.
 - VERS serialization no longer adds an empty constraint to unbounded ranges with exclusions.
 - SemVer comparison handles surrounding whitespace consistently with validation.
+- Debian comparison no longer hangs on a version containing a NUL byte, and Debian validation rejects one.
 
 ## [1.1.0] - 2026-02-24
 

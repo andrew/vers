@@ -38,6 +38,9 @@ module Vers
     end
 
     def valid?(value)
+      # String#strip removes trailing NUL bytes, which would hide them from the patterns.
+      return false if value.to_s.include?("\0")
+
       string = value.to_s.strip
       epoch, version = string.split(":", 2)
       if version
@@ -67,13 +70,14 @@ module Vers
 
       while left_index < left.length || right_index < right.length
         while non_digit_at?(left, left_index) || non_digit_at?(right, right_index)
-          left_byte = non_digit_at?(left, left_index) ? left.getbyte(left_index) : 0
-          right_byte = non_digit_at?(right, right_index) ? right.getbyte(right_index) : 0
+          # nil marks the end of a part, so a NUL byte in the input still advances.
+          left_byte = non_digit_at?(left, left_index) ? left.getbyte(left_index) : nil
+          right_byte = non_digit_at?(right, right_index) ? right.getbyte(right_index) : nil
           comparison = character_order(left_byte) <=> character_order(right_byte)
           return comparison unless comparison.zero?
 
-          left_index += 1 unless left_byte.zero?
-          right_index += 1 unless right_byte.zero?
+          left_index += 1 if left_byte
+          right_index += 1 if right_byte
         end
 
         left_zero_end = skip_zeroes(left, left_index)
@@ -110,7 +114,7 @@ module Vers
 
     def character_order(byte)
       return -1 if byte == 126
-      return 0 if byte.zero?
+      return 0 if byte.nil?
       return byte if alpha?(byte)
 
       byte + 256
