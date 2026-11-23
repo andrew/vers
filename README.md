@@ -75,7 +75,7 @@ version.satisfies?("~> 1.2")  # => true
 Scheme-aware version operations support these groups:
 
 - SemVer family: SemVer, npm, Cargo, Go modules, Hex, and nginx.
-- Language registries: RubyGems, PyPI, Composer, Pub, Maven, and NuGet.
+- Language registries: RubyGems, PyPI, Composer, Pub, Maven, NuGet, and opam.
 - Distribution packages: Debian, RPM, APK, Gentoo, and ALPM.
 - Other formats: Bazel, Conan, OpenSSL, integer-dot, RFC 3339 datetime, and lexicographic versions.
 

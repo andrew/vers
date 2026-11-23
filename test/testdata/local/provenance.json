@@ -190,6 +190,18 @@
       "generated_files": [
         "tests/apk_tools_version_cmp_test.json"
       ]
+    },
+    {
+      "repository": "https://github.com/ocaml/opam.git",
+      "commit": "f7bfa69f04f187a335f07906657f8ae75bbdb0b7",
+      "license": "LGPL-2.1-only WITH OCaml-LGPL-linking-exception",
+      "source_files": [
+        "doc/pages/Manual.md",
+        "src/core/opamVersionCompare.ml"
+      ],
+      "generated_files": [
+        "tests/opam_version_cmp_test.json"
+      ]
     }
   ]
 }

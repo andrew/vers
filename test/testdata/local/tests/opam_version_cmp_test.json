@@ -1,0 +1,71 @@
+{
+  "$schema": "https://packageurl.org/schemas/vers-test.schema-0.2.json",
+  "tests": [
+    {
+      "description": "opam's manual gives this sequence as an example of its version ordering.",
+      "test_group": "required",
+      "test_type": "comparison",
+      "input": {
+        "input_type": "opam",
+        "versions": ["trunk", "1.0.10", "1.0", "~", "0.1", "1.0-test", "~beta10", "dev", "1.0~beta", "~~", "1.0.1", "~beta2"]
+      },
+      "expected_output": ["~~", "~", "~beta2", "~beta10", "0.1", "1.0~beta", "1.0", "1.0-test", "1.0.1", "1.0.10", "dev", "trunk"]
+    },
+    {
+      "description": "opam orders a version that starts with a digit before one that starts with a letter.",
+      "test_group": "required",
+      "test_type": "comparison",
+      "input": {"input_type": "opam", "versions": ["a", "1"]},
+      "expected_output": ["1", "a"]
+    },
+    {
+      "description": "opam orders letters before other characters.",
+      "test_group": "required",
+      "test_type": "comparison",
+      "input": {"input_type": "opam", "versions": ["+", "z"]},
+      "expected_output": ["z", "+"]
+    },
+    {
+      "description": "opam orders a tilde before the end of the version.",
+      "test_group": "required",
+      "test_type": "comparison",
+      "input": {"input_type": "opam", "versions": ["a", "a~b"]},
+      "expected_output": ["a~b", "a"]
+    },
+    {
+      "description": "opam orders a pre-release written with a tilde before its release.",
+      "test_group": "required",
+      "test_type": "comparison",
+      "input": {"input_type": "opam", "versions": ["5.0.0", "5.0.0~beta1", "5.0.0~alpha1"]},
+      "expected_output": ["5.0.0~alpha1", "5.0.0~beta1", "5.0.0"]
+    },
+    {
+      "description": "opam compares the numbers after a leading letter numerically.",
+      "test_group": "required",
+      "test_type": "comparison",
+      "input": {"input_type": "opam", "versions": ["v0.17.0", "v0.9.0", "v0.16.1"]},
+      "expected_output": ["v0.9.0", "v0.16.1", "v0.17.0"]
+    },
+    {
+      "description": "opam orders every version that starts with a digit before one with a leading v.",
+      "test_group": "required",
+      "test_type": "comparison",
+      "input": {"input_type": "opam", "versions": ["v0.17.0", "0.18.0"]},
+      "expected_output": ["0.18.0", "v0.17.0"]
+    },
+    {
+      "description": "opam ignores leading zeroes in a number.",
+      "test_group": "required",
+      "test_type": "equality",
+      "input": {"input_type": "opam", "versions": ["4.02.3", "4.2.3"]},
+      "expected_output": true
+    },
+    {
+      "description": "opam treats a missing trailing number as zero.",
+      "test_group": "required",
+      "test_type": "equality",
+      "input": {"input_type": "opam", "versions": ["1.", "1.0"]},
+      "expected_output": true
+    }
+  ]
+}
