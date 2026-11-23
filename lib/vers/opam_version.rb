@@ -22,13 +22,14 @@ module Vers
 
     # opam compares the part after the last hyphen only when the parts before it are equal.
     def split(value)
-      version = value.to_s
+      version = normalize(value)
       separator = version.rindex("-")
       separator ? [version[0...separator], version[(separator + 1)..]] : [version, ""]
     end
 
     def valid?(value)
-      value.to_s.strip.match?(PATTERN)
+      # String#strip removes trailing NUL bytes, which would hide them from the pattern.
+      !value.to_s.include?("\0") && normalize(value).match?(PATTERN)
     end
 
     def normalize(value)

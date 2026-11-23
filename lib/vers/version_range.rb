@@ -5,7 +5,7 @@ require_relative 'version'
 
 module Vers
   class VersionRange
-    VALIDATED_CONTAINMENT_SCHEMES = %w[bazel cargo composer go hex npm pub pypi semver].freeze
+    VALIDATED_CONTAINMENT_SCHEMES = %w[bazel cargo composer go hex npm opam pub pypi semver].freeze
 
     attr_reader :intervals, :raw_constraints, :scheme, :exclusions
 

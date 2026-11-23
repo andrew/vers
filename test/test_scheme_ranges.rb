@@ -48,6 +48,14 @@ class TestSchemeRanges < Minitest::Test
     assert Vers.stable?("5.0.0", "opam")
   end
 
+  def test_opam_range_rejects_invalid_candidates_and_ignores_padding
+    refute Vers.satisfies?("1.0 beta", ">=1.0", "opam")
+    refute Vers.parse("vers:opam/*").contains?("1.0 beta")
+    refute Vers.valid?("1.0\0", "opam")
+    assert Vers.satisfies?(" 1.0 ", "=1.0", "opam")
+    assert_equal 0, Vers.compare_with_scheme(" 1.0 ", "1.0", "opam")
+  end
+
   def test_native_range_retains_a_canonical_alias
     range = Vers.parse_native(">=v1.2.3, <v2.0.0", "golang")
 
