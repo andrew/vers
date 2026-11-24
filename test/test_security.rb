@@ -151,6 +151,34 @@ class TestSecurity < Minitest::Test
     assert range.contains?("1.5")
   end
 
+  # === NUL bytes ===
+  #
+  # The Debian comparison once used byte zero as its end-of-part marker, so a
+  # NUL byte in a version never advanced and the comparison did not return.
+
+  def test_debian_comparison_returns_for_nul_bytes
+    ["1\0", "\0", "1.\0.2", "1.0-\0", "1\0a"].each do |version|
+      Timeout.timeout(1) do
+        assert_equal 1, Vers.compare_with_scheme(version, "1", "deb")
+        assert_equal(-1, Vers.compare_with_scheme("1", version, "deb"))
+      end
+    end
+  end
+
+  def test_debian_comparison_advances_past_matching_nul_bytes
+    Timeout.timeout(1) do
+      assert_equal(-1, Vers.compare_with_scheme("1.0\0-1", "1.0\0-2", "deb"))
+      assert_equal 1, Vers.compare_with_scheme("1\0\0b", "1\0\0a", "deb")
+      assert_equal 0, Vers.compare_with_scheme("1\0-1", "1\0-01", "deb")
+    end
+  end
+
+  def test_debian_validation_rejects_nul_bytes
+    refute Vers.valid?("1\0", "deb")
+    refute Vers.valid?("1.0-1\0", "deb")
+    assert Vers.valid?("1.0-1", "deb")
+  end
+
   # === Performance smoke tests ===
   #
   # Inputs near the limits should still parse in well under a second.
