@@ -423,6 +423,44 @@ class TestParser < Minitest::Test
     assert_equal "non-canonical VERS: duplicate versions are not permitted", error.message
   end
 
+  def test_parse_native_rejects_unsatisfiable_npm_space_intersection
+    error = assert_raises(ArgumentError) do
+      @parser.parse_native("1.1.2 1.2.2", "npm")
+    end
+
+    assert_equal "space-separated npm comparators are intersected: =1.1.2 and =1.2.2 match no version", error.message
+  end
+
+  def test_parse_native_rejects_disjoint_npm_space_comparators
+    error = assert_raises(ArgumentError) do
+      @parser.parse_native(">=2.0.0 <1.0.0", "npm")
+    end
+
+    assert_equal "space-separated npm comparators are intersected: >=2.0.0 and <1.0.0 match no version", error.message
+  end
+
+  def test_parse_native_rejects_unsatisfiable_cargo_intersection
+    error = assert_raises(ArgumentError) do
+      @parser.parse_native("=1.1.2, =1.2.2", "cargo")
+    end
+
+    assert_equal "comma-separated cargo comparators are intersected: =1.1.2 and =1.2.2 match no version", error.message
+  end
+
+  def test_parse_native_rejects_disjoint_cargo_caret_comparators
+    error = assert_raises(ArgumentError) do
+      @parser.parse_native("0.1.2, 0.2.0", "cargo")
+    end
+
+    assert_equal "comma-separated cargo comparators are intersected: ^0.1.2 and ^0.2.0 match no version", error.message
+  end
+
+  def test_parse_native_intersects_npm_space_comparators
+    range = @parser.parse_native(">=5.0.3 >=4.2.1", "npm")
+
+    assert_equal "vers:npm/>=5.0.3", @parser.to_vers_string(range, "npm")
+  end
+
   def test_to_vers_string_normalizes_semver_based_versions
     range = Vers::VersionRange.exact("1.2", scheme: "npm")
 
@@ -636,13 +674,6 @@ class TestParser < Minitest::Test
     range = @parser.parse_native(">=v2.0.0-alpha8", "npm")
 
     assert_equal "vers:npm/>=2.0.0-alpha8", @parser.to_vers_string(range, "npm")
-  end
-
-  def test_round_trip_npm_contradictory_exact_constraints
-    range = @parser.parse_native("1.1.2 1.2.2", "npm")
-
-    assert range.empty?
-    assert_equal "vers:npm/1.1.2|1.2.2", @parser.to_vers_string(range, "npm")
   end
 
   def test_round_trip_gem_pessimistic

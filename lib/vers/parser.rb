@@ -851,7 +851,14 @@ module Vers
           end
         end
         ranges = merged.map { |part| parse_npm_single_range(part, scheme: scheme) }
-        return ranges.reduce { |combined, range| combined.intersect(range) }
+        result = ranges.reduce { |combined, range| combined.intersect(range) }
+        if result.empty?
+          bare_prefix = scheme == "cargo" ? "^" : "="
+          separator = scheme == "cargo" ? "comma" : "space"
+          comparators = merged.map { |token| token.match?(/\A[><=!~^]/) ? token : "#{bare_prefix}#{token}" }
+          raise ArgumentError, "#{separator}-separated #{scheme} comparators are intersected: #{comparators.join(" and ")} match no version"
+        end
+        return result
       end
 
       parse_npm_single_range(constraint, scheme: scheme)
