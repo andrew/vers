@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Scheme-aware comparison, validation, normalization, cleaning, stable classification, and prerelease classification across language registries, distribution packages, SemVer variants, and other version formats.
 - Native range parsing for Composer, Pub, Conan, OpenSSL, and nginx, with expanded behavior for existing npm, Cargo, RubyGems, PyPI, Maven, and NuGet parsers.
 - Data-driven comparison, containment, native conversion, validation, and canonical parsing tests from `vers-spec`, upstream package managers, and the Go implementation.
+- An `opam` scheme that orders versions the way opam does: the Debian algorithm without an epoch, where a version may start with a letter and `~` sorts before the end of the version.
 
 ### Changed
 

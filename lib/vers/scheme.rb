@@ -31,6 +31,7 @@ module Vers
       "nginx" => SemverVersion,
       "npm" => NpmVersion,
       "nuget" => NuGetVersion,
+      "opam" => OpamVersion,
       "openssl" => OpenSSLVersion,
       "pub" => PubVersion,
       "pypi" => PyPIVersion,

@@ -27,6 +27,35 @@ class TestSchemeRanges < Minitest::Test
     refute range.contains?("1.0")
   end
 
+  def test_opam_range_orders_tildes_and_leading_letters
+    range = Vers.parse_native(">= 5.0.0~alpha1, < 5.0.1", "opam")
+
+    assert_equal "vers:opam/>=5.0.0~alpha1|<5.0.1", Vers.to_vers_string(range, "opam")
+    assert range.contains?("5.0.0~beta1")
+    assert range.contains?("5.0.0")
+    refute range.contains?("5.0.0~alpha0")
+    refute range.contains?("5.0.1")
+    assert Vers.satisfies?("v0.16.3", "< v0.17.0", "opam")
+    refute Vers.satisfies?("v0.17.0", "< v0.17.0", "opam")
+    refute Vers.satisfies?("v0.9.0", "< 1.0", "opam")
+  end
+
+  def test_opam_versions_keep_their_leading_letter
+    assert_equal "v0.17.0", Vers.clean("v0.17.0", "opam")
+    assert Vers.valid?("flambda_fork_point", "opam")
+    refute Vers.valid?("1.0 beta", "opam")
+    assert Vers.prerelease?("5.0.0~alpha1", "opam")
+    assert Vers.stable?("5.0.0", "opam")
+  end
+
+  def test_opam_range_rejects_invalid_candidates_and_ignores_padding
+    refute Vers.satisfies?("1.0 beta", ">=1.0", "opam")
+    refute Vers.parse("vers:opam/*").contains?("1.0 beta")
+    refute Vers.valid?("1.0\0", "opam")
+    assert Vers.satisfies?(" 1.0 ", "=1.0", "opam")
+    assert_equal 0, Vers.compare_with_scheme(" 1.0 ", "1.0", "opam")
+  end
+
   def test_native_range_retains_a_canonical_alias
     range = Vers.parse_native(">=v1.2.3, <v2.0.0", "golang")
 
